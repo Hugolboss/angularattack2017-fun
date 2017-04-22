@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import {ArrayBuffer} from '@angular/http/src/static_request';
 
 @Component({
   selector: 'fun-tictactoe',
