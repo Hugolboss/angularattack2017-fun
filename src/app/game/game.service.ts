@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
 
+import { Player } from './player';
 
 @Injectable()
 export class GameService {
@@ -8,18 +9,22 @@ export class GameService {
   constructor(private af: AngularFire) { }
 
   newGame = (game, player) => {
+    //push a new game to collection, add creator
     return this.af.database.list('/games/').push({
       'game': game,
-      'players': [ {displayName: player.displayName, id: player.uid, ind: 0} ]
-    }).key;
+      'players': [ new Player(player, 0) ]
+    //return key as route param
+    }).key;    
   }
+  
   joinGame = (key, player) => {
+    //get game to be joined
     const joining = this.af.database.object('/games/' + key);
     joining.subscribe(snapshot => {
-      const players = [snapshot.players[0], {displayName: player.displayName, id: player.uid, ind: 1}];
+      const p = [snapshot.players];
+      //push another player to the game
+      const players = p.map(i => i).push(new Player(player, p.length))
       joining.update({'players': players});
     });
   }
 }
-
-//todo subscribe to current game to get its players,
