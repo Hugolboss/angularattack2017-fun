@@ -9,29 +9,23 @@ import 'rxjs/add/operator/switchMap';
 })
 export class TictactoeComponent implements OnInit {
   gameId;
-  private grid;
-  private currentContent: string = 'X';
-  constructor(private route: ActivatedRoute) { }
+  grid;
+  symbols = ['x', 'o'];
+  players = [
+    {id: 123435, name: 'player1', icon: ''},
+    {id: 678998, name: 'player2', icon: ''}
+  ];
+  lastPlayer;
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.grid = [
-      [
-        {active: true, state: {content: '0, 0', x: 0, y: 0}},
-        {active: false, state: {content: '0, 1', x: 1, y: 0}},
-        {active: false, state: {content: '0, 2', x: 2, y: 0}},
-      ],
-      [
-        {active: true, state: {content: '1, 0', x: 0, y: 1}},
-        {active: false, state: {content: '1, 1', x: 1, y: 1}},
-        {active: false, state: {content: '1, 2', x: 2, y: 1}},
-      ],
-      [
-        {active: true, state: {content: '2, 0', x: 0, y: 2}},
-        {active: false, state: {content: '2, 1', x: 1, y: 2}},
-        {active: false, state: {content: '2, 2', x: 2, y: 2}},
-      ]
-    ];
-    console.log(this.grid);
+    this.players = this.players.map((player, i) => { player.icon = this.symbols[i];
+      return player;
+    });
+    this.grid = Array(Array(3), Array(3), Array(3)).map(row => {
+      return row.fill({active: false, state: {content: '' }});
+    });
+    console.log(this.players, this.grid);
     this.route.params
       .subscribe((params: Params) => { this.gameId = params['id']; });
   }
