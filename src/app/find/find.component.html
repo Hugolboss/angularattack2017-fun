@@ -1,5 +1,4 @@
 <md-list>
-  <h2 md-header>These games are waiting for another player</h2>
   <div class="row">
     <h3 md-subheader>Game</h3>
     <h3 md-subheader>Creator</h3>
@@ -8,13 +7,13 @@
   </div>
   <md-list-item class="row" *ngFor="let availableGame of games | async">
     <div class="column">
-      <a (click)="joinAvailableGame(availableGame.$key, availableGame.game)"> {{availableGame.game}}</a>
+      {{availableGame.game}}
     </div>
     <div class="column">
       {{availableGame.players[0].username}}
     </div>
     <div>
-      <button md-raised-button color="accent">Join</button>
+      <button md-raised-button color="accent" (click)="joinAvailableGame(availableGame.$key, availableGame.game)">Join</button>
     </div>
   </md-list-item>
 </md-list>
