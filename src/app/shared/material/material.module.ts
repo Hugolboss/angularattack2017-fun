@@ -5,9 +5,18 @@ import { MdCheckboxModule, MdButtonModule, MdInputModule, MdSelectModule, MdOpti
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MdCheckboxModule,
+    MdButtonModule,
+    MdInputModule,
+    MdSelectModule,
+    MdOptionModule,
+    MdToolbarModule,
+    MdCardModule,
+    MdSliderModule
   ],
-  declarations: [
+  declarations: [],
+  exports: [
     MdCheckboxModule,
     MdButtonModule,
     MdInputModule,
