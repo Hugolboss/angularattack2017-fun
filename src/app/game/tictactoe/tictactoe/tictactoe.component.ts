@@ -64,7 +64,7 @@ export class TictactoeComponent implements OnInit {
       play.icon = this.symbols[i];
       return play;
     });
-    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor:'', players: this.game.players});
+    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor: '', players: this.game.players});
   }
 
   update() {
@@ -79,6 +79,7 @@ export class TictactoeComponent implements OnInit {
   switchPlayer(idx) {
     console.log('switch: ', this.players, idx);
     if (idx === 0) {
+      this.game.players[1].icon = this.symbols[1];
       this.game.currentPlayer = this.game.players[1];
     } else {
       this.game.currentPlayer = this.game.players[0];

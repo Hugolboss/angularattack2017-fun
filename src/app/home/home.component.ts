@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
     this.authService.getAuthObservable().subscribe(auth => {
       if (auth) {
         this.user = {
-          displayName: auth.google.displayName,
-          uid: auth.google.uid
+          displayName: auth.auth.displayName,
+          uid: auth.auth.uid
         };
       } else {
         this.user = {};
