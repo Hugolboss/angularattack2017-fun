@@ -19,8 +19,7 @@ import {TictactoeModule} from './game/tictactoe/tictactoe.module';
     AppComponent,
     ToolbarComponent,
     HomeComponent,
-    ResultsComponent,
-
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
