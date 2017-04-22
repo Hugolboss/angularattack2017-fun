@@ -20,8 +20,11 @@ export class CheckersComponent implements OnInit {
   }
 
   onClick ($state) {
-    console.log($state);
+    console.log(this.checkValidPiece($state.content));
   }
 
+  checkValidPiece (val) {
+    return (val === 'red' || val === 'black');
+  }
 
 }
