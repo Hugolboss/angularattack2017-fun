@@ -15,6 +15,7 @@ import { ResultsComponent } from './game/results/results.component';
 import { TictactoeModule } from './game/tictactoe/tictactoe.module';
 import { BattleshipModule } from './game/battleship/battleship.module';
 import { ChatModule } from './chat/chat.module';
+import {DndModule} from "ng2-dnd";
 import  { CheckersModule } from './game/checkers/checkers.module';
 import { FindComponent } from './find/find.component';
 
@@ -31,6 +32,7 @@ import { FindComponent } from './find/find.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    DndModule.forRoot(),
     SharedModule,
     TictactoeModule,
     ChatModule,

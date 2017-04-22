@@ -8,6 +8,7 @@ import { MaterialModule } from './material/material.module';
 import { BoardComponent } from "../game/board/board.component";
 import { CellComponent } from "../game/board/cell.component";
 import { PlayerInfoComponent } from "../game/tictactoe/player-info/player-info.component";
+import {DndModule} from "ng2-dnd";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBzEkk_MxsZyRjJzTKjQ68Uc-wEgRcXbEY',
@@ -24,7 +25,8 @@ export const firebaseConfig = {
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    DndModule.forRoot()
   ],
   declarations: [BoardComponent, CellComponent, PlayerInfoComponent],
   exports: [
@@ -33,7 +35,8 @@ export const firebaseConfig = {
     BrowserAnimationsModule,
     BoardComponent,
     CellComponent,
-    PlayerInfoComponent
+    PlayerInfoComponent,
+    DndModule
   ]
 })
 export class SharedModule { }
