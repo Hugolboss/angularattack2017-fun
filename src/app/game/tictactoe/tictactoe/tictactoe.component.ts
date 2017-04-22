@@ -19,6 +19,12 @@ export class TictactoeComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.grid = Array(3).fill(0).map((column, y) => {
+      return Array(3).fill(0).map((row, x) => {
+        return {active: false, state: {content: `${x}, ${y}`, x, y}};
+      });
+    });
+
     this.players = this.players.map((player, i) => {
       player.ind = i;
       player.icon = this.symbols[i];
@@ -27,23 +33,6 @@ export class TictactoeComponent implements OnInit {
     if (!this.currentPlayer) {
       this.currentPlayer = this.players[0];
     }
-    this.grid = [
-      [
-        {active: true, state: {content: '0, 0', x: 0, y: 0}},
-        {active: false, state: {content: '0, 1', x: 1, y: 0}},
-        {active: false, state: {content: '0, 2', x: 2, y: 0}},
-      ],
-      [
-        {active: true, state: {content: '1, 0', x: 0, y: 1}},
-        {active: false, state: {content: '1, 1', x: 1, y: 1}},
-        {active: false, state: {content: '1, 2', x: 2, y: 1}},
-      ],
-      [
-        {active: true, state: {content: '2, 0', x: 0, y: 2}},
-        {active: false, state: {content: '2, 1', x: 1, y: 2}},
-        {active: false, state: {content: '2, 2', x: 2, y: 2}},
-      ]
-    ];
     this.route.params
       .subscribe((params: Params) => { this.gameId = params['id']; });
   }
@@ -58,7 +47,45 @@ export class TictactoeComponent implements OnInit {
 
   onClick(state) {
     this.grid[state.y][state.x].state.content = this.currentPlayer.icon;
+    this.grid[state.y][state.x].active = true;
     this.switchPlayer(this.currentPlayer.ind);
+
+    console.log(this.checkGameState());
+  }
+
+  checkGameState() {
+    //across
+    const acrossX = this.grid.some(column => column.every(cell => cell.state.content === 'X')) ? 'X' : false;
+    const acrossY = this.grid.some(column => column.every(cell => cell.state.content === 'Y')) ? 'Y' : false;
+    //down
+    const down0 = (
+      this.grid[0][0].state.content === this.grid[1][0].state.content &&
+      this.grid[0][0].state.content === this.grid[2][0].state.content
+    ) ? this.grid[0][0].state.content : false;
+
+    const down1 = (
+      this.grid[0][1].state.content === this.grid[1][1].state.content &&
+      this.grid[0][1].state.content === this.grid[2][1].state.content
+    ) ? this.grid[0][1].state.content : false;
+
+    const down2 = (
+      this.grid[0][2].state.content === this.grid[1][2].state.content &&
+      this.grid[0][2].state.content === this.grid[2][2].state.content
+    ) ? this.grid[0][2].state.content : false;
+
+    const diagonal1 = (
+      this.grid[0][0].state.content === this.grid[1][1].state.content &&
+      this.grid[0][0].state.content === this.grid[2][2].state.content
+    ) ? this.grid[0][0].state.content : false;
+
+    const diagonal2 = (
+      this.grid[0][2].state.content === this.grid[1][1].state.content &&
+      this.grid[0][2].state.content === this.grid[2][0].state.content
+    ) ? this.grid[0][2].state.content : false;
+
+    const check = [acrossX, acrossY, down0, down1, down2, diagonal1, diagonal2];
+
+    return check.find(x => x);
   }
 
 }

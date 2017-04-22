@@ -19,7 +19,9 @@ export class BoardComponent implements OnInit{
     return _.flatten(this.grid);
   }
 
-  onClick(state) {
-    this.click.emit(state);
+  onClick(state, active) {
+    if (!active) {
+      this.click.emit(state);
+    }
   }
 }
