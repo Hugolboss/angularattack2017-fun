@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ChatService} from './chat.service';
 
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
+
 @Component({
   selector: 'fun-chat',
   templateUrl: './chat.component.html',
@@ -9,29 +11,24 @@ import {ChatService} from './chat.service';
 export class ChatComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
-  messages = [];
+  // messages = [];
+  messages: FirebaseListObservable<any[]>;
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService, private af: AngularFire) {
+    this.messages = af.database.list('/rooms/global/');
+  }
 
   ngOnInit() {
-    this.chatService.getRoomRef('global').on('child_added', (snapshot) => {
-      this.setMessages(snapshot.val());
-    });
+    // this.chatService.getRoomRef('global').on('child_added', (snapshot) => {
+      // this.setMessages(snapshot.val());
+    // });
   }
 
   setMessages(val) {
-    this.messages.push(val);
-    this.scrollToBottom();
+    // this.messages.push(val);
   }
 
   onEnter(val) {
     this.chatService.submitMessage('global', val);
-  }
-
-  scrollToBottom(): void {
-    try {
-      //this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight + 20;
-      this.myScrollContainer.nativeElement.scrollIntoView();
-    } catch (err) { }
   }
 }

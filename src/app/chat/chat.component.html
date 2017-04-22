@@ -1,6 +1,6 @@
 <div class="chatbox">
   <div class="chatspace">
-<div style="width:100%;" *ngFor="let message of messages">
+<div style="width:100%;" *ngFor="let message of messages | async">
   <span style="font-weight: bold;"> {{ message.username }}: </span>
   <span> {{ message.message }} </span>
 </div>
@@ -8,5 +8,4 @@
 </div>
 
 
-<!--<input class="chat-input" #message (keyup.enter)="onEnter(message.value); message.value = '';" /> -->
 <textarea class="chat-input" #message (keyup.enter)="onEnter(message.value); message.value = '';"></textarea>
