@@ -1,21 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import {TictactoeComponent} from './game/tictactoe/tictactoe/tictactoe.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  // {
-  //   path: 'tictactoe',
-  //   loadChildren: 'app/game/tictactoe/tictactoe.module#TicTacToeModule',
-  // },
-  // {
-  //   path: 'checkers',
-  //   loadChildren: 'app/game/checkers/checkers.module#CheckersModule',
-  // },
-  // {
-  //   path: 'stats',
-  //   loadChildren: 'app/game/stats/stats.module#StatsModule',
-  // },
+  { path: 'tickTackToe/:id', component: TictactoeComponent},
+
   { path: '', redirectTo: '/home', pathMatch: 'full' }, //set default entry route to app component
 ];
 
