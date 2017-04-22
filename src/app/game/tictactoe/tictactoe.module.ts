@@ -4,12 +4,14 @@ import {SharedModule} from '../../shared/shared.module';
 
 import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import {ActivatedRoute} from '@angular/router' ;
+import {BoardComponent} from '../board/board.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+
   ],
-  declarations: [TictactoeComponent]
+  declarations: [TictactoeComponent, BoardComponent]
 })
 export class TictactoeModule {}

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIconModule, MdSlideToggleModule, MdSelectModule, MdOptionModule, MdInputModule, MdDialogModule } from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIconModule, MdSlideToggleModule, MdSelectModule, MdOptionModule, MdInputModule, MdDialogModule, MdGridList, MdGridListModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -12,7 +12,8 @@ import { MdButtonModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIcon
     MdSelectModule,
     MdOptionModule,
     MdInputModule,
-    MdDialogModule
+    MdDialogModule,
+    MdGridListModule
   ],
   exports: [
     MdButtonModule,
@@ -24,7 +25,8 @@ import { MdButtonModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIcon
     MdSelectModule,
     MdOptionModule,
     MdInputModule,
-    MdDialogModule
+    MdDialogModule,
+    MdGridListModule
   ],
   declarations: []
 })
