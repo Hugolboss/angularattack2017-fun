@@ -23,8 +23,16 @@ export class FindComponent implements OnInit {
     this.games = this.findService.findGames(this.game);
   }
 
-  joinAvailableGame(key) {
+  joinAvailableGame(key, game) {
     this.gameService.joinGame(key, this.user);
-    this.router.navigate(['/' + this.game + '/' + key]);
+    this.router.navigate(['/' + this.uglyName(game) + '/' + key]);
+  }
+
+  private uglyName(name) {
+    return {
+      'Tic Tac Toe': 'tictactoe',
+      'Checkers': 'checkers',
+      'Battleship': 'battleship'
+    }[name];
   }
 }
