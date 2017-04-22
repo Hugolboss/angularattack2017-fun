@@ -11,10 +11,13 @@ export class AppComponent {
   title = 'fun works!';
   login = this.authService.login;
   logout = this.authService.logout;
-  users = [];
 
   constructor(private authService: AuthService, private usersService: UsersService) {
-    //this.usersService.getUsersRef((userList) => { this.users = userList; });
+    this.authService.getAuthObservable().subscribe(auth => {
+      if (!auth) {
+        this.login();
+      }
+    });
   }
 
 }

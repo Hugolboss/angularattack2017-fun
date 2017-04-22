@@ -1,21 +1,14 @@
 <fun-toolbar></fun-toolbar>
-<div style="display:flex; flex-direction: row;">
-  <div style="flex:4">
+<div class="app-container">
+  <div class="content-area">
     <router-outlet></router-outlet>
   </div>
-  <div style="flex:1">
+  <div class="chat-area">
     <fun-chat></fun-chat>
   </div>
 </div>
 
 <!--
 <button (click)="login();">Log In!</button>
-<button (click)="logout();">Log Out!</button>
 
-<div>
-  Users:
-  <div *ngFor="let user of users">
-    <img src="{{user.profile_picture}}" style="height:50px;width:50px;" />
-    <span> {{user.username }} </span>
-  </div>
-</div>-->
+-->

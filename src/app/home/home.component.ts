@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { GameService } from './../game/game.service';
 
-import {AuthService} from "../auth.service";
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'fun-home',
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  handleToggle(e, value) {
+  handleToggle(e) {
     this.game = e.value;
   }
 
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   private snack() {
     this.snackBar.open('Please select a game!', 'Close', {
         duration: 3000
-      })
+      });
   }
 
   private prettyName(name) {

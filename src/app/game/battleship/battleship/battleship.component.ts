@@ -36,4 +36,6 @@ export class BattleshipComponent implements OnInit {
       .subscribe((params: Params) => { this.gameId = params['id']; });
   }
 
+  onClick(event) { /* TODO: Fix this missing function */ }
+
 }

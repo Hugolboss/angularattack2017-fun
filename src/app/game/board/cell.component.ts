@@ -1,5 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
+import { CellState } from './cell-state';
+
 @Component({
   selector: 'fun-cell',
   templateUrl: './cell.component.html',
@@ -9,7 +11,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 export class CellComponent implements OnInit {
 
   @Input() active: boolean;
-  @Input() state: Object;
+  @Input() state: CellState;
 
   constructor() {
   }

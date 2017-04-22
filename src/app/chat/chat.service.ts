@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
-
-//import 'firebase';
+import {AngularFire} from "angularfire2";
 
 @Injectable()
 export class ChatService {
 
-  constructor() { }
+  constructor(private af: AngularFire) { }
 
   submitMessage(room, message) {
+    this.af.auth.subscribe(auth => {
+      if (auth) {
+        this.af.database.list('/rooms/' + room).push({
+          username: auth.auth.displayName,
+          message : message
+        });
+      }
+    });
     /*
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {

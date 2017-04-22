@@ -3,6 +3,8 @@ import { AuthService } from './../auth.service';
 import { Observable } from 'rxjs';
 import {Router} from "@angular/router";
 
+import { User } from '../user';
+
 @Component({
   selector: 'fun-toolbar',
   templateUrl: './toolbar.component.html',
@@ -12,23 +14,25 @@ export class ToolbarComponent implements OnInit {
 
   login;
   logout;
-  user = {};
+  user: User;
 
   isAuthenticated;
 
   constructor(private authService: AuthService, private router: Router) {
     this.logout = this.authService.logout;
     this.login = this.authService.login;
+    this.user = new User();
 
     this.authService.getAuthObservable().subscribe(auth => {
       if (auth) {
         this.isAuthenticated = true;
         this.user = {
-          name: auth.google.displayName,
-          avatar: auth.google.photoURL
+          username: auth.auth.displayName,
+          profile_picture: auth.auth.photoURL,
+          email: auth.auth.email
         };
       } else {
-        this.user = {};
+        this.user = new User();
       }
     });
   }
@@ -37,6 +41,6 @@ export class ToolbarComponent implements OnInit {
   }
 
   goHome() {
-    this.router.navigate(['home/']);
+    this.router.navigate(['']);
   }
 }
