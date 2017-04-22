@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import { CellComponent } from './cell.component';
+import _ from 'lodash';
 
 @Component({
   selector: 'fun-board',
@@ -7,10 +7,14 @@ import { CellComponent } from './cell.component';
   styleUrls: ['./board.component.less']
 })
 export class BoardComponent implements OnInit{
-  @Input() grid: CellComponent[][];
+  @Input() grid: Object[][];
   @Input() x: number;
   @Input() y: number;
 
   constructor() {}
   ngOnInit() {}
+
+  joinGrid() {
+    return _.flatten(this.grid);
+  }
 }

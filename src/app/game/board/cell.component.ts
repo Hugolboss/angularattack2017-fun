@@ -9,6 +9,7 @@ export class CellComponent implements OnInit {
   @Input() active: boolean;
   @Input() state: Object;
 
-  constructor() {}
+  constructor() {
+  }
   ngOnInit() {}
 }

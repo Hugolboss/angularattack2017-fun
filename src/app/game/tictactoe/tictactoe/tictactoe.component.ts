@@ -13,7 +13,16 @@ export class TictactoeComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.grid = Array.of(Array(3), Array(3), Array(3));
+    this.grid = [
+      [
+        {active: true, state: {content: '0, 0'}},
+        {active: false, state: {content: '0, 1'}},
+      ],
+      [
+        {active: true, state: {content: '1, 0'}},
+        {active: false, state: {content: '1, 1'}},
+      ]
+    ];
     console.log(this.grid);
     this.route.params
       .subscribe((params: Params) => { this.gameId = params['id']; });
