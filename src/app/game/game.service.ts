@@ -7,8 +7,10 @@ export class GameService {
 
   constructor() { }
 
-  newGame = (game, player) => firebase.database().ref('games/').push({
+  newGame = (game, player) => {
+    console.log(game, player);
+    return firebase.database().ref('games/').push({
     'game': game,
-    'players': [ player.displayName ]
-  }).key;
+    'players': [{displayName: player.displayName, id: player.uid, ind: 0}]
+  }).key;}
 }

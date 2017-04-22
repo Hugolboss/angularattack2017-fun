@@ -43,15 +43,20 @@ export class TictactoeComponent implements OnInit {
         return this.fire.database.object('/games/' + this.gameId);
       })
       .subscribe(game => {
+        this.game = game;
         if (!game.grid) {
           this.initGame(this.gameId);
         }
-        return this.game = game;
+        return this.game;
       });
   }
   initGame(id) {
     let ob = this.fire.database.object('/games/' + this.gameId);
-    ob.update({grid: this.grid, players: this.players, currentPlayer: this.players[0], victor:''});
+    this.game.players = this.game.players.map((play , i) => {
+      play.icon = this.symbols[i];
+      return play;
+    });
+    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor:'', players: this.game.players});
   }
 
   update(game) {
