@@ -15,13 +15,16 @@ import { ResultsComponent } from './game/results/results.component';
 import { TictactoeModule } from './game/tictactoe/tictactoe.module';
 import { BattleshipModule } from './game/battleship/battleship.module';
 import { ChatModule } from './chat/chat.module';
+import  { CheckersModule } from './game/checkers/checkers.module';
+import { FindComponent } from './find/find.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     HomeComponent,
-    ResultsComponent
+    ResultsComponent,
+    FindComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,8 @@ import { ChatModule } from './chat/chat.module';
     SharedModule,
     TictactoeModule,
     ChatModule,
-    BattleshipModule
+    BattleshipModule,
+    CheckersModule
   ],
   providers: [AuthService, UsersService],
   bootstrap: [AppComponent]
