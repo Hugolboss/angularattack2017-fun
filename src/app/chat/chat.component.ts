@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ChatService} from './chat.service';
 
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
 import {AuthService} from "../auth.service";
 
 @Component({
@@ -14,24 +14,31 @@ export class ChatComponent implements OnInit {
 
   // messages = [];
   messages: FirebaseListObservable<any[]>;
+  rooms = [];
+  selectedRoom = 'global';
+  roomObservable: FirebaseListObservable<any[]>;
 
   constructor(private chatService: ChatService, private af: AngularFire, private authService: AuthService) {
     this.af.auth.subscribe(auth => {
-      this.messages = af.database.list('/rooms/global/');
+      if (auth) {
+        this.messages = chatService.getRoomRef(); // af.database.list('/rooms/global/');
+        this.roomObservable = this.af.database.list('/users/' + auth.auth.uid + '/rooms/');
+        this.roomObservable.subscribe(snapshot => {
+          snapshot.unshift({$key: 'global', $value: 'Global'});
+          this.rooms = snapshot;
+        });
+      }
     });
   }
 
   ngOnInit() {
-    // this.chatService.getRoomRef('global').on('child_added', (snapshot) => {
-      // this.setMessages(snapshot.val());
-    // });
   }
 
-  setMessages(val) {
-    // this.messages.push(val);
+  selectRoom() {
+    this.messages = this.chatService.setRoom(this.selectedRoom); // af.database.list('/rooms/global/');
   }
 
   onEnter(val) {
-    this.chatService.submitMessage('global', val);
+    this.chatService.submitMessage(val);
   }
 }

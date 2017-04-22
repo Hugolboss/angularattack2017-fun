@@ -1,11 +1,18 @@
-<md-card class="chatbox">
+<md-card style="height:100%">
+<div class="chatbox">
   <div class="chatspace">
     <div *ngFor="let message of messages | async">
       <span class="names"> {{ message.username }}: </span>
       <span> {{ message.message }} </span>
     </div>
   </div>
+</div>
+
+
+  <div>
+    <md-select  [(ngModel)]="selectedRoom" (ngModelChange)="selectRoom();">
+      <md-option *ngFor="let room of rooms" [value]="room.$key">{{room.$value}}</md-option>
+    </md-select>
+  </div>
+  <textarea class="chat-input" #message (keyup.enter)="onEnter(message.value); message.value = '';"></textarea>
 </md-card>
-
-
-<textarea class="chat-input" #message (keyup.enter)="onEnter(message.value); message.value = '';"></textarea>

@@ -3,34 +3,29 @@ import {AngularFire} from "angularfire2";
 
 @Injectable()
 export class ChatService {
+  private room: string;
 
-  constructor(private af: AngularFire) { }
+  constructor(private af: AngularFire) {
+    this.setRoom('global');
+  }
 
-  submitMessage(room, message) {
+  submitMessage(message) {
     this.af.auth.subscribe(auth => {
       if (auth) {
-        this.af.database.list('/rooms/' + room).push({
+        this.af.database.list('/rooms/' + this.room).push({
           username: auth.auth.displayName,
           message : message
         });
       }
     });
-    /*
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        firebase.database().ref('rooms/' + room ).push({
-          username: user.displayName,
-          message : message
-        });
-      } else {
-        // No user is signed in.
-      }
-    });
-    */
   }
 
-  getRoomRef(room) {
-    const roomsRef = firebase.database().ref('rooms/' + room).limitToLast(50);
-    return roomsRef;
+  getRoomRef() {
+    return this.af.database.list('/rooms/' + this.room, {query:{limitToLast: 50}});
+  }
+
+  setRoom(room) {
+    this.room = room;
+    return this.getRoomRef();
   }
 }

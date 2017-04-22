@@ -1,13 +1,13 @@
 :host {
   display:flex;
   flex-direction: column;
-  height: ~'calc(100vh - 64px)';
-  overflow-y: scroll;
+  height: ~'calc(100vh - 84px)';
+  overflow-y: hidden;
 }
 
 .chatbox {
-  height: ~'calc(100% - 25px)';
-  overflow-y: scroll;
+  height: ~'calc(100% - 120px)';
+  overflow-y: hidden;
   overflow-x: hidden;
   position:relative;
   padding: 0.5em;
@@ -24,6 +24,7 @@
 .chat-input {
   height: 50px;
   resize: none;
+  width: 100%;
 }
 
 span.names {
