@@ -17,10 +17,17 @@ export class TictactoeComponent implements OnInit {
       [
         {active: true, state: {content: '0, 0'}},
         {active: false, state: {content: '0, 1'}},
+        {active: false, state: {content: '0, 2'}},
       ],
       [
         {active: true, state: {content: '1, 0'}},
         {active: false, state: {content: '1, 1'}},
+        {active: false, state: {content: '1, 2'}},
+      ],
+      [
+        {active: true, state: {content: '2, 0'}},
+        {active: false, state: {content: '2, 1'}},
+        {active: false, state: {content: '2, 2'}},
       ]
     ];
     console.log(this.grid);
