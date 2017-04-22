@@ -20,6 +20,7 @@ export class TictactoeComponent implements OnInit {
   ];
   currentPlayer;
   victor;
+  lastPlayerId;
 
   constructor(private route: ActivatedRoute, private fire: AngularFire) {
   }
@@ -56,7 +57,7 @@ export class TictactoeComponent implements OnInit {
       play.icon = this.symbols[i];
       return play;
     });
-    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor:'', players: this.game.players});
+    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor:'', players: this.game.players, lastPlayerId: ''});
   }
 
   update(game) {
@@ -79,9 +80,6 @@ export class TictactoeComponent implements OnInit {
   }
 
   onClick(state) {
-    if (!this.currentPlayer) {
-      this.currentPlayer = this.players[0];
-    }
     this.game.grid[state.y][state.x].state.content = this.game.currentPlayer.icon;
     this.game.grid[state.y][state.x].active = true;
     this.switchPlayer(this.game.currentPlayer.ind);
