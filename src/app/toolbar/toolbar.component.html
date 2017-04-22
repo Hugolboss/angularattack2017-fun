@@ -1,3 +1,14 @@
 <md-toolbar color="primary">
+    <!--<div *ngIf="isAuthenticated">
+        <button md-raised-button color="accent" (click)="logout()">Log Out!</button>   
+    </div>
+     <div *ngIf="!isAuthenticated">
+        <button md-raised-button color="accent" (click)="login()">Log In!</button>
+    </div>-->
+    <div class="login-logout">
+        <div>{{user | async}}</div>
 
+        <button md-raised-button color="accent" (click)="login()">Log In!</button>
+        <button md-raised-button color="accent" (click)="logout()">Log Out!</button>
+    </div>
 </md-toolbar>

@@ -20,7 +20,6 @@ export class ChatComponent implements OnInit {
 
   setMessages(val) {
     this.messages.push(val);
-    console.log(this.messages);
   }
 
   onEnter(val) {
