@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import _ from 'lodash';
 
 @Component({
@@ -7,6 +7,7 @@ import _ from 'lodash';
   styleUrls: ['./board.component.less']
 })
 export class BoardComponent implements OnInit{
+  @Output('onClick') click: EventEmitter<any> = new EventEmitter();
   @Input() grid: Object[][];
   @Input() x: number;
   @Input() y: number;
@@ -16,5 +17,9 @@ export class BoardComponent implements OnInit{
 
   joinGrid() {
     return _.flatten(this.grid);
+  }
+
+  onClick(state) {
+    this.click.emit(state);
   }
 }

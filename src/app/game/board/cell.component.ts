@@ -7,6 +7,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./cell.component.less']
 })
 export class CellComponent implements OnInit {
+
   @Input() active: boolean;
   @Input() state: Object;
 
