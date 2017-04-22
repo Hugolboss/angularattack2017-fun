@@ -22,13 +22,12 @@ export class TictactoeComponent implements OnInit {
   ];
   currentPlayer;
   victor;
-  lastPlayerId;
 
   constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
       this.me = {
-        uid: auth.google.uid,
-        name: auth.google.displayName
+        uid: auth.auth.uid,
+        name: auth.auth.displayName
       }
     });
   }
@@ -65,12 +64,12 @@ export class TictactoeComponent implements OnInit {
       play.icon = this.symbols[i];
       return play;
     });
-    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor:'', players: this.game.players, lastPlayerId: ''});
+    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor:'', players: this.game.players});
   }
 
-  update(game) {
+  update() {
     let ob = this.fire.database.object('/games/' + this.gameId);
-    ob.update(game);
+    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer});
   }
   declareVictory(winner) {
     let ob = this.fire.database.object('/games/' + this.gameId);
@@ -96,7 +95,7 @@ export class TictactoeComponent implements OnInit {
     this.game.grid[state.y][state.x].active = true;
 
     this.switchPlayer(this.game.players.findIndex((elm, i) => elm.id === curr.id));
-    this.update(this.game);
+    this.update();
     this.victor = this.checkGameState();
     if (this.victor) {
       this.declareVictory(this.victor);
