@@ -6,6 +6,6 @@
   <img class="toolbar-avatar" *ngIf="user?.profile_picture" src="{{user?.profile_picture}}"/>
   <div class="toolbar-name">{{user?.username}}</div>
 
-  <button md-raised-button color="accent" (click)="login()" *ngIf="!isAuthenticated">Log In!</button>
-  <button md-raised-button color="accent" (click)="logout()" *ngIf="isAuthenticated">Log Out!</button>
+  <button md-raised-button color="accent" (click)="login()" *ngIf="!isAuthenticated" i18n>Log In!</button>
+  <button md-raised-button color="accent" (click)="logout()" *ngIf="isAuthenticated" i18n>Log Out!</button>
 </md-toolbar>

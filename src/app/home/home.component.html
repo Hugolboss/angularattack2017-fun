@@ -1,21 +1,21 @@
 <md-card>
   <div class="toggle-container">
     <md-button-toggle-group #group="mdButtonToggleGroup" (change)="handleToggle($event)">
-      <md-button-toggle md-raised-button color="accent" value="battleship">Battleship</md-button-toggle>
-      <md-button-toggle md-raised-button color="accent" value="checkers">Checkers</md-button-toggle>
-      <md-button-toggle md-raised-button color="accent" value="tictactoe">Tic Tac Toe</md-button-toggle>
+      <md-button-toggle md-raised-button color="accent" value="battleship" i18n>Battleship</md-button-toggle>
+      <md-button-toggle md-raised-button color="accent" value="checkers" i18n>Checkers</md-button-toggle>
+      <md-button-toggle md-raised-button color="accent" value="tictactoe" i18n>Tic Tac Toe</md-button-toggle>
     </md-button-toggle-group>
   </div>
   <div class="toggle-container">
     <md-card-actions>
-      <button md-raised-button color="accent" (click)="createGame()">Create a game</button>
-      <button md-raised-button color="accent" (click)="findGame()">Join a random game</button>
+      <button md-raised-button color="accent" (click)="createGame()" i18n>Create a game</button>
+      <button md-raised-button color="accent" (click)="findGame()" i18n>Join a random game</button>
     </md-card-actions>
   </div>
 </md-card>
 <md-card>
   <md-card-header>
-    <h2 md-header>Ongoing games</h2>
+    <h2 md-header i18n>Ongoing games</h2>
   </md-card-header>
   <md-card-content>
     <fun-find [game]="game" [user]="user"></fun-find>

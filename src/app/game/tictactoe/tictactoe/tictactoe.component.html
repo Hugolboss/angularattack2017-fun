@@ -1,4 +1,4 @@
-<h2>
+<h2 i18n>
     Welcome to game  {{gameId}}
 </h2>
 <div id="gameBlocks">
@@ -10,6 +10,6 @@
   </div>
 </div>
 
-<div *ngIf="game && game.players.length <= 1" id="waitingForPlayers">
+<div *ngIf="game && game.players.length <= 1" id="waitingForPlayers" i18n>
   Waiting For a second player
 </div>
