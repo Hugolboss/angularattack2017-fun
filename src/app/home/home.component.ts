@@ -12,7 +12,14 @@ import { GameService } from './../game/game.service';
 export class HomeComponent implements OnInit {
 
   game: string;
-  constructor(public snackBar: MdSnackBar, private router: Router, private gameService: GameService) { }
+  user;
+
+  constructor(public snackBar: MdSnackBar, private router: Router, private gameService: GameService) {
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user
+      console.log(user);
+    });
+  }
 
   ngOnInit() {
   }
@@ -24,7 +31,7 @@ export class HomeComponent implements OnInit {
   createGame() {
     !this.game ?
       this.snack() :
-      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame(this.prettyName(this.game))]);
+      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame(this.prettyName(this.game), this.user)]);
   }
 
   findGame() {

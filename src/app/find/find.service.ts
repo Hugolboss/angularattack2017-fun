@@ -1,11 +1,29 @@
 import { Injectable } from '@angular/core';
 
-import 'firebase';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Injectable()
 export class FindService {
 
-  constructor() { }
+  games: FirebaseListObservable<any[]>;
 
-  findGames = (game) => firebase.database().ref('games/').orderByKey().limitToFirst(20);
+  constructor(private af: AngularFire) { }
+
+  findGames = (game) => {
+    console.log(game);
+    return this.af.database.list('games/', {
+      query: {
+        orderByChild: 'game',
+        equalTo: this.prettyName(game)
+      }
+    });
+  }
+
+  private prettyName(name) {
+    return {
+      tictactoe: 'Tic Tac Toe',
+      checkers: 'Checkers',
+      battleship: 'Battleship'
+    }[name];
+  }
 }

@@ -16,10 +16,6 @@ export class FindComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges() {
-    this.findGames();
-  }
-  private findGames() {
     this.games = this.service.findGames(this.game);
-    console.log(this.games);
   }
 }

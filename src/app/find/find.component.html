@@ -1,3 +1,18 @@
-<p>
-  find works!
-</p>
+<md-list>
+  <div class="row">
+    <h3 md-subheader>Game</h3>
+    <h3 md-subheader>Creator</h3>
+  </div>
+  <md-list-item class="row" *ngFor="let game of games | async">
+    <div class="column">
+      {{game.game}}
+    </div>
+    <div class="column">
+      {{game.players}}
+    </div>
+    <!--<div class="column">
+      {{game | json}}
+    </div>-->
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>
