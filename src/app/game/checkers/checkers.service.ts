@@ -37,7 +37,7 @@ export class CheckersService {
         }else if (x >= 6) {
             content = 'red';
         }
-        return {row: x % 2 === 0 ? 'even' : 'odd' , active: false, state: {content: content, x, y}};
+        return {row: x % 2 === 0 ? 'even' : 'odd' , active: false, state: {content: content, x, y, available: false}};
       });
     });
     return gameg;

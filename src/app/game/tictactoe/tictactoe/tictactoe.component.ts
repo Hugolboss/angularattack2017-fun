@@ -54,7 +54,7 @@ export class TictactoeComponent implements OnInit {
   }
 
   initGame(id) {
-    let ob = this.fire.database.object('/games/' + this.gameId);
+    const ob = this.fire.database.object('/games/' + this.gameId);
     this.game.players = this.game.players.map((play, i) => {
       play.icon = this.symbols[i];
       return play;
@@ -63,12 +63,12 @@ export class TictactoeComponent implements OnInit {
   }
 
   update() {
-    let ob = this.fire.database.object('/games/' + this.gameId);
+    const ob = this.fire.database.object('/games/' + this.gameId);
     ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer});
   }
 
   declareVictory(winner) {
-    let ob = this.fire.database.object('/games/' + this.gameId);
+    const ob = this.fire.database.object('/games/' + this.gameId);
     ob.update({victor: winner});
   }
 
