@@ -21,8 +21,8 @@ export class GameService {
     firebase.database().ref('games/' + key)
         .once('value')
         .then(function(snapshot) {
-          players.unshift(snapshot.val().players);
-          return players;
+          // players.unshift(snapshot.val().players);
+          return [snapshot.val().players[0], player];
         })
         .then(players => {
           firebase.database().ref('games/' + key).update({'players': players});
