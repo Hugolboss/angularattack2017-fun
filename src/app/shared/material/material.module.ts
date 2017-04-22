@@ -1,30 +1,31 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { MdCheckboxModule, MdButtonModule, MdInputModule, MdSelectModule, MdOptionModule, MdToolbarModule, MdCardModule, MdSliderModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIconModule, MdSlideToggleModule, MdSelectModule, MdOptionModule, MdInputModule, MdDialogModule } from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule,
-    MdCheckboxModule,
     MdButtonModule,
-    MdInputModule,
+    MdCheckboxModule,
+    MdToolbarModule,
+    MdMenuModule,
+    MdIconModule,
+    MdSlideToggleModule,
     MdSelectModule,
     MdOptionModule,
-    MdToolbarModule,
-    MdCardModule,
-    MdSliderModule
+    MdInputModule,
+    MdDialogModule
   ],
-  declarations: [],
   exports: [
-    MdCheckboxModule,
     MdButtonModule,
-    MdInputModule,
+    MdCheckboxModule,
+    MdToolbarModule,
+    MdMenuModule,
+    MdIconModule,
+    MdSlideToggleModule,
     MdSelectModule,
     MdOptionModule,
-    MdToolbarModule,
-    MdCardModule,
-    MdSliderModule
-  ]
+    MdInputModule,
+    MdDialogModule
+  ],
+  declarations: []
 })
 export class MaterialModule { }
