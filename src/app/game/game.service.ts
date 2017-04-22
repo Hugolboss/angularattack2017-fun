@@ -17,12 +17,10 @@ export class GameService {
   }
 
   joinGame = (key, player) => {
-    let players = [{displayName: player.displayName, id: player.uid, ind: 1}];
     firebase.database().ref('games/' + key)
         .once('value')
         .then(function(snapshot) {
-          // players.unshift(snapshot.val().players);
-          return [snapshot.val().players[0], player];
+          return [snapshot.val().players[0], {displayName: player.displayName, id: player.uid, ind: 1}];
         })
         .then(players => {
           firebase.database().ref('games/' + key).update({'players': players});
