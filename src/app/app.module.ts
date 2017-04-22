@@ -11,6 +11,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './auth.service';
 import { HomeComponent } from './home/home.component';
 import { ResultsComponent } from './game/results/results.component';
+import {TictactoeModule} from './game/tictactoe/tictactoe.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ResultsComponent } from './game/results/results.component';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    TictactoeModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
