@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import {ArrayBuffer} from '@angular/http/src/static_request';
 
 @Component({
   selector: 'fun-tictactoe',
@@ -9,9 +10,12 @@ import 'rxjs/add/operator/switchMap';
 })
 export class TictactoeComponent implements OnInit {
   gameId;
+  grid;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.grid = Array.of(Array(3), Array(3), Array(3));
+    console.log(this.grid);
     this.route.params
       .subscribe((params: Params) => { this.gameId = params['id']; });
   }
