@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './../auth.service';
 import { Observable } from 'rxjs';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'fun-toolbar',
@@ -15,7 +16,7 @@ export class ToolbarComponent implements OnInit {
 
   isAuthenticated;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.logout = this.authService.logout;
     this.login = this.authService.login;
 
@@ -33,5 +34,9 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  goHome() {
+    this.router.navigate(['home/']);
   }
 }
