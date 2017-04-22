@@ -14,7 +14,7 @@ export class CheckersComponent implements OnInit {
   gameId;
   me;
 
-  constructor(private route: ActivatedRoute, private checkersService: CheckersService, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, public checkersService: CheckersService, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
       // this.me = new User({
       //   email: auth.auth.email,
