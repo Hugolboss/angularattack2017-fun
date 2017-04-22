@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AuthService} from '../../../auth.service';
 
 @Component({
   selector: 'fun-tictactoe',
@@ -11,6 +12,7 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 })
 export class TictactoeComponent implements OnInit {
   gameId;
+  me;
   grid;
   game;
   symbols = ['x', 'o'];
@@ -22,7 +24,13 @@ export class TictactoeComponent implements OnInit {
   victor;
   lastPlayerId;
 
-  constructor(private route: ActivatedRoute, private fire: AngularFire) {
+  constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService) {
+    this.authService.getAuthObservable().subscribe(auth => {
+      this.me = {
+        uid: auth.google.uid,
+        name: auth.google.displayName
+      }
+    });
   }
 
   ngOnInit() {
@@ -72,17 +80,22 @@ export class TictactoeComponent implements OnInit {
   switchPlayer(idx) {
     console.log('switch: ', this.players, idx);
     if (idx === 0) {
-      this.game.currentPlayer = this.players[1];
+      this.game.currentPlayer = this.game.players[1];
     } else {
-      this.game.currentPlayer = this.players[0];
+      this.game.currentPlayer = this.game.players[0];
     }
     console.log('switch: ', this.players, idx, this.currentPlayer);
   }
 
   onClick(state) {
+    let curr = this.game.currentPlayer;
+    if (curr.id !== this.me.uid){
+      return;
+    }
     this.game.grid[state.y][state.x].state.content = this.game.currentPlayer.icon;
     this.game.grid[state.y][state.x].active = true;
-    this.switchPlayer(this.game.currentPlayer.ind);
+
+    this.switchPlayer(this.game.players.findIndex((elm, i) => elm.id === curr.id));
     this.update(this.game);
     this.victor = this.checkGameState();
     if (this.victor) {
