@@ -10,29 +10,28 @@ import 'rxjs/add/operator/switchMap';
 export class TictactoeComponent implements OnInit {
   gameId;
   grid;
-  constructor(private route: ActivatedRoute) { }
+  symbols = ['x', 'o'];
+  players = [
+    {id: 123435, name: 'player1', icon: ''},
+    {id: 678998, name: 'player2', icon: ''}
+  ];
+  lastPlayer;
+  onClickCallback(gridId) {
+    console.log(gridId);
+  }
+  constructor(private route: ActivatedRoute) {
+    this.grid = Array(Array(3), Array(3), Array(3));
+  }
 
   ngOnInit() {
-    this.grid = [
-      [
-        {active: true, state: {content: '0, 0'}},
-        {active: false, state: {content: '0, 1'}},
-        {active: false, state: {content: '0, 2'}},
-      ],
-      [
-        {active: true, state: {content: '1, 0'}},
-        {active: false, state: {content: '1, 1'}},
-        {active: false, state: {content: '1, 2'}},
-      ],
-      [
-        {active: true, state: {content: '2, 0'}},
-        {active: false, state: {content: '2, 1'}},
-        {active: false, state: {content: '2, 2'}},
-      ]
-    ];
-    console.log(this.grid);
+    this.players = this.players.map((player, i) => { player.icon = this.symbols[i];
+      return player;
+    });
+    this.grid = Array(Array(3), Array(3), Array(3)).map(row => {
+      return row.fill({active: false, state: {content: 'hugo' }, onClickCallback: this.onClickCallback});
+    });
+    console.log(this.players, this.grid);
     this.route.params
       .subscribe((params: Params) => { this.gameId = params['id']; });
   }
-
 }
