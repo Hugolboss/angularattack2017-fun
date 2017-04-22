@@ -1,0 +1,6 @@
+<div *ngFor="let message of messages">
+  <span style="font-weight: bold;"> {{ message.username }}: </span>
+  <span> {{ message.message }} </span>
+</div>
+
+<input #message (keyup.enter)="onEnter(message.value); message.value = '';" />

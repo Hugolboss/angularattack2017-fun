@@ -14,7 +14,7 @@ export class AppComponent {
   users = [];
 
   constructor(private authService: AuthService, private usersService: UsersService) {
-    this.usersService.getUsersRef((userList) => { this.users = userList; });
+    //this.usersService.getUsersRef((userList) => { this.users = userList; });
   }
 
 }

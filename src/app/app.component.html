@@ -2,7 +2,14 @@
 <h1>
   {{title}}
 </h1>
-<router-outlet></router-outlet>
+<div style="display:flex; flex-direction: row;">
+  <div style="flex:4">
+    <router-outlet></router-outlet>
+  </div>
+  <div style="flex:1">
+    <fun-chat></fun-chat>
+  </div>
+</div>
 
 <button (click)="login();">Log In!</button>
 <button (click)="logout();">Log Out!</button>

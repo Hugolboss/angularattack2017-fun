@@ -12,7 +12,8 @@ import { AuthService } from './auth.service';
 import { UsersService } from './users.service';
 import { HomeComponent } from './home/home.component';
 import { ResultsComponent } from './game/results/results.component';
-import {TictactoeModule} from './game/tictactoe/tictactoe.module';
+import { TictactoeModule } from './game/tictactoe/tictactoe.module';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {TictactoeModule} from './game/tictactoe/tictactoe.module';
     HttpModule,
     AppRoutingModule,
     SharedModule,
-    TictactoeModule
+    TictactoeModule,
+    ChatModule
   ],
   providers: [AuthService, UsersService],
   bootstrap: [AppComponent]
