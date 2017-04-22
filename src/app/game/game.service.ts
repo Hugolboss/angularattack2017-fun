@@ -17,7 +17,7 @@ export class GameService {
   }
 
   joinGame = (key, player) => {
-    let players = [{displayName: player.displayName, id: player.uid, ind: 0}];
+    let players = [{displayName: player.displayName, id: player.uid, ind: 1}];
     firebase.database().ref('games/' + key)
         .once('value')
         .then(function(snapshot) {
