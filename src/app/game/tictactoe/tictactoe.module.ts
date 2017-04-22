@@ -1,19 +1,16 @@
-import {Input, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SharedModule} from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 import { TictactoeComponent } from './tictactoe/tictactoe.component';
-import {ActivatedRoute} from '@angular/router' ;
-import {BoardComponent} from '../board/board.component';
-import {CellComponent} from '../board/cell.component';
-import { PlayerInfoComponent } from './player-info/player-info.component';
+import {TictactoeService} from './tictactoe.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-
+    SharedModule
   ],
-  declarations: [TictactoeComponent, BoardComponent, CellComponent, PlayerInfoComponent]
+  providers: [TictactoeService],
+  declarations: [TictactoeComponent]
 })
 export class TictactoeModule {}

@@ -1,0 +1,8 @@
+<p>
+  Welcome to game  {{gameId}}
+</p>
+
+<div id="gameContainer">
+  <fun-board [grid]="grid" [x]="8" [y]="8" (onClick)="onClick($event)"></fun-board>
+</div>
+<fun-pieces></fun-pieces>

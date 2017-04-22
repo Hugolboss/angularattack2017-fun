@@ -1,5 +1,5 @@
 <md-grid-list [cols]="x" gutterSize="2" rowHeight="1:1">
-  <md-grid-tile *ngFor="let cell of joinGrid()" md-colspan="2" (click)="onClick(cell.state, cell.active)">
+  <md-grid-tile dnd-droppable *ngFor="let cell of joinGrid()" md-colspan="2" (click)="onClick(cell.state, cell.active)">
     <fun-cell [active]="cell.active" [state]="cell.state"></fun-cell>
   </md-grid-tile>
 </md-grid-list>

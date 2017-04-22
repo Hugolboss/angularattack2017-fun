@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { GameService } from './../game/game.service';
 
+import 'firebase';
+
 @Component({
   selector: 'fun-home',
   templateUrl: './home.component.html',
@@ -12,7 +14,13 @@ import { GameService } from './../game/game.service';
 export class HomeComponent implements OnInit {
 
   game: string;
-  constructor(public snackBar: MdSnackBar, private router: Router, private gameService: GameService) { }
+  user;
+
+  constructor(public snackBar: MdSnackBar, private router: Router, private gameService: GameService) {
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user
+    });
+  }
 
   ngOnInit() {
   }
@@ -25,14 +33,14 @@ export class HomeComponent implements OnInit {
     /*
     !this.game ?
       this.snack() :
-      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame(this.prettyName(this.game))]);
+      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame(this.prettyName(this.game), this.user)]);
       */
   }
 
   findGame() {
     !this.game ?
       this.snack() :
-      console.log('TODO: find a game');
+      console.log('TODO: find a random game');
   }
 
   private snack() {

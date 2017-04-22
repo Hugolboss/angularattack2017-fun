@@ -5,6 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { MaterialModule } from './material/material.module';
+import { BoardComponent } from "../game/board/board.component";
+import { CellComponent } from "../game/board/cell.component";
+import { PlayerInfoComponent } from "../game/tictactoe/player-info/player-info.component";
+import {DndModule} from "ng2-dnd";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBzEkk_MxsZyRjJzTKjQ68Uc-wEgRcXbEY',
@@ -27,12 +31,17 @@ const myFirebaseAuthConfig = {
     BrowserAnimationsModule,
     MaterialModule,
     AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    DndModule.forRoot()
   ],
-  declarations: [],
+  declarations: [BoardComponent, CellComponent, PlayerInfoComponent],
   exports: [
     FormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BoardComponent,
+    CellComponent,
+    PlayerInfoComponent,
+    DndModule
   ]
 })
 export class SharedModule { }

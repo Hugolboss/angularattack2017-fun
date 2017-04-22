@@ -1,0 +1,19 @@
+<md-list>
+  <div class="row">
+    <h3 md-subheader>Game</h3>
+    <h3 md-subheader>Creator</h3>
+    <h3 md-subheader>Players</h3>
+  </div>
+  <md-list-item class="row" *ngFor="let availableGame of games | async">
+    <div class="column">
+      <a (click)="joinAvailableGame(availableGame.$key, availableGame.game)"> {{availableGame.game}}</a>
+    </div>
+    <div class="column">
+      {{availableGame.players[0].displayName}}
+    </div>
+    <div class="column">
+      {{availableGame.players.length}}
+    </div>
+    <md-divider></md-divider>
+  </md-list-item>
+</md-list>

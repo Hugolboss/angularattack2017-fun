@@ -1,8 +1,14 @@
 <p>
     Welcome to game  {{gameId}}
+    {{game | json}}
 </p>
 
-<div id="gameContainer">
-  <fun-board [grid]="grid" [x]="3" [y]="3" (onClick)="onClick($event)"></fun-board>
+<div id="gameContainer" *ngIf="game && game.players.length>1">
+  <fun-board [grid]="game.grid" [x]="3" [y]="3" (onClick)="onClick($event)"></fun-board>
 </div>
-<fun-player-info [players]="players" [currentPlayer]="currentPlayer" [playerWon]="victor" ></fun-player-info>
+<div *ngIf="game && game.players.lenght>1 && game.currentPlayer">
+<fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="game.victor" ></fun-player-info>
+</div>
+<div *ngIf="game && game.players.length<=1" id="waitingForPlayers">
+  Waiting For a second player
+</div>
