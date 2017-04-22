@@ -88,14 +88,14 @@ export class TictactoeComponent implements OnInit {
   }
 
   onClick(state) {
-    let curr = this.game.currentPlayer;
-    if (curr.id !== this.me.uid){
+    const curr = this.game.currentPlayer;
+    if (curr.uid !== this.me.uid) {
       return;
     }
     this.game.grid[state.y][state.x].state.content = this.game.currentPlayer.icon;
     this.game.grid[state.y][state.x].active = true;
 
-    this.switchPlayer(this.game.players.findIndex((elm, i) => elm.id === curr.id));
+    this.switchPlayer(this.game.players.findIndex((elm, i) => elm.uid === curr.uid));
     this.update();
     this.victor = this.checkGameState();
     if (this.victor) {

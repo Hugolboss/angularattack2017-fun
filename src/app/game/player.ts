@@ -1,6 +1,6 @@
 export class Player {
-    constructor(public p: IPlayer, public i: number){
-        Object.assign(this, p)
+    constructor(public p: IPlayer, public ind: number) {
+        Object.assign(this, p);
     }
 }
 
