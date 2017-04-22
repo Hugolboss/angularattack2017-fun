@@ -16,10 +16,6 @@ export class TictactoeComponent implements OnInit {
   grid;
   game;
   symbols = ['x', 'o'];
-  players = [
-    {id: 123435, name: 'player1', icon: '', ind: -1},
-    {id: 678998, name: 'player2', icon: '', ind: -1}
-  ];
   currentPlayer;
   victor;
 
@@ -38,13 +34,6 @@ export class TictactoeComponent implements OnInit {
         return {active: false, state: {content: `${x}, ${y}`, x, y}};
       });
     });
-
-    this.players = this.players.map((player, i) => {
-      player.ind = i;
-      player.icon = this.symbols[i];
-      return player;
-    });
-
     this.route.params
       .switchMap((params: Params) => {
       this.gameId = params['id'];
@@ -77,14 +66,12 @@ export class TictactoeComponent implements OnInit {
   }
 
   switchPlayer(idx) {
-    console.log('switch: ', this.players, idx);
     if (idx === 0) {
       this.game.players[1].icon = this.symbols[1];
       this.game.currentPlayer = this.game.players[1];
     } else {
       this.game.currentPlayer = this.game.players[0];
     }
-    console.log('switch: ', this.players, idx, this.currentPlayer);
   }
 
   onClick(state) {
