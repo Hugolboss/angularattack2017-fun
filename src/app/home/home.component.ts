@@ -24,8 +24,7 @@ export class HomeComponent implements OnInit {
   createGame() {
     !this.game ?
       this.snack() :
-      console.log('/' + this.game + '/' + this.gameService.newGame());
-      this.router.navigate['/' + this.game + '/' + this.gameService.newGame()];
+      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame()]);
   }
 
   findGame() {
