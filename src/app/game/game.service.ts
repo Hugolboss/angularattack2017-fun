@@ -7,8 +7,8 @@ export class GameService {
 
   constructor() { }
 
-  newGame = () => firebase.database().ref('games/').push({name: new Date().getUTCMilliseconds()}).key;
-
-  getGameId = () => firebase.database().ref('games/').limitToLast(1);
-
+  newGame = (game) => firebase.database().ref('games/').push({
+    name: new Date().getUTCMilliseconds(),
+    'game': game
+  }).key;
 }

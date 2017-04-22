@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   createGame() {
     !this.game ?
       this.snack() :
-      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame()]);
+      this.router.navigate(['/' + this.game + '/' + this.gameService.newGame(this.prettyName(this.game))]);
   }
 
   findGame() {
@@ -37,5 +37,13 @@ export class HomeComponent implements OnInit {
     this.snackBar.open('Please select a game!', 'Close', {
         duration: 3000
       })
+  }
+
+  private prettyName(name) {
+    return {
+      tictactoe: 'Tic Tac Toe',
+      checkers: 'Checkers',
+      battleship: 'Battleship'
+    }[name];
   }
 }
