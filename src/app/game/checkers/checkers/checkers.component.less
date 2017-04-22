@@ -1,0 +1,20 @@
+#checkersContainer {
+  width:400px;
+  md-grid-tile{
+    background-color: black;
+    border: 2px solid white;
+    color:#fff;
+    &.even{
+      &:nth-child(odd){
+        background-color: red;
+      }
+    }
+    &.odd{
+      &:nth-child(even){
+        background-color: red;
+      }
+    }
+
+
+  }
+}

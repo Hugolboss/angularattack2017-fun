@@ -28,3 +28,19 @@ md-card {
         justify-content: center;
     }
 }
+
+div.toggle-container {
+    md-button-toggle:hover, md-button-toggle:focus, md-button-toggle:active {
+        background-color:lighten(#546E7A, 40%);
+        color: black;
+        div:focus {
+            background-color: lighten(#546E7A, 40%);
+            color: black;
+        }
+    }
+}
+
+button:hover {
+    transform: scale(1.05) ;
+    transition: transform 0.1s ease-in;
+}

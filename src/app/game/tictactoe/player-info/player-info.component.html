@@ -1,6 +1,6 @@
 <div id="playerInfo" *ngIf="!playerWon">
-  <p *ngFor="let p of players">Player {{p.ind+1}} is {{p.displayName}}</p>
-  <p> Its your turn  {{currentPlayer.displayName}}</p>
+  <p *ngFor="let p of players">Player {{p.ind+1}} is {{p.username}}</p>
+  <p> Its your turn  {{currentPlayer.username}}</p>
 </div>
 <div id="victorInfo" *ngIf="playerWon">
   <span> {{playerWon}} Is the victor</span>

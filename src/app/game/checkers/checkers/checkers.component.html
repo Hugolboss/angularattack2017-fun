@@ -3,3 +3,6 @@
 
 </h2>
 
+<div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players">
+  <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)"></fun-board>
+</div>

@@ -4,6 +4,7 @@ import { MdSnackBar } from '@angular/material';
 import { GameService } from './../game/game.service';
 
 import {AuthService} from '../auth.service';
+import { User } from './../user';
 
 @Component({
   selector: 'fun-home',
@@ -19,12 +20,15 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, public snackBar: MdSnackBar, private router: Router, private gameService: GameService) {
     this.authService.getAuthObservable().subscribe(auth => {
       if (auth) {
-        this.user = {
-          displayName: auth.google.displayName,
-          uid: auth.google.uid
+        const u = {
+          username: auth.auth.displayName,
+          uid: auth.uid,
+          profile_picture: auth.auth.photoURL,
+          email: auth.auth.email
         };
+        this.user = new User(u);
       } else {
-        this.user = {};
+        this.user = new User();
       }
     });
   }

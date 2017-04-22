@@ -21,16 +21,17 @@ export class ToolbarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {
     this.logout = this.authService.logout;
     this.login = this.authService.login;
-    this.user = new User();
 
     this.authService.getAuthObservable().subscribe(auth => {
       if (auth) {
         this.isAuthenticated = true;
-        this.user = {
+        const u = {
           username: auth.auth.displayName,
+          uid: auth.uid,
           profile_picture: auth.auth.photoURL,
           email: auth.auth.email
         };
+        this.user = new User(u);
       } else {
         this.user = new User();
       }
