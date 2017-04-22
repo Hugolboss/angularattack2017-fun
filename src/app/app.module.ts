@@ -13,6 +13,7 @@ import { UsersService } from './users.service';
 import { HomeComponent } from './home/home.component';
 import { ResultsComponent } from './game/results/results.component';
 import { TictactoeModule } from './game/tictactoe/tictactoe.module';
+import { BattleshipModule } from './game/battleship/battleship.module';
 import { ChatModule } from './chat/chat.module';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ChatModule } from './chat/chat.module';
     AppRoutingModule,
     SharedModule,
     TictactoeModule,
-    ChatModule
+    ChatModule,
+    BattleshipModule
   ],
   providers: [AuthService, UsersService],
   bootstrap: [AppComponent]

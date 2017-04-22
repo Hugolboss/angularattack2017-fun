@@ -5,6 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 
 import { MaterialModule } from './material/material.module';
+import { BoardComponent } from "../game/board/board.component";
+import { CellComponent } from "../game/board/cell.component";
+import { PlayerInfoComponent } from "../game/tictactoe/player-info/player-info.component";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyBzEkk_MxsZyRjJzTKjQ68Uc-wEgRcXbEY',
@@ -23,11 +26,14 @@ export const firebaseConfig = {
     MaterialModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  declarations: [],
+  declarations: [BoardComponent, CellComponent, PlayerInfoComponent],
   exports: [
     FormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BoardComponent,
+    CellComponent,
+    PlayerInfoComponent
   ]
 })
 export class SharedModule { }
