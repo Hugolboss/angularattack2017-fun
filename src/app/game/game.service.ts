@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
 
-import { Player } from './player';
+import { User } from './../user';
 
 @Injectable()
 export class GameService {
 
   constructor(private af: AngularFire) { }
 
-  newGame = (game, player) => {
+  newGame = (game, player: User) => {
     // push a new game to collection, add creator
     return this.af.database.list('/games/').push({
       'game': game,
-      'players': [ new Player(player, 0) ]
+      'players': [ Object.assign({}, player, {ind:0}) ]
     // return key as route param
     }).key;
   }
@@ -22,7 +22,7 @@ export class GameService {
     const joining = this.af.database.object('/games/' + key);
     joining.subscribe(game => {
         if (game.players.length <= 1 ) {
-          game.players.push(new Player(player, 1));
+          game.players.push(Object.assign({}, player, {ind:1}));
         }
       joining.update({'players': game.players});
     });

@@ -3,8 +3,8 @@
     Fun and Games
   </a>
   <div class="toolbar-spacer"></div>
-  <img class="toolbar-avatar" *ngIf="user.profile_picture" src="{{user.profile_picture}}"/>
-  <div class="toolbar-name">{{user.username}}</div>
+  <img class="toolbar-avatar" *ngIf="user?.profile_picture" src="{{user?.profile_picture}}"/>
+  <div class="toolbar-name">{{user?.username}}</div>
 
   <button md-raised-button color="accent" (click)="login()" *ngIf="!isAuthenticated">Log In!</button>
   <button md-raised-button color="accent" (click)="logout()" *ngIf="isAuthenticated">Log Out!</button>

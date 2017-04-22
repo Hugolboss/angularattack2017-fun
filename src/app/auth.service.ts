@@ -23,7 +23,8 @@ export class AuthService {
             this.userObservable.set({
               email: this._user.auth.email,
               username: this._user.auth.displayName,
-              profile_picture: this._user.auth.photoURL
+              profile_picture: this._user.auth.photoURL,
+              uid: this._user.uid
             });
           }
         });
