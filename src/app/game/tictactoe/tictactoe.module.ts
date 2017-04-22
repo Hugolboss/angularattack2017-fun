@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SharedModule} from '../../shared/shared.module';
-import {CellComponent} from '../board/cell.component';
+
+import { TictactoeComponent } from './tictactoe/tictactoe.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    CellComponent
   ],
-  declarations: []
+  declarations: [TictactoeComponent]
 })
 export class TictactoeModule { }
