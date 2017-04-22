@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cell',
+  selector: 'fun-cell',
   templateUrl: './cell.component.html',
   styleUrls: ['./cell.component.less']
 })
