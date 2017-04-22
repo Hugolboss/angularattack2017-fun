@@ -1,4 +1,6 @@
 export class User {
+  profile_picture: string;
+  username: string;
   constructor(public options?: IUser){
     Object.assign(this, options);
   }
