@@ -5,4 +5,4 @@
 <div id="gameContainer">
   <fun-board [grid]="grid" [x]="3" [y]="3" (onClick)="onClick($event)"></fun-board>
 </div>
-<fun-player-info [players]="players" [currentPlayer]="currentPlayer" ></fun-player-info>
+<fun-player-info [players]="players" [currentPlayer]="currentPlayer" [playerWon]="victor" ></fun-player-info>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
   selector: 'fun-tictactoe',
@@ -10,13 +11,15 @@ import 'rxjs/add/operator/switchMap';
 export class TictactoeComponent implements OnInit {
   gameId;
   grid;
+  game: FirebaseListObservable<any>;
   symbols = ['x', 'o'];
   players = [
     {id: 123435, name: 'player1', icon: '', ind: -1},
     {id: 678998, name: 'player2', icon: '', ind: -1}
   ];
   currentPlayer;
-  constructor(private route: ActivatedRoute) {}
+  victor;
+  constructor(private route: ActivatedRoute, private fire: AngularFire) {}
 
   ngOnInit() {
     this.grid = Array(3).fill(0).map((column, y) => {
@@ -30,11 +33,9 @@ export class TictactoeComponent implements OnInit {
       player.icon = this.symbols[i];
       return player;
     });
-    if (!this.currentPlayer) {
-      this.currentPlayer = this.players[0];
-    }
+
     this.route.params
-      .subscribe((params: Params) => { this.gameId = params['id']; });
+      .subscribe((params: Params) => { this.fire.database.object('/games/' + params['id'])});
   }
 
   switchPlayer(idx) {
@@ -50,13 +51,13 @@ export class TictactoeComponent implements OnInit {
     this.grid[state.y][state.x].active = true;
     this.switchPlayer(this.currentPlayer.ind);
 
-    console.log(this.checkGameState());
+   this.victor = this.checkGameState();
   }
 
   checkGameState() {
     //across
-    const acrossX = this.grid.some(column => column.every(cell => cell.state.content === 'X')) ? 'X' : false;
-    const acrossY = this.grid.some(column => column.every(cell => cell.state.content === 'Y')) ? 'Y' : false;
+    const acrossX = this.grid.some(column => column.every(cell => cell.state.content === this.symbols[0])) ? this.symbols[0] : false;
+    const acrossY = this.grid.some(column => column.every(cell => cell.state.content === this.symbols[1])) ? this.symbols[1] : false;
     //down
     const down0 = (
       this.grid[0][0].state.content === this.grid[1][0].state.content &&
