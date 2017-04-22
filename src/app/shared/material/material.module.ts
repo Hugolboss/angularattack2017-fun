@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import {MdButtonModule, MdButtonToggleModule, MdTabsModule, MdCardModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIconModule, MdSlideToggleModule, MdSelectModule, MdOptionModule, MdInputModule, MdDialogModule, MdGridList, MdGridListModule} from '@angular/material';
+import {MdButtonModule, MdSnackBarModule, MdButtonToggleModule, MdTabsModule, MdCardModule, MdCheckboxModule, MdToolbarModule, MdMenuModule, MdIconModule, MdSlideToggleModule, MdSelectModule, MdOptionModule, MdInputModule, MdDialogModule, MdGridList, MdGridListModule} from '@angular/material';
 
 @NgModule({
   imports: [
     MdButtonModule,
+    MdSnackBarModule,
     MdButtonToggleModule,
     MdCardModule,
     MdTabsModule,
@@ -20,6 +21,7 @@ import {MdButtonModule, MdButtonToggleModule, MdTabsModule, MdCardModule, MdChec
   ],
   exports: [
     MdButtonModule,
+    MdSnackBarModule,
     MdButtonToggleModule,
     MdCardModule,
     MdTabsModule,

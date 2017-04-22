@@ -9,7 +9,6 @@ const routes: Routes = [
   // { path: 'tickTackToe/:id', component: TictactoeComponent, canActivate: [AuthGuard]} ,
   { path: 'tickTackToe/:id', component: TictactoeComponent } ,
   
-
   { path: '', redirectTo: '/home', pathMatch: 'full' }, //set default entry route to app component
 ];
 

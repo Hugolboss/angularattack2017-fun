@@ -1,10 +1,14 @@
 <md-card>
-  <md-button-toggle-group #group="mdButtonToggleGroup" (change)="handleToggle($event, value)">
-    <md-button-toggle md-raised-button color="accent" value="tictactoe">Checkers</md-button-toggle>
-    <md-button-toggle md-raised-button color="accent" value="checkers">Tic Tac Toe</md-button-toggle>
-  </md-button-toggle-group>
-  <md-card-actions>
-    <button md-raised-button color="accent">Create a game</button>
-    <button md-raised-button color="accent">Find a game</button>
-  </md-card-actions>
+  <div class="toggle-container">
+    <md-button-toggle-group #group="mdButtonToggleGroup" (change)="handleToggle($event, value)">
+      <md-button-toggle md-raised-button color="accent" value="checkers">Checkers</md-button-toggle>
+      <md-button-toggle md-raised-button color="accent" value="tictactoe">Tic Tac Toe</md-button-toggle>
+    </md-button-toggle-group>
+  </div>
+  <div class="toggle-container">
+    <md-card-actions>
+      <button md-raised-button color="accent" (click)="createGame()">Create a game</button>
+      <button md-raised-button color="accent" (click)="findGame()">Find a game</button>
+    </md-card-actions>
+  </div>
 </md-card>
