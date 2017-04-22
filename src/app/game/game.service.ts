@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// import 'rxjs/add/operators/mergeMap';
 
 import 'firebase';
 
@@ -9,7 +8,6 @@ export class GameService {
   constructor() { }
 
   newGame = (game, player) => {
-    console.log(game, player);
     return firebase.database().ref('games/').push({
       'game': game,
       'players': [ {displayName: player.displayName, id: player.uid, ind: 0} ]
@@ -19,9 +17,7 @@ export class GameService {
   joinGame = (key, player) => {
     firebase.database().ref('games/' + key)
         .once('value')
-        .then(function(snapshot) {
-          return [snapshot.val().players[0], {displayName: player.displayName, id: player.uid, ind: 1}];
-        })
+        .then(snapshot => [snapshot.val().players[0], {displayName: player.displayName, id: player.uid, ind: 1}])
         .then(players => {
           firebase.database().ref('games/' + key).update({'players': players});
         })
