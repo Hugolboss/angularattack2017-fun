@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import {Input, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SharedModule} from '../../shared/shared.module';
 
 import { TictactoeComponent } from './tictactoe/tictactoe.component';
+import {ActivatedRoute} from '@angular/router' ;
 
 @NgModule({
   imports: [
@@ -11,4 +12,4 @@ import { TictactoeComponent } from './tictactoe/tictactoe.component';
   ],
   declarations: [TictactoeComponent]
 })
-export class TictactoeModule { }
+export class TictactoeModule {}
