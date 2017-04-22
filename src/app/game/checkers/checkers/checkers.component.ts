@@ -16,12 +16,12 @@ export class CheckersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, public checkersService: CheckersService, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
-      // this.me = new User({
-      //   email: auth.auth.email,
-      //   profile_picture: auth.auth.profile_picture,
-      //   uid: auth.auth.uid,
-      //   username: auth.auth.displayName
-      // });
+      this.me = new User({
+        email: auth.auth.email,
+        profile_picture: auth.auth.profile_picture,
+        uid: auth.auth.uid,
+        username: auth.auth.displayName
+      });
     });
   }
 
