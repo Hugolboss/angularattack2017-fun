@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pieces.component.less']
 })
 export class PiecesComponent implements OnInit {
-
+  data;
   constructor() { }
 
   ngOnInit() {
+    this.data = {
+      horizontal: true,
+      length: 3
+    }
   }
 
 }
