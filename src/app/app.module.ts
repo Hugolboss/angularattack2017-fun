@@ -9,11 +9,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './auth.service';
+import { HomeComponent } from './home/home.component';
+import { ResultsComponent } from './game/results/results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    HomeComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
