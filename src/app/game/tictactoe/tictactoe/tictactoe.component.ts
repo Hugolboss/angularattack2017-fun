@@ -1,10 +1,11 @@
+///<reference path="../../../user.ts"/>
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService} from '../../../auth.service';
-import { User } from './../../../user';
+import {User} from './../../../user';
 
 @Component({
   selector: 'fun-tictactoe',
@@ -27,8 +28,8 @@ export class TictactoeComponent implements OnInit {
         email: auth.auth.email,
         profile_picture: auth.auth.profile_picture,
         uid: auth.auth.uid,
-        username: auth.auth.displayName,
-      })
+        username: auth.auth.displayName
+      });
     });
   }
 
@@ -40,7 +41,7 @@ export class TictactoeComponent implements OnInit {
     });
     this.route.params
       .switchMap((params: Params) => {
-      this.gameId = params['id'];
+        this.gameId = params['id'];
         return this.fire.database.object('/games/' + this.gameId);
       })
       .subscribe(game => {
@@ -51,9 +52,10 @@ export class TictactoeComponent implements OnInit {
         return this.game;
       });
   }
+
   initGame(id) {
     let ob = this.fire.database.object('/games/' + this.gameId);
-    this.game.players = this.game.players.map((play , i) => {
+    this.game.players = this.game.players.map((play, i) => {
       play.icon = this.symbols[i];
       return play;
     });
@@ -64,6 +66,7 @@ export class TictactoeComponent implements OnInit {
     let ob = this.fire.database.object('/games/' + this.gameId);
     ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer});
   }
+
   declareVictory(winner) {
     let ob = this.fire.database.object('/games/' + this.gameId);
     ob.update({victor: winner});
