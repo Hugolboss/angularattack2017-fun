@@ -1,8 +1,8 @@
 <md-card>
-  <md-tab-group>
-    <md-tab label="Tic Tac Toe">Content 1</md-tab>
-    <md-tab label="Checkers">Content 2</md-tab>
-  </md-tab-group>
+  <md-button-toggle-group #group="mdButtonToggleGroup" (change)="handleToggle($event, value)">
+    <md-button-toggle md-raised-button color="accent" value="tictactoe">Checkers</md-button-toggle>
+    <md-button-toggle md-raised-button color="accent" value="checkers">Tic Tac Toe</md-button-toggle>
+  </md-button-toggle-group>
   <md-card-actions>
     <button md-raised-button color="accent">Create a game</button>
     <button md-raised-button color="accent">Find a game</button>
