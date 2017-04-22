@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { GameService } from './../game/game.service';
 
+import 'firebase';
+
 @Component({
   selector: 'fun-home',
   templateUrl: './home.component.html',

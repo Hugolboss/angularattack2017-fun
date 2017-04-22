@@ -10,7 +10,6 @@ export class FindService {
   constructor(private af: AngularFire) { }
 
   findGames = (game) => {
-    console.log(game);
     return this.af.database.list('games/', {
       query: {
         orderByChild: 'game',

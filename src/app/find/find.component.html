@@ -5,7 +5,7 @@
   </div>
   <md-list-item class="row" *ngFor="let availableGame of games | async">
     <div class="column">
-      <a [routerLink]="['/' + game + '/' + availableGame.$key]"> {{availableGame.game}}</a>
+      <a (click)="joinAvailableGame(availableGame.$key)"> {{availableGame.game}}</a>
     </div>
     <div class="column">
       {{availableGame.players}}
