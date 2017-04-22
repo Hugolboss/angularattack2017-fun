@@ -8,9 +8,12 @@ export class AuthGuard implements CanActivate {
 
     isAuthenticated;
 
-    constructor(private service: AuthService) {
-        this.service.getAuthenticationStatus()
-            .subscribe(val => this.isAuthenticated = val);
+    constructor(private authService: AuthService) {
+      this.authService.getAuthObservable().subscribe(auth => {
+        if (auth) {
+          this.isAuthenticated = true;
+        }
+      });
     }
 
     canActivate() {

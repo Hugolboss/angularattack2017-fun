@@ -1,39 +1,43 @@
 import {Injectable} from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
-import 'firebase';
 
 @Injectable()
 export class AuthService {
 
-  private isAuthenticated: boolean = false;
+  private isAuthenticated: boolean;
+  isAuthSubject = new Subject<boolean>();
   _user;
+  userObservable: FirebaseObjectObservable<any>;
 
-  constructor(private router: Router) {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.isAuthenticated = true;
-        this._user = user;
-        console.log('user logged in');
-      } else {
-        this._user = null;
-        this.isAuthenticated = false;
-        this.router.navigate(['/home']);
-        console.log('user logged out');
+  constructor(private router: Router, private af: AngularFire) {
+    this.af.auth.subscribe(auth => {
+      if (auth) {
+        this._user = auth;
+        this.userObservable = this.af.database.object('/users/' + this._user.auth.uid);
+        this.userObservable.subscribe(snapshot => {
+          if (!snapshot.username) {
+            this.userObservable.set({
+              email: this._user.auth.email,
+              username: this._user.auth.displayName,
+              profile_picture: this._user.auth.photoURL
+            });
+          }
+        });
       }
     });
-    
+
   }
 
-  login() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+  login = () => {
+    this.af.auth.login();
   }
 
   logout = () => {
-    firebase.auth().signOut().then(() => {
-      this.isAuthenticated = false;
+    this.af.auth.logout().then(() => {
       this.router.navigate(['/home']);
       this._user = null;
       console.log('logging out');
@@ -42,12 +46,8 @@ export class AuthService {
     });
   }
 
-  getAuthenticationStatus() : Observable<any> {
-    return Observable.of(this.isAuthenticated);
-  }
-
-  getUser() : Observable<any> {
-    return Observable.of(this._user);
+  getAuthObservable(): Observable<any> {
+    return this.af.auth;
   }
 
 }

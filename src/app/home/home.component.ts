@@ -22,9 +22,11 @@ export class HomeComponent implements OnInit {
   }
 
   createGame() {
+    /*
     !this.game ?
       this.snack() :
       this.router.navigate(['/' + this.game + '/' + this.gameService.newGame(this.prettyName(this.game))]);
+      */
   }
 
   findGame() {

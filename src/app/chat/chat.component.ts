@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ChatService} from './chat.service';
 
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'fun-chat',
@@ -14,8 +15,10 @@ export class ChatComponent implements OnInit {
   // messages = [];
   messages: FirebaseListObservable<any[]>;
 
-  constructor(private chatService: ChatService, private af: AngularFire) {
-    this.messages = af.database.list('/rooms/global/');
+  constructor(private chatService: ChatService, private af: AngularFire, private authService: AuthService) {
+    this.af.auth.subscribe(auth => {
+      this.messages = af.database.list('/rooms/global/');
+    });
   }
 
   ngOnInit() {

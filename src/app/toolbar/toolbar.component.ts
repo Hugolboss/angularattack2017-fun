@@ -11,17 +11,25 @@ export class ToolbarComponent implements OnInit {
 
   login;
   logout;
-  user;
-  
-  isAuthenticated: Observable<boolean>;
+  user = {};
 
-  constructor(private service: AuthService) {
-    this.logout = this.service.logout;
-    this.login = this.service.login;
+  isAuthenticated;
 
-    this.user = this.service.getUser();
-    
-    this.isAuthenticated = this.service.getAuthenticationStatus();
+  constructor(private authService: AuthService) {
+    this.logout = this.authService.logout;
+    this.login = this.authService.login;
+
+    this.authService.getAuthObservable().subscribe(auth => {
+      if (auth) {
+        this.isAuthenticated = true;
+        this.user = {
+          name: auth.google.displayName,
+          avatar: auth.google.photoURL
+        };
+      } else {
+        this.user = {};
+      }
+    });
   }
 
   ngOnInit() {

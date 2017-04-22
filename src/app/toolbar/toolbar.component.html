@@ -1,14 +1,11 @@
 <md-toolbar color="primary">
-    <!--<div *ngIf="isAuthenticated">
-        <button md-raised-button color="accent" (click)="logout()">Log Out!</button>   
-    </div>
-     <div *ngIf="!isAuthenticated">
-        <button md-raised-button color="accent" (click)="login()">Log In!</button>
-    </div>-->
-    <div class="login-logout">
-        <div>{{user | async}}</div>
+  <div class="toolbar-title">
+    Fun and Games
+  </div>
+  <div class="toolbar-spacer"></div>
+  <img class="toolbar-avatar" *ngIf="user.avatar" src="{{user.avatar}}"/>
+  <div class="toolbar-name">{{user.name}}</div>
 
-        <button md-raised-button color="accent" (click)="login()">Log In!</button>
-        <button md-raised-button color="accent" (click)="logout()">Log Out!</button>
-    </div>
+  <button md-raised-button color="accent" (click)="login()" *ngIf="!isAuthenticated">Log In!</button>
+  <button md-raised-button color="accent" (click)="logout()" *ngIf="isAuthenticated">Log Out!</button>
 </md-toolbar>

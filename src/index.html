@@ -8,41 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBzEkk_MxsZyRjJzTKjQ68Uc-wEgRcXbEY",
-      authDomain: "angularattack2017-fun.firebaseapp.com",
-      databaseURL: "https://angularattack2017-fun.firebaseio.com",
-      projectId: "angularattack2017-fun",
-      storageBucket: "angularattack2017-fun.appspot.com",
-      messagingSenderId: "315211112223"
-    };
-    firebase.initializeApp(config);
-
-
-    firebase.auth().getRedirectResult().then(function(result) {
-      if (result.credential) {
-        var token = result.credential.accessToken;
-      }
-      var user = result.user;
-      firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-          if(!snapshot.val()){
-            firebase.database().ref('users/' + user.uid).set({
-              username: user.displayName,
-              email: user.email,
-              profile_picture : user.photoURL
-            });
-          }
-      });
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      var email = error.email;
-      var credential = error.credential;
-    });
-
-  </script>
 </head>
 <body>
   <fun-root>Loading...</fun-root>
