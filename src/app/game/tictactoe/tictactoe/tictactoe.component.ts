@@ -4,6 +4,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService} from '../../../auth.service';
+import { User } from './../../../user';
 
 @Component({
   selector: 'fun-tictactoe',
@@ -22,10 +23,12 @@ export class TictactoeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
-      this.me = {
+      this.me = new User({
+        email: auth.auth.email,
+        profile_picture: auth.auth.profile_picture,
         uid: auth.auth.uid,
-        name: auth.auth.displayName
-      }
+        username: auth.auth.displayName,
+      })
     });
   }
 
