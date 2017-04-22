@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CheckersService} from '../checkers.service';
 
 @Component({
   selector: 'fun-checkers',
   templateUrl: './checkers.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./checkers.component.less']
 })
 export class CheckersComponent implements OnInit {
@@ -16,6 +17,10 @@ export class CheckersComponent implements OnInit {
       this.gameId = params['id'];
       this.checkersService.setGame(this.gameId);
     });
+  }
+
+  onClick ($state) {
+    console.log($state);
   }
 
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
@@ -8,6 +8,7 @@ import {AuthService} from '../../../auth.service';
 @Component({
   selector: 'fun-tictactoe',
   templateUrl: './tictactoe.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./tictactoe.component.less']
 })
 export class TictactoeComponent implements OnInit {
