@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'fun-cell',
   templateUrl: './cell.component.html',
   styleUrls: ['./cell.component.less']
 })
-export class CellComponent {
-  active: boolean;
-  state: Object;
+export class Cell {
+  @Input() active: boolean;
+  @Input() state: Object;
 
-  constructor(active: boolean, state: Object) {
-    this.active = active;
-    this.state = state;
-  }
+  constructor() {}
 }
