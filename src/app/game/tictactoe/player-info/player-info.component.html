@@ -1,7 +1,7 @@
-<div *ngIf="!playerWon">
-  <span *ngFor="let p of players">Player {{p.ind+1}} Is {{p.displayName}} he is {{p.icon}}</span>
-  <span> Its your Turn player {{currentPlayer.ind +1}}</span>
+<div id="playerInfo" *ngIf="!playerWon">
+  <p *ngFor="let p of players">Player {{p.ind+1}} is {{p.displayName}}</p>
+  <p> Its your turn  {{p.displayName}}</p>
 </div>
-<div *ngIf="playerWon">
+<div id="victorInfo" *ngIf="playerWon">
   <span> {{playerWon}} Is the victor</span>
 </div>
