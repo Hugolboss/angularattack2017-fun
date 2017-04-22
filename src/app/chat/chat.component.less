@@ -1,0 +1,26 @@
+:host {
+  display:flex;
+  flex-direction: column;
+  height: ~'calc(100vh - 64px)';
+  border-left: black 1px solid;
+}
+
+.chatbox {
+  height: ~'calc(100% - 25px)';
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position:relative;
+}
+
+.chatspace {
+  //height: calc(100% - 64px);
+  position: absolute;
+  bottom:0px;
+  width:100%;
+}
+
+.chat-input {
+  height: 50px;
+  resize: none;
+}

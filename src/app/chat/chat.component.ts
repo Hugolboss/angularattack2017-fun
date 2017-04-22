@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {ChatService} from './chat.service';
 
 @Component({
@@ -7,6 +7,7 @@ import {ChatService} from './chat.service';
   styleUrls: ['./chat.component.less']
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   messages = [];
 
@@ -20,9 +21,17 @@ export class ChatComponent implements OnInit {
 
   setMessages(val) {
     this.messages.push(val);
+    this.scrollToBottom();
   }
 
   onEnter(val) {
     this.chatService.submitMessage('global', val);
+  }
+
+  scrollToBottom(): void {
+    try {
+      //this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight + 20;
+      this.myScrollContainer.nativeElement.scrollIntoView();
+    } catch (err) { }
   }
 }

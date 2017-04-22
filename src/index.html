@@ -26,9 +26,7 @@
         var token = result.credential.accessToken;
       }
       var user = result.user;
-      console.log("USER: ", user);
       firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
-          console.log("SS: ", snapshot);
           if(!snapshot.val()){
             firebase.database().ref('users/' + user.uid).set({
               username: user.displayName,
