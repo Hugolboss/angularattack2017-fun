@@ -1,32 +1,28 @@
 import { Injectable } from '@angular/core';
+import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
 // import 'rxjs/add/operators/mergeMap';
 
-//import 'firebase';
 
 @Injectable()
 export class GameService {
 
-  constructor() { }
+  constructor(private af: AngularFire) { }
 
   newGame = (game, player) => {
     console.log(game, player);
-    return firebase.database().ref('games/').push({
+    return this.af.database.list('/games/').push({
       'game': game,
       'players': [ {displayName: player.displayName, id: player.uid, ind: 0} ]
     }).key;
   }
 
   joinGame = (key, player) => {
-    firebase.database().ref('games/' + key)
-        .once('value')
-        .then(function(snapshot) {
-          return [snapshot.val().players[0], {displayName: player.displayName, id: player.uid, ind: 1}];
-        })
-        .then(players => {
-          firebase.database().ref('games/' + key).update({'players': players});
-        })
-        .catch(err => console.log('something happened:', err));
+    const joining = this.af.database.object('/games/' + key);
+    joining.subscribe(snapshot => {
+      const players = [snapshot.players[0], {displayName: player.displayName, id: player.uid, ind: 1}];
+      joining.update({'players': players});
+    });
   }
 }
 
-//todo subscribe to current game to get its players, 
+//todo subscribe to current game to get its players,

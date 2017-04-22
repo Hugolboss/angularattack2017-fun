@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { GameService } from './../game/game.service';
 import { FindService } from './find.service';
-import 'firebase';
 
 @Component({
   selector: 'fun-find',

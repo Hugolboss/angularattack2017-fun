@@ -30,7 +30,7 @@ const myFirebaseAuthConfig = {
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
     DndModule.forRoot()
   ],
   declarations: [BoardComponent, CellComponent, PlayerInfoComponent],
