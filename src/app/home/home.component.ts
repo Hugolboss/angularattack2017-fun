@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
   constructor(public snackBar: MdSnackBar, private router: Router, private gameService: GameService) {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user
-      console.log(user);
     });
   }
 
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
   findGame() {
     !this.game ?
       this.snack() :
-      console.log('TODO: find a game');
+      console.log('TODO: find a random game');
   }
 
   private snack() {

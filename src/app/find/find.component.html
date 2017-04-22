@@ -3,16 +3,13 @@
     <h3 md-subheader>Game</h3>
     <h3 md-subheader>Creator</h3>
   </div>
-  <md-list-item class="row" *ngFor="let game of games | async">
+  <md-list-item class="row" *ngFor="let availableGame of games | async">
     <div class="column">
-      {{game.game}}
+      <a [routerLink]="['/' + game + '/' + availableGame.$key]"> {{availableGame.game}}</a>
     </div>
     <div class="column">
-      {{game.players}}
+      {{availableGame.players}}
     </div>
-    <!--<div class="column">
-      {{game | json}}
-    </div>-->
     <md-divider></md-divider>
   </md-list-item>
 </md-list>
