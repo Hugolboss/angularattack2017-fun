@@ -6,6 +6,7 @@ import { TictactoeComponent } from './tictactoe/tictactoe.component';
 import {ActivatedRoute} from '@angular/router' ;
 import {BoardComponent} from '../board/board.component';
 import {CellComponent} from '../board/cell.component';
+import { PlayerInfoComponent } from './player-info/player-info.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import {CellComponent} from '../board/cell.component';
     SharedModule,
 
   ],
-  declarations: [TictactoeComponent, BoardComponent, CellComponent]
+  declarations: [TictactoeComponent, BoardComponent, CellComponent, PlayerInfoComponent]
 })
 export class TictactoeModule {}
