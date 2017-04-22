@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AuthService } from './auth.service';
+import { UsersService } from './users.service';
 import { HomeComponent } from './home/home.component';
 import { ResultsComponent } from './game/results/results.component';
 import {TictactoeModule} from './game/tictactoe/tictactoe.module';
@@ -28,7 +29,7 @@ import {TictactoeModule} from './game/tictactoe/tictactoe.module';
     SharedModule,
     TictactoeModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

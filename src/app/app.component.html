@@ -5,3 +5,11 @@
 
 <button (click)="login();">Log In!</button>
 <button (click)="logout();">Log Out!</button>
+
+<div>
+  Users:
+  <div *ngFor="let user of users">
+    <img src="{{user.profile_picture}}" style="height:50px;width:50px;" />
+    <span> {{user.username }} </span>
+  </div>
+</div>
