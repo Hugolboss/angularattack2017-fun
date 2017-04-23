@@ -5,7 +5,7 @@
     <span class="counts" *ngIf="p.pieceCount">{{p.pieceCount}}</span>
   </p>
 
-  <p i18n class="playerNumber"> Its your turn
+  <p i18n class="playerNumber" *ngIf="me.uid === currentPlayer.uid"> Its your turn
     <img *ngIf="images" [src]="images[currentPlayer.icon]"/></p>
 </div>
 <div id="victorInfo" class="playerNumber" *ngIf="playerWon">

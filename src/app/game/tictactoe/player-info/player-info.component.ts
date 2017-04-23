@@ -10,6 +10,7 @@ export class PlayerInfoComponent implements OnInit {
   @Input() currentPlayer;
   @Input() playerWon;
   @Input() images;
+  @Input() me;
   constructor() { }
 
   ngOnInit() {
