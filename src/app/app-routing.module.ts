@@ -6,12 +6,15 @@ import { BattleshipComponent } from './game/battleship/battleship/battleship.com
 import { AuthGuard } from './auth-guard.service';
 import { CheckersComponent } from './game/checkers/checkers/checkers.component';
 import {OthelloComponent} from "./game/othello/othello/othello.component";
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+
 const routes: Routes = [
   // { path: 'tickTackToe/:id', component: TictactoeComponent, canActivate: [AuthGuard]} ,
   { path: 'tictactoe/:id', component: TictactoeComponent } ,
   { path: 'battleship/:id', component: BattleshipComponent } ,
   { path: 'othello/:id', component: OthelloComponent } ,
   { path: 'checkers/:id', component: CheckersComponent },
+  { path: 'leaderboard/:id', component: LeaderboardComponent },
   { path: '', component: HomeComponent }
   // { path: '', redirectTo: 'home', pathMatch: 'full' }, // set default entry route to app component
 ];

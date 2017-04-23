@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { ResultsComponent } from './game/results/results.component';
 import { TictactoeModule } from './game/tictactoe/tictactoe.module';
 import { BattleshipModule } from './game/battleship/battleship.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ChatModule } from './chat/chat.module';
 import {DndModule} from "ng2-dnd";
 import { CheckersModule } from './game/checkers/checkers.module';
@@ -38,6 +39,7 @@ import { StatTableComponent } from './statistics/stat-table/stat-table.component
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    LeaderboardModule,
     DndModule.forRoot(),
     SharedModule,
     TictactoeModule,
