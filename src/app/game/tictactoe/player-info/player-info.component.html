@@ -19,8 +19,8 @@
   </md-card>
 </header>
 <section id="Victor" class="mat-card" *ngIf="victor">
-  <h3 *ngIf="vitor.winner">Winner is {{victor.winner.username}}</h3>
-  <h3 *ngIf="!vitor.winner">Players have tied!</h3>
+  <h3 *ngIf="victor.winner">Winner is {{victor.winner.username}}</h3>
+  <h3 *ngIf="!victor.winner">Players have tied!</h3>
   <button md-raised-button (click)="backToLobby()">Back To Lobby</button>
 </section>
 <section id="Victor" class="mat-card" *ngIf="state === 'abandoned'">
