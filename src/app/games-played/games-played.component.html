@@ -4,12 +4,12 @@
 <div class="header row">
   <div>Started</div>
   <div>Completed</div>
-  <div>Pending</div>
+  <div>Created</div>
   <div>Abandoned</div>
 </div>
 <div class="row">
   <div>{{games?.started}}</div>
   <div>{{games?.completed}}</div>
   <div>{{games?.pending}}</div>
-  <div>{{games?.abandoned}}</div>
+  <div>{{games?.abandoned || 0}}</div>
 </div>
