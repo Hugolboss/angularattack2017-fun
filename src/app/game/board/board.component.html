@@ -5,7 +5,7 @@
     md-colspan="2"
     (click)="onClick(cell.state, cell.active)"
     (mouseover)="onMouseOver(cell)"
-    (mouseout)="onMouseOut(cell)"
+    (mouseleave)="onMouseLeave(cell)"
     [ngClass]="{'available': cell.state.available}"
     [class]="cell.row"
   >
