@@ -9,5 +9,6 @@
     <img *ngIf="images" [src]="images[currentPlayer.icon]"/></p>
 </div>
 <div id="victorInfo" class="playerNumber" *ngIf="playerWon">
-  <span i18n> Winner is <img *ngIf="images" [src]="images[playerWon]"/></span>
+  <span i18n *ngIf="playerWon.icon"> Winner is <img *ngIf="images" [src]="images[playerWon.icon]"/></span>
+  <span i18n *ngIf="playerWon.draw"> This Game Was a Draw</span>
 </div>

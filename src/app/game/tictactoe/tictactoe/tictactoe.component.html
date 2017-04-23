@@ -3,11 +3,12 @@
 </h2>
 
 <div id="gameBlocks">
+
   <div id="gameContainer" *ngIf="game && game.players.length>1">
     <fun-board [grid]="game.grid" [x]="3" [y]="3" (onClick)="onClick($event)" [images]="images"></fun-board>
   </div>
   <div id="funPlayerContainer" *ngIf="game && game.players.length>1 && game.currentPlayer">
-  <fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="victor" [images]="images" ></fun-player-info>
+  <fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="game.victor" [images]="images" ></fun-player-info>
 </div>
 </div>
 

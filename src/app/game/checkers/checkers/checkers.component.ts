@@ -23,7 +23,7 @@ export class CheckersComponent implements OnInit {
         email: auth.auth.email,
         profile_picture: auth.auth.profile_picture,
         uid: auth.auth.uid,
-        username: auth.auth.displayName
+        username: auth.auth.displayName,
       });
     });
   }

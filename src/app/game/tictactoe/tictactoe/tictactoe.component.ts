@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService} from '../../../auth.service';
 import {User} from './../../../user';
+import {UsersService} from '../../../users.service';
 
 @Component({
   selector: 'fun-tictactoe',
@@ -15,7 +16,7 @@ import {User} from './../../../user';
 })
 export class TictactoeComponent implements OnInit {
   gameId;
-  images = { x: '../../../../../assets/x.png', o: '../../../../../assets/o.png' };
+  images = {x: '../../../../../assets/x.png', o: '../../../../../assets/o.png'};
   me;
   grid;
   game;
@@ -25,13 +26,14 @@ export class TictactoeComponent implements OnInit {
   players;
 
 
-  constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService, private userService: UsersService) {
     this.authService.getAuthObservable().subscribe(auth => {
       this.me = new User({
         email: auth.auth.email,
         profile_picture: auth.auth.profile_picture,
         uid: auth.auth.uid,
-        username: auth.auth.displayName
+        username: auth.auth.displayName,
+
       });
     });
   }
@@ -54,7 +56,7 @@ export class TictactoeComponent implements OnInit {
         }
         if (game.players.length === 2 && !game.players[0].pieceCount) {
 
-          this.players = game.players.map( (p, i) => {
+          this.players = game.players.map((p, i) => {
             p.ind = i;
             p.icon = i === 0 ? 'x' : 'o';
             return p;
@@ -65,51 +67,56 @@ export class TictactoeComponent implements OnInit {
         return this.game;
       });
   }
+
   updatePlayers(players) {
     const ob = this.fire.database.object('/games/' + this.gameId);
     ob.update({players: players});
   }
+
   initGame(id) {
     const ob = this.fire.database.object('/games/' + this.gameId);
     this.game.players = this.game.players.map((play, i) => {
       play.icon = this.symbols[i];
       return play;
     });
-    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor: '', players: this.game.players, count: 0});
+    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor: '', players: this.game.players, count: 1});
   }
 
   update() {
     const ob = this.fire.database.object('/games/' + this.gameId);
-    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, count: this.game.count++});
+    const count = this.game.count = this.game.count + 1;
+    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, count: count});
   }
 
   declareVictory(winner) {
-    // TODO tie
-    // Not sure if I implemented these calls right
-    // Made a small change - See line 121 - easy to reverse
     const ob = this.fire.database.object('/games/' + this.gameId);
-    ob.update({victor: winner});
-
-    const w = this.fire.database.object('/players/'+ winner.uid);
-    w.first().subscribe(snapshot => {
-      // TODO once user model updated
-      // w.update(this.updateStats(snapshot, wins));
-    })
-
-    // there are 2 losers in the losers array, one has a symbol and one doesnt.
-    // I am querying with the [0]th index for no special reason (they both have the same uid)
-    const loser = this.game.players.filter(p => p !== winner)[0];
-    const l = this.fire.database.object('/players/' + loser.uid);
-    l.first().subscribe(snapshot => {
-      // TODO once user model updated
-      // l.update(this.updateStats(snapshot, losses));
-    })
+    if (!winner) {
+      winner = {draw: true};
+    }
+    this.game.state = 'completed';
+    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, victor: winner, state: this.game.state});
+    this.updateUsers(winner, this.game.game, this.game.players);
   }
-  //Update wins, losses or ties
-  updateStats(snapshot, result) {
-    const n = Object.assign({}, snapshot)
-    n.gameStats['tictactoe'][result] += 1;
-    return {gameStats: n.gameStats}
+
+  updateUsers(winner, type, players) {
+    let g = {};
+    g[type] = {w: false, l: false, d: false};
+    const users = players.map((p) => {
+      p.record ? '' : p.record = [];
+      if (winner.draw) {
+        g[type]['d'] = true;
+        p.record.push(g);
+      }
+      if (winner && winner.uid === p.uid) {
+        g[type]['w'] = true;
+        p.record.push(g);
+      } else if (!winner.draw) {
+        g[type]['l'] = true;
+        p.record.push(g);
+      }
+      return p;
+    });
+    users.forEach(u => this.userService.updateUser(u));
   }
 
   switchPlayer(idx) {
@@ -123,20 +130,21 @@ export class TictactoeComponent implements OnInit {
 
   onClick(state) {
     const curr = this.game.currentPlayer;
-    if (curr.uid !== this.me.uid) {
+    if (curr.uid !== this.me.uid || this.game.state === 'pending' || this.game.state === 'completed') {
       return;
     }
     this.game.grid[state.y][state.x].state.content = this.game.currentPlayer.icon;
     this.game.grid[state.y][state.x].active = true;
 
     this.switchPlayer(this.game.players.findIndex((elm, i) => elm.uid === curr.uid));
-    this.update();
     this.victor = this.checkGameState();
-    if (this.victor) {
-      // changed from this.winner to pass entire user to declareVictory
-      // changed binding in html from game.victor to victor
-      this.declareVictory(this.game.currentPlayer);
+
+    if (this.victor || this.game.count === 9) {
+      const v = (this.victor) ? curr : null;
+      return this.declareVictory(v);
     }
+    return this.update();
+
   }
 
   checkGameState() {
