@@ -27,8 +27,10 @@
     (onMouseLeave)="onMouseLeave($event)"
   ></fun-board>
   <section id="othelloVictor" class="mat-card" *ngIf="othelloService.game.victor">
-    <h3 *ngIf="othelloService.game.victor.winner !== 'Tie'">Winner is {{othelloService.game.victor.winner}}</h3>
-    <h3 *ngIf="othelloService.game.victor.winner === 'Tie'">Players have tied!</h3>
+    <h3 *ngIf="othelloService.game.victor.winner">Winner is {{othelloService.game.victor.winnerName}}</h3>
+    <h3 *ngIf="!othelloService.game.victor.winner">Players have tied!</h3>
+    <p *ngIf="othelloService.game.victor.winner">Record P1: {{othelloService.game.victor.p1.record.w}}W / {{othelloService.game.victor.p1.record.l}}L / {{othelloService.game.victor.p1.record.d}}D</p>
+    <p *ngIf="othelloService.game.victor.winner">Record P1: {{othelloService.game.victor.p2.record.w}}W / {{othelloService.game.victor.p2.record.l}}L / {{othelloService.game.victor.p2.record.d}}D</p>
     <button md-raised-button (click)="backToLobby()">Back To Lobby</button>
   </section>
 </section>
