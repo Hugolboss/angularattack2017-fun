@@ -22,13 +22,12 @@ exports.overrideHugo = functions.database.ref('/rooms/global/{id}')
         return event.data.ref.child("message").set(original);
     });
 
-exports.subscribeUserToGameChat = functions.database.ref('/games/{id}/players/{index}')
+exports.subscribeUserToGameChat = functions.database.ref('/games/{id}/players/{index}/uid')
   .onWrite(function(event){
-    var original = event.data.val();
-    //var gameName = event.data.ref.parent.parent.child("game");
-    event.data.ref.root.child("/users/"+original.uid+"/rooms/").remove().then(
+    var uid = event.data.val();
+    event.data.ref.root.child("/users/"+uid+"/rooms/").remove().then(
       function(resp) {
-        var user = event.data.ref.root.child("/users/" + original.uid + "/rooms/" + event.params.id);
+        var user = event.data.ref.root.child("/users/" + uid + "/rooms/" + event.params.id);
         return user.set("In Game Chat");
       });
   });
@@ -45,4 +44,15 @@ exports.createUserModel = functions.auth.user().onCreate(function(event) {
 
     var ref = db.ref("/users/"+user.uid);
     return ref.set(subUser);
+});
+
+exports.reactToGameState = functions.database.ref('/games/{id}/state')
+  .onWrite(function(event) {
+    var original = event.data.val();
+    var ref = db.ref("/gameStats/");
+    ref.once("value", function(snapshot) {
+      var stats = snapshot.val()||{};
+      (stats[original])?stats[original]++:stats[original]=1;
+      return ref.set(stats);
+    });
 });
