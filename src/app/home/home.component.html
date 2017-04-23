@@ -37,7 +37,7 @@
 <div style="flex:2">
 <md-card class="find">
   <md-card-header>
-    <h4 i18n>Available games</h4>
+    <h4 i18n>Available games - {{prettyName(game) || 'All'}}</h4>
   </md-card-header>
   <md-card-content>
     <fun-find [game]="game" [user]="user"></fun-find>
