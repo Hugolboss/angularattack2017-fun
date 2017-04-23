@@ -30,7 +30,7 @@ export class OthelloService {
           p.pieceCount = 2;
           return p;
         });
-        if (this.game.grid) {
+        if (this.game && this.game.grid) {
           this.initializeGame();
           this.setStateDifferential();
           this.update(this.game.grid);
