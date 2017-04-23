@@ -94,7 +94,7 @@ export class TictactoeComponent implements OnInit {
       winner = {draw: true};
     }
     this.game.state = 'completed';
-    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, victor: winner, state: this.game.state});
+    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, victor: winner, state: 'completed'});
     this.updateUsers(winner, this.game.game, this.game.players);
   }
 

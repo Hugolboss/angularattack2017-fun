@@ -46,12 +46,7 @@ export class CheckersComponent implements OnInit {
         {x: $state.x + direction, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + direction, $state.y - 1)},
         {x: $state.x + direction, y: $state.y + 1, valid: this.checkLocationEmpty($state.x + direction, $state.y + 1)}
       ];
-      this.checkForOpponentPosition(this.checkersService.game.currentPlayer.opponentColor, $state, moves);
-      if (moves.filter(m => m.valid).length !== 0) {
-        this.setAvailable(moves);
-        this.lastClick = {x: $state.x, y: $state.y, content: $state.content};
-        this.potentialMoves = moves.filter(m => m.valid);
-      }
+      this.setPotentialMoves(moves, $state);
     } else if (this.lastClick) {
       if ($state.x === this.lastClick.x && $state.y === this.lastClick.y) {
         this.resetTurn();
@@ -59,6 +54,14 @@ export class CheckersComponent implements OnInit {
       if ($state.available) {
         this.movePiece($state, this.lastClick, this.potentialMoves);
       }
+    }
+  }
+  setPotentialMoves(moves, $state) {
+    this.checkForOpponentPosition(this.checkersService.game.currentPlayer.opponentColor, $state, moves);
+    if (moves.filter(m => m.valid).length !== 0) {
+      this.setAvailable(moves);
+      this.lastClick = {x: $state.x, y: $state.y, content: $state.content};
+      this.potentialMoves = moves.filter(m => m.valid);
     }
   }
 
@@ -99,6 +102,7 @@ export class CheckersComponent implements OnInit {
   movePiece(to, from, potentialMoves) {
     let players = this.checkersService.game.players;
     let victor = false;
+    let dontReset = false;
     const jumped = potentialMoves.find(elm => to.x === elm.x);
     if (to) {
       this.checkersService.game.grid[to.x][to.y].state.content = from.content;
@@ -109,12 +113,19 @@ export class CheckersComponent implements OnInit {
     if (jumped && jumped.opX) {
       this.checkersService.game.grid[jumped.opX][jumped.opY].state.content = ``;
       players = this.losePiece(jumped.opc);
+      potentialMoves = [];
+      this.checkForOpponentPosition(jumped.opc, to, potentialMoves);
+      if(potentialMoves.length !== 0) {
+        this.setPotentialMoves(potentialMoves, to);
+        dontReset = true;
+      }
     }
     victor = this.checkForWinner();
     this.checkersService.updateFull(this.checkersService.game.grid, players, victor);
-    this.resetTurn();
-    this.updateCurrentUser();
-
+    if(!dontReset) {
+      this.resetTurn();
+      this.updateCurrentUser();
+    }
   }
 
   checkForWinner() {

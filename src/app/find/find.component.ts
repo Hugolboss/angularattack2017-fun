@@ -31,7 +31,7 @@ export class FindComponent implements OnInit {
     return {
       'Tic Tac Toe': 'tictactoe',
       'Checkers': 'checkers',
-      'Battleship': 'battleship'
+      'Othello': 'othello'
     }[name];
   }
 }
