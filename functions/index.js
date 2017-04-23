@@ -53,6 +53,9 @@ exports.reactToGameState = functions.database.ref('/games/{id}/state')
     ref.once("value", function(snapshot) {
       var stats = snapshot.val()||{};
       (stats[original])?stats[original]++:stats[original]=1;
-      return ref.set(stats);
+      ref.set(stats);
     });
+    var date = new Date();
+    return event.data.ref.parent.child("last_state_change").set(date.getTime());
 });
+
