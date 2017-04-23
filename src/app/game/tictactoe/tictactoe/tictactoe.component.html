@@ -6,7 +6,7 @@
     <fun-board [grid]="game.grid" [x]="3" [y]="3" (onClick)="onClick($event)"></fun-board>
   </div>
   <div id="funPlayerContainer" *ngIf="game && game.players.length>1 && game.currentPlayer">
-  <fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="game.victor" ></fun-player-info>
+  <fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="victor" ></fun-player-info>
   </div>
 </div>
 

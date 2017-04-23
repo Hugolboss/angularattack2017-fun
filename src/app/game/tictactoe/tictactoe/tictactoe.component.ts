@@ -68,8 +68,32 @@ export class TictactoeComponent implements OnInit {
   }
 
   declareVictory(winner) {
+    // TODO tie
+    // Not sure if I implemented these calls right
+    // Made a small change - See line 121 - easy to reverse
     const ob = this.fire.database.object('/games/' + this.gameId);
     ob.update({victor: winner});
+
+    const w = this.fire.database.object('/players/'+ winner.uid);
+    w.first().subscribe(details => {
+      // TODO once user model updated
+      // w.update(this.updateStats(details, wins));
+    })
+
+    // there are 2 losers in the losers array, one has a symbol and one doesnt. 
+    // I am querying with the [0]th index for no special reason (they both have the same uid)
+    const loser = this.game.players.filter(p => p !== winner)[0];
+    const l = this.fire.database.object('/players/' + loser.uid);
+    l.first().subscribe(details => {
+      // TODO once user model updated
+      // l.update(this.updateStats(details, losses));
+    })
+  }
+  //Update wins, losses or ties
+  updateStats(details, result) {
+    const n = Object.assign({}, details)
+    n.gameStats['tictactoe'][result] += 1;
+    return {gameStats: n.gameStats}
   }
 
   switchPlayer(idx) {
@@ -93,7 +117,9 @@ export class TictactoeComponent implements OnInit {
     this.update();
     this.victor = this.checkGameState();
     if (this.victor) {
-      this.declareVictory(this.victor);
+      // changed from this.winner to pass entire user to declareVictory
+      // changed binding in html from game.victor to victor
+      this.declareVictory(this.game.currentPlayer);
     }
   }
 
