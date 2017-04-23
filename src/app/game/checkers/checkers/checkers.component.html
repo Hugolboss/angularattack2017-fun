@@ -1,10 +1,24 @@
-<div id="funPlayerContainer" *ngIf="checkersService.game && checkersService.game.players.length>1 && checkersService.game.currentPlayer">
-  <fun-player-info [players]="checkersService.game.players" [currentPlayer]="checkersService.game.currentPlayer" [victor]="checkersService.game.victor" [images]="images" [me]="me" [state]="checkersService.game.state" ></fun-player-info>
+<md-card id="secondPlayerWait" *ngIf="checkersService.game.players && checkersService.game.players.length < 2">
+  <md-card-content>
+    <p>Waiting for another player to join...</p>
+    <md-progress-spinner
+      mode="indeterminate"
+    ></md-progress-spinner>
+  </md-card-content>
+</md-card>
+<div id="funPlayerContainer"
+     *ngIf="checkersService.game && checkersService.game.players.length>1 && checkersService.game.currentPlayer">
+  <fun-player-info [players]="checkersService.game.players" [currentPlayer]="checkersService.game.currentPlayer"
+                   [victor]="checkersService.game.victor" [images]="images" [me]="me"
+                   [state]="checkersService.game.state"></fun-player-info>
 </div>
 
-  <div id="checkersContainer" [ngClass]="{active: checkersService.game.currentPlayer.uid === me.uid, black: checkersService.game.currentPlayer.icon === 'black'}" *ngIf="checkersService.game && checkersService.game.players.length > 1">
-    <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)" [images]="images"></fun-board>
-  </div>
+<div id="checkersContainer"
+     [ngClass]="{active: checkersService.game.currentPlayer.uid === me.uid, black: checkersService.game.currentPlayer.icon === 'black'}"
+     *ngIf="checkersService.game && checkersService.game.players.length > 1">
+  <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)"
+             [images]="images"></fun-board>
+</div>
 
 
 

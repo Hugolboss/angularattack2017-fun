@@ -1,3 +1,11 @@
+<md-card id="secondPlayerWait" *ngIf="othelloService.players && othelloService.players.length < 2">
+  <md-card-content>
+    <p>Waiting for another player to join...</p>
+    <md-progress-spinner
+      mode="indeterminate"
+    ></md-progress-spinner>
+  </md-card-content>
+</md-card>
 <header id="othelloGameHeader">
   <md-card *ngIf="othelloService.players && othelloService.players[0]" [ngClass]="{'active': othelloService.game.currentPlayer.uid === othelloService.players[0].uid}">
     <md-card-header>
