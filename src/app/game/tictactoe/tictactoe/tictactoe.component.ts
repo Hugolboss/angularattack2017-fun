@@ -97,23 +97,28 @@ export class TictactoeComponent implements OnInit, OnDestroy {
     }
     this.game.state = 'completed';
     ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, victor: victor, state: 'completed'});
-    this.updateUsers(winner, this.game.game, this.game.players);
+    this.updateUsers(victor, this.game.players);
   }
 
-  updateUsers(winner, type, players) {
-    let g = {};
-    const users = players.map((p) => {
-      if (winner.draw) {
-        p.record['tictactoe']['d']++;
-      }
-      if (winner && winner.uid === p.uid) {
-        p.record['tictactoe']['w']++;
-      } else if (!winner.draw) {
-        p.record['tictactoe']['l']++;
-      }
-      return p;
+  updateUsers(victor, p) {
+    const players = [p[0].uid, p[1].uid];
+    const [ob1, ob2] = players.map(player => this.userService.getUser(player));
+
+    ob1.combineLatest(ob2,
+      (user1, user2) => [user1, user2]
+    ).first().subscribe(users => {
+      console.log(users);
+      users.forEach(user => {
+        if (!victor.winner) {
+          user.records.tictactoe.d = user.records.tictactoe.d + 1;
+        } else if (user.uid === victor.winner.uid) {
+          user.records.tictactoe.w = user.records.tictactoe.w + 1;
+        } else {
+          user.records.tictactoe.l = user.records.tictactoe.l + 1;
+        }
+        this.userService.updateUser(user);
+      });
     });
-    users.forEach(u => this.userService.updateUser(u));
   }
 
   switchPlayer(idx) {

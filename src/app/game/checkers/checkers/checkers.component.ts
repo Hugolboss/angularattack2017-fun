@@ -212,7 +212,7 @@ export class CheckersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.checkersService.game.victor.winner) {
+    if (!this.checkersService.game.victor) {
       this.checkersService.game.state = 'abandoned';
       this.checkersService.updateState('abandoned');
     }

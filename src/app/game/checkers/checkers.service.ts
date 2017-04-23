@@ -54,10 +54,16 @@ export class CheckersService {
     this.gameObservable.update({currentPlayer: player});
   }
   updateFull(grid, players, victor) {
+    if (victor) {
+
+    }
     this.gameObservable.update({grid: grid, players: players, victor});
   }
   updateState (state) {
     this.gameObservable.update({state: state});
+  }
+  updateUser () {
+
   }
 
   setGameGrid() {
