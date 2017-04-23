@@ -25,9 +25,8 @@ export class ChatComponent implements OnInit {
         this.roomObservable = this.af.database.list('/users/' + auth.auth.uid + '/rooms/');
         this.roomObservable.subscribe(snapshot => {
           const matches = snapshot.filter(room => { return room.$key === 'global'; });
-          if(matches.length === 0){
-            snapshot.unshift({$key: 'global', $value: 'Global'});
-          };
+          if (matches.length === 0) { snapshot.unshift({$key: 'global', $value: 'Global'}); }
+          if(snapshot.filter(room => { return room.$key === this.selectedRoom; }).length === 0) { this.selectedRoom = 'global'; }
           this.rooms = snapshot;
         });
       }

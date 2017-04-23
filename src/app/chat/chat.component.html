@@ -10,7 +10,7 @@
 
 
   <div>
-    <md-select  [(ngModel)]="selectedRoom" (ngModelChange)="selectRoom();">
+    <md-select class="room-select"  [(ngModel)]="selectedRoom" (ngModelChange)="selectRoom();">
       <md-option *ngFor="let room of rooms" [value]="room.$key">{{room.$value}}</md-option>
     </md-select>
   </div>
