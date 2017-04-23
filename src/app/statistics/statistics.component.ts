@@ -12,7 +12,6 @@ export class StatisticsComponent implements OnInit {
   constructor(public dialogRef: MdDialogRef<StatisticsComponent>) { }
 
   ngOnInit() {
-    console.log(this.records);
   }
 
 }

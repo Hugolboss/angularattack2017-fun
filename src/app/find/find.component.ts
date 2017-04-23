@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { MdIcon, MdIconRegistry } from '@angular/material';
@@ -17,7 +17,7 @@ import { FindService } from './find.service';
   styleUrls: ['./find.component.less'],
   providers: [FindService, GameService]
 })
-export class FindComponent implements OnInit {
+export class FindComponent implements OnInit, OnChanges {
   @Input() game: string;
   @Input() user;
   games;
