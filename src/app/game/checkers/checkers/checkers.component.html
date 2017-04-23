@@ -1,8 +1,8 @@
 <div id="funPlayerContainer" *ngIf="checkersService.game && checkersService.game.players.length>1 && checkersService.game.currentPlayer">
-  <fun-player-info [players]="checkersService.game.players" [currentPlayer]="checkersService.game.currentPlayer" [playerWon]="checkersService.victor" [images]="images" [me]="me" ></fun-player-info>
+  <fun-player-info [players]="checkersService.game.players" [currentPlayer]="checkersService.game.currentPlayer" [victor]="checkersService.game.victor" [images]="images" [me]="me" [state]="checkersService.game.state" ></fun-player-info>
 </div>
 
-  <div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players.length > 1">
+  <div id="checkersContainer" [ngClass]="{active: checkersService.game.currentPlayer.uid === me.uid, black: checkersService.game.currentPlayer.icon === 'black'}" *ngIf="checkersService.game && checkersService.game.players.length > 1">
     <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)" [images]="images"></fun-board>
   </div>
 

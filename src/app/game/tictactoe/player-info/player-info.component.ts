@@ -9,9 +9,10 @@ import {Router} from '@angular/router';
 export class PlayerInfoComponent implements OnInit {
   @Input() players;
   @Input() currentPlayer;
-  @Input() playerWon;
+  @Input() victor;
   @Input() images;
   @Input() me;
+  @Input() state;
   constructor(private router: Router) { }
 
   ngOnInit() {

@@ -1,0 +1,13 @@
+<div md-dialog-title color="primary">
+  Player stats
+</div>
+<md-dialog-content>
+  <md-tab-group>
+    <md-tab label="Othello"><fun-stat-table [stats]="records?.othello"></fun-stat-table></md-tab>
+    <md-tab label="Checkers"><fun-stat-table [stats]="records?.checkers"></fun-stat-table></md-tab>
+    <md-tab label="Tic Tac Toe"><fun-stat-table [stats]="records?.tictactoe"></fun-stat-table></md-tab>
+  </md-tab-group>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-raised-button md-dialog-close color="accent">Close</button>
+</md-dialog-actions>

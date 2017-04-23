@@ -56,6 +56,9 @@ export class CheckersService {
   updateFull(grid, players, victor) {
     this.gameObservable.update({grid: grid, players: players, victor});
   }
+  updateState (state) {
+    this.gameObservable.update({state: state});
+  }
 
   setGameGrid() {
     const gameg = Array(8).fill(1).map((row, x) => {

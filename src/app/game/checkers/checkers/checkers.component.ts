@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CheckersService} from '../checkers.service';
 import {AuthService} from '../../../auth.service';
@@ -10,7 +10,7 @@ import {User} from '../../../user';
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./checkers.component.less']
 })
-export class CheckersComponent implements OnInit {
+export class CheckersComponent implements OnInit, OnDestroy {
   gameId;
   me;
   lastClick;
@@ -23,7 +23,7 @@ export class CheckersComponent implements OnInit {
         email: auth.auth.email,
         profile_picture: auth.auth.profile_picture,
         uid: auth.auth.uid,
-        username: auth.auth.displayName,
+        username: auth.auth.displayName
       });
     });
   }
@@ -53,17 +53,18 @@ export class CheckersComponent implements OnInit {
       }
     }
   }
+
   setPotentialMoves(moves, $state) {
     this.checkForOpponentPosition(this.checkersService.game.currentPlayer.opponentColor, $state, moves);
     if (moves.filter(m => m.valid).length !== 0) {
       this.setAvailable(moves);
-      this.lastClick = {x: $state.x, y: $state.y, content: $state.content};
+      this.lastClick = {x: $state.x, y: $state.y, content: $state.content, king: $state.king};
       this.potentialMoves = moves.filter(m => m.valid);
     }
   }
 
   checkForOpponentPosition(opc, state, moves) {
-    let gr =  this.checkersService.game.grid;
+    let gr = this.checkersService.game.grid;
     let opArr = [{x: state.x + 1, y: state.y + 1},
       {x: state.x + 1, y: state.y - 1},
       {x: state.x - 1, y: state.y + 1},
@@ -103,10 +104,11 @@ export class CheckersComponent implements OnInit {
     const jumped = potentialMoves.find(elm => to.x === elm.x);
     if (to) {
       let toGrid = this.checkersService.game.grid[to.x][to.y];
-      (to.x === 7 || to.x === 0 || toGrid.state.king) ? toGrid.state.king = true : '';
+      (to.x === 7 || to.x === 0 || from.king) ? toGrid.state.king = true : '';
       this.checkersService.game.grid[to.x][to.y].state.content = from.content;
     }
     if (from) {
+      this.checkersService.game.grid[from.x][from.y].state.king = false;
       this.checkersService.game.grid[from.x][from.y].state.content = ``;
     }
     if (jumped && jumped.opX) {
@@ -114,7 +116,7 @@ export class CheckersComponent implements OnInit {
       players = this.losePiece(jumped.opc);
       potentialMoves = [];
       this.checkForOpponentPosition(jumped.opc, to, potentialMoves);
-      if ( potentialMoves.length !== 0) {
+      if (potentialMoves.length !== 0) {
         this.clearAvailable(this.potentialMoves);
         this.setPotentialMoves(potentialMoves, to);
         dontReset = true;
@@ -122,14 +124,20 @@ export class CheckersComponent implements OnInit {
     }
     victor = this.checkForWinner();
     this.checkersService.updateFull(this.checkersService.game.grid, players, victor);
-    if(!dontReset) {
+    if (!dontReset) {
       this.resetTurn();
       this.updateCurrentUser();
     }
   }
 
   checkForWinner() {
-    return this.checkersService.game.players.filter(p => p.pieceCount !== 0).length <=1;
+    if (this.checkersService.game.players[0].pieceCount === 0 || this.checkersService.game.players[1].pieceCount === 0) {
+      return this.checkersService.game.players.reduce((acc, elm) => {
+        elm.pieceCount === 0 ? acc.loser = elm : acc.winner = elm;
+        return acc;
+      }, {});
+    }
+    return false;
 
   }
 
@@ -185,21 +193,29 @@ export class CheckersComponent implements OnInit {
 
     return valid;
   }
-  checkEmptyDirections ($state, direction) {
-    if(!$state.king) {
+
+  checkEmptyDirections($state, direction) {
+    if (!$state.king) {
       return [
         {x: $state.x + direction, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + direction, $state.y - 1)},
         {x: $state.x + direction, y: $state.y + 1, valid: this.checkLocationEmpty($state.x + direction, $state.y + 1)}
       ];
-    }else{
+    } else {
       return [
         {x: $state.x + 1, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + 1, $state.y - 1)},
         {x: $state.x + 1, y: $state.y + 1, valid: this.checkLocationEmpty($state.x + 1, $state.y + 1)},
-        {x: $state.x -1 , y: $state.y - 1, valid: this.checkLocationEmpty($state.x -1, $state.y - 1)},
-        {x: $state.x -1 , y: $state.y + 1, valid: this.checkLocationEmpty($state.x -1, $state.y + 1)}
+        {x: $state.x - 1, y: $state.y - 1, valid: this.checkLocationEmpty($state.x - 1, $state.y - 1)},
+        {x: $state.x - 1, y: $state.y + 1, valid: this.checkLocationEmpty($state.x - 1, $state.y + 1)}
       ];
     }
 
+  }
+
+  ngOnDestroy() {
+    if (!this.checkersService.game.victor.winner) {
+      this.checkersService.game.state = 'abandoned';
+      this.checkersService.updateState('abandoned');
+    }
   }
 
 }

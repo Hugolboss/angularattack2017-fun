@@ -72,9 +72,9 @@ export class OthelloComponent implements OnInit {
     this.othelloService.setStateDifferential();
     this.othelloService.combinedUpdate(this.othelloService.game.grid, currentUser);
     this.updateCounts();
-    this.checkVictory();
+    const hasVictory = this.checkVictory();
 
-    if (!this.hasMoves() && !this.othelloService.game.victor) {
+    if (!this.hasMoves() && !hasVictory) {
       this.othelloService.skipTurn(true);
     }
   }
@@ -111,22 +111,28 @@ export class OthelloComponent implements OnInit {
 
     if (p1Count === 0 || p2Count === 0 || p1Count + p2Count === 64) {
       this.getVictor();
+      return true;
     }
+    return false;
   }
 
   private getVictor() {
     const p1Count = this.othelloService.players[0].pieceCount;
     const p2Count = this.othelloService.players[1].pieceCount;
-    let winner;
+    let winnerName,
+      winner;
     if (p1Count === p2Count) {
-      winner = 'Tie';
+      winnerName = 'Tie';
     } else if (p1Count > p2Count) {
-      winner = this.othelloService.players[0].username;
+      winnerName = this.othelloService.players[0].username;
+      winner = this.othelloService.players[0];
     } else {
-      winner = this.othelloService.players[1].username;
+      winnerName = this.othelloService.players[1].username;
+      winner = this.othelloService.players[1];
     }
     this.othelloService.updateVictor({
       winner,
+      winnerName,
       p1Count,
       p1: this.othelloService.players[0],
       p2Count,

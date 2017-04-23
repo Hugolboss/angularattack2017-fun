@@ -4,6 +4,7 @@ import {MdDialog} from "@angular/material";
 import {SkipDialogComponent} from "./skip-dialog/skip-dialog.component";
 import _ from 'lodash';
 import {Subject} from "rxjs";
+import {UsersService} from "../../users.service";
 
 @Injectable()
 export class OthelloService {
@@ -15,7 +16,7 @@ export class OthelloService {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private angularFire: AngularFire, public skipDialog: MdDialog) {
+  constructor(private angularFire: AngularFire, public skipDialog: MdDialog, private userService: UsersService) {
     this.grid = this.setGameGrid();
   }
 
@@ -84,7 +85,26 @@ export class OthelloService {
   }
 
   updateVictor(victor) {
-    this.gameObservable.update({victor});
+    const players = [victor.p1.uid, victor.p2.uid];
+    const [ob1, ob2] = players.map(player => this.userService.getUser(player));
+
+    ob1.combineLatest(ob2,
+      (user1, user2) => [user1, user2]
+    ).subscribe(users => {
+      users.forEach(user => {
+        if (!victor.winner) {
+          user.records.othello.d = user.records.othello.d + 1;
+        } else if (user.uid === victor.winner.uid) {
+          user.records.othello.w = user.records.othello.w + 1;
+        } else {
+          user.records.othello.l = user.records.othello.l + 1;
+        }
+        this.userService.updateUser(user);
+      });
+      victor.p1.record = users[0].records.othello;
+      victor.p2.record = users[1].records.othello;
+      this.gameObservable.update({victor});
+    });
   }
 
   switchPlayer(idx) {

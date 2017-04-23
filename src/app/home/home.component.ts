@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
   }
 
   private snack() {
-    this.snackBar.open('Please select a game!', 'Close', {
+    this.snackBar.open('Please select a game type', 'Close', {
         duration: 3000
       });
   }
