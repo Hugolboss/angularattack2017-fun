@@ -1,14 +1,39 @@
-<div id="playerInfo" *ngIf="!playerWon">
-  <p class="playerNumber" *ngFor="let p of players" i18n>Player {{p.ind+1}}
-    <span class="playerName">{{p.username}}</span>
-    <img *ngIf="images" [src]="images[p.icon]"/>
-    <span class="counts" *ngIf="p.pieceCount">{{p.pieceCount}}</span>
-  </p>
+<!--<div id="playerInfo" *ngIf="!playerWon">-->
+  <!--<p class="playerNumber" *ngFor="let p of players" i18n>Player {{p.ind+1}}-->
+    <!--<span class="playerName">{{p.username}}</span>-->
+    <!--<img *ngIf="images" [src]="images[p.icon]"/>-->
+    <!--<span class="counts" *ngIf="p.pieceCount">{{p.pieceCount}}</span>-->
+  <!--</p>-->
 
-  <p i18n class="playerNumber" *ngIf="me.uid === currentPlayer.uid"> Its your turn
-    <img *ngIf="images" [src]="images[currentPlayer.icon]"/></p>
-</div>
-<div id="victorInfo" class="playerNumber" *ngIf="playerWon">
-  <span i18n *ngIf="playerWon.icon"> Winner is <img *ngIf="images" [src]="images[playerWon.icon]"/></span>
-  <span i18n *ngIf="playerWon.draw"> This Game Was a Draw</span>
-</div>
+  <!--<p i18n class="playerNumber" *ngIf="me.uid === currentPlayer.uid"> Its your turn-->
+    <!--<img *ngIf="images" [src]="images[currentPlayer.icon]"/></p>-->
+<!--</div>-->
+<!--<div id="victorInfo" class="playerNumber" *ngIf="playerWon">-->
+  <!--<span i18n *ngIf="playerWon.icon"> Winner is <img *ngIf="images" [src]="images[playerWon.icon]"/></span>-->
+  <!--<span i18n *ngIf="playerWon.draw"> This Game Was a Draw</span>-->
+<!--</div>-->
+<header id="gameHeader">
+  <md-card *ngIf="players && players[0]">
+    <md-card-header>
+      <md-card-title>Player 1: {{players[0].username}}</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <p  *ngIf="players[0].pieceCount">Current Score: {{players[0].pieceCount}}</p>
+      <p><img *ngIf="images" [src]="images[players[0].icon]"/></p>
+    </md-card-content>
+  </md-card>
+  <md-card *ngIf="players && players[1]" class="move-right">
+    <md-card-header>
+      <md-card-title>Player 2: {{players[1].username}}</md-card-title>
+    </md-card-header>
+    <md-card-content >
+      <p *ngIf="players[1].pieceCount">Current Score: {{players[1].pieceCount}}</p>
+      <p><img *ngIf="images" [src]="images[players[1].icon]"/></p>
+    </md-card-content>
+  </md-card>
+</header>
+<section id="Victor" class="mat-card" *ngIf="playerWon">
+  <h3 *ngIf="playerWon.icon">Winner is {{playerWon.username}}</h3>
+  <h3 *ngIf="playerWon.draw">Players have tied!</h3>
+  <button md-raised-button (click)="backToLobby()">Back To Lobby</button>
+</section>

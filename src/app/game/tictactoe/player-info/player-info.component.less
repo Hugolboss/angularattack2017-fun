@@ -1,31 +1,28 @@
 :host {
-  width:400px;
-  margin-top: 20px;
-  display: flex;
-  color:#fff;
-  margin-left: 100px;
 
-  #playerInfo{
-    display: flex;
-    .playerNumber{
-      font-size: 27px;
-      .playerName{
-      font-weight:800 ;
-      }
-      img{
-        width: 65px;
-        height: 65px;
-        background: #fff url('../../../../assets/backFrame.png') no-repeat right top;
-      }
-    }
-  }
-  #victorInfo{
-    display: flex;
-    font-size: 27px;
-    img{
+  md-card {
+    width: 200px;
+    display: inline-block;
+    margin: 8px;
+    img {
       width: 65px;
       height: 65px;
       background: #fff url('../../../../assets/backFrame.png') no-repeat right top;
     }
+  }
+  .move-right {
+    float: right;
+  }
+  #Victor {
+    z-index: 9999;
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    left: 20%;
+    width: 30%;
+    background-color: #FFF;
+  }
+  .content-area {
+    background: #EFEFEF;
   }
 }

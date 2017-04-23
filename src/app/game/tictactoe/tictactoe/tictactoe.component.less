@@ -1,42 +1,40 @@
-@my-app-accent: #2196f3;
-h2{
-  color: #ffffff;
+:host {
+
+ }
+#gameContainer {
+  max-width: 550px;
+  width: 800px;
+  margin: 50px auto;
+  margin-top: -60px;
+
 }
-#gameBlocks {
+md-grid-tile.mat-grid-tile {
+  //background: transparent;
+  border: 1px solid black;
 
-  display: flex;
-  #gameContainer {
-    margin: 75px;
-    width: 400px;
-    height: 400px;
-    background: #ffffff url("../../../../assets/0001.png") repeat-y right top;
-    md-grid-tile.mat-grid-tile {
-      background: transparent;
-      border: 1px solid black;
-      &:hover {
-        box-shadow: 1px 1px 0.5px #888888;
-      }
-      &:active {
-        box-shadow: inset 2px 2px 1px #888888;
-      }
-      fun-cell {
-        width: 50px;
-        height: 50px;
+  background: #ffffff url("../../../../assets/0001.png") repeat-y right top;
+  &:hover {
+    box-shadow: 1px 1px 0.5px #888888;
+  }
+  &:active {
+    box-shadow: inset 2px 2px 1px #888888;
+  }
+  fun-cell {
+    width: 50px;
+    height: 50px;
 
-        img {
-          width: 45px;
-          height: 45px;
-
-        }
-        span.x {
-          font-size: 1px;
-        }
-        span.o {
-          font-size: 1px;
-        }
-
-      }
+    img {
+      width: 45px;
+      height: 45px;
 
     }
+    span.x {
+      font-size: 1px;
+    }
+    span.o {
+      font-size: 1px;
+    }
+
   }
+
 }

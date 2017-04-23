@@ -1,54 +1,30 @@
-h2{
-  color: #ffffff;
-}
-#checkerMainContainer {
-  display: flex;
-  #gameInfoContainer{
-    width:400px;
-    margin-top: 20px;
-    display: flex;
-    color:#fff;
-    margin-left: 100px;
 
-    #playerInfo{
-      display: flex;
-      .playerNumber{
-        font-size: 27px;
-        .playerName{
-          font-weight:800 ;
-        }
-        img{
-          width: 65px;
-          height: 65px;
-          background: #fff url('../../../../assets/backFrame.png') no-repeat right top;
-        }
+#checkersContainer {
+  margin: 20px auto;
+  margin-top: -120px;
+  max-width: 700px;
+  md-grid-tile.mat-grid-tile  {
+    background-color: black;
+    border: 2px solid white;
+    color: #fff;
+    font-size: 1px;
+    img{
+      width:65px;
+    }
+    &.even {
+
+      &:nth-child(odd) {
+        background-color: red;
       }
     }
-
-  }
-  #checkersContainer {
-    width: 50%;
-    min-width:500px;
-    md-grid-tile {
-      background-color: black;
-      border: 2px solid white;
-      color: #fff;
-      font-size: 1px;
-      &.even {
-
-        &:nth-child(odd) {
-          background-color: red;
-        }
+    &.odd {
+      &:nth-child(even) {
+        background-color: red;
       }
-      &.odd {
-        &:nth-child(even) {
-          background-color: red;
-        }
-      }
-      &.available {
-        border: 3px solid blue;
-      }
-
     }
+    &.available {
+      border: 3px solid blue;
+    }
+
   }
 }
