@@ -3,15 +3,26 @@
 @import "~ng2-dnd/bundles/style.css";
 
 
-.content-area{
-
-  background: #c4ad8e url("./assets/GamesBackGround.png") no-repeat ;
+html {
+  background: rgb(96, 125, 139) url("./assets/GamesBackGround.png") no-repeat ;
+  background-size: cover;
 }
 
 
 md-card.mat-card {
   background: fade(white, 95%);
-  button, md-button-toggle {
-    background: fade(white, 100%);
+  button {
+    background: fade(#2196f3, 100%);
   }
+}
+
+.mat-button-toggle {
+  background: fade(white, 100%);
+}
+.mat-button-toggle-checked .mat-button-toggle-label-content {
+  background: fade(lighten(#546E7A, 40%), 100%);
+}
+
+h3 {
+  cursor: default;
 }
