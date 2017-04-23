@@ -11,7 +11,6 @@ export class StatTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.stats);
   }
 
 }

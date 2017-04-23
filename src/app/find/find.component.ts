@@ -59,7 +59,7 @@ export class FindComponent implements OnInit, OnChanges {
     .first()
     .subscribe(p => {
       let dialogRef:MdDialogRef<StatisticsComponent> = this.dialog.open(StatisticsComponent, config);
-      dialogRef.componentInstance.records = p.records;
+      dialogRef.componentInstance.player = p;
     });
   }
 
