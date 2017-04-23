@@ -5,6 +5,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {CheckersService} from './checkers.service';
 
 
+
 @NgModule({
   imports: [
     CommonModule,

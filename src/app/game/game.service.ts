@@ -12,10 +12,11 @@ export class GameService {
     // push a new game to collection, add creator
     return this.af.database.list('/games/').push({
       'game': game,
+      'state': 'pending',
       'players': [ Object.assign({}, player, {ind:0}) ]
     // return key as route param
     }).key;
-  }
+  };
 
   joinGame = (key, player) => {
     // get game to be joined
@@ -24,7 +25,8 @@ export class GameService {
         if (game.players.length <= 1 ) {
           game.players.push(Object.assign({}, player, {ind:1}));
         }
-      joining.update({'players': game.players});
+        game.state = 'started';
+      joining.update({'players': game.players, state: 'started'});
     });
   }
 }

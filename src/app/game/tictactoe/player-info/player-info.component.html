@@ -2,9 +2,12 @@
   <p class="playerNumber" *ngFor="let p of players" i18n>Player {{p.ind+1}}
     <span class="playerName">{{p.username}}</span>
     <img *ngIf="images" [src]="images[p.icon]"/>
+    <span class="counts" *ngIf="p.pieceCount">{{p.pieceCount}}</span>
   </p>
-  <p i18n> Its your turn  {{currentPlayer.username}}</p>
+
+  <p i18n class="playerNumber"> Its your turn
+    <img *ngIf="images" [src]="images[currentPlayer.icon]"/></p>
 </div>
-<div id="victorInfo" *ngIf="playerWon">
-  <span i18n> {{playerWon}} Is the victor</span>
+<div id="victorInfo" class="playerNumber" *ngIf="playerWon">
+  <span i18n> Winner is <img *ngIf="images" [src]="images[playerWon]"/></span>
 </div>

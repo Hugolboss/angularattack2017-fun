@@ -1,13 +1,11 @@
 <h2 i18n>Welcome to Checkers Game - {{gameId}}</h2>
 
 <div id="checkerMainContainer">
-  <div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players">
+  <div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players.length > 1">
     <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)" [images]="images"></fun-board>
   </div>
-  <div id="gameInfoContainer" >
-      <p class="playerOne"  *ngIf="checkersService.game && checkersService.game.players[0]"> Player One - {{checkersService.game.players[0].username}} - Piece Count - {{checkersService.game.players[0].pieceCount}}</p>
-    <p class="playerTwo" *ngIf="checkersService.game && checkersService.game.players[1]"> Player Two - {{checkersService.game.players[1].username}} - {{checkersService.game.players[0].pieceCount}}</p>
-    <p> Current Player Is {{checkersService.game.currentPlayer.username}}</p>
+  <div id="funPlayerContainer" *ngIf="checkersService.game && checkersService.game.players.length>1 && checkersService.game.currentPlayer">
+    <fun-player-info [players]="checkersService.game.players" [currentPlayer]="checkersService.game.currentPlayer" [playerWon]="checkersService.victor" [images]="images" ></fun-player-info>
   </div>
 
 </div>

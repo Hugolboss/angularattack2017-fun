@@ -24,6 +24,7 @@ export class TictactoeComponent implements OnInit {
   victor;
   players;
 
+
   constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
       this.me = new User({
@@ -74,12 +75,12 @@ export class TictactoeComponent implements OnInit {
       play.icon = this.symbols[i];
       return play;
     });
-    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor: '', players: this.game.players});
+    ob.update({grid: this.grid, currentPlayer: this.game.players[0], victor: '', players: this.game.players, count: 0});
   }
 
   update() {
     const ob = this.fire.database.object('/games/' + this.gameId);
-    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer});
+    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, count: this.game.count++});
   }
 
   declareVictory(winner) {

@@ -23,12 +23,12 @@ export class CheckersService {
 
       this.players = game.players.map( (p, i) => {
         p.ind = i;
-        p.pieceColor = i === 0 ? 'red' : 'black';
+        p.icon = i === 0 ? 'red' : 'black';
         p.opponentColor = i === 0 ? 'black' : 'red';
         p.pieceCount = 12;
         return p;
       });
-      this.updatePlayers(this.players);
+      this.updatePlayersAndCurrent(this.players, this.players[0]);
     }
       if (!game.grid) {
         this.InitUpdate();
@@ -38,7 +38,7 @@ export class CheckersService {
   }
 
   InitUpdate() {
-    this.gameObservable.update({grid: this.grid, currentPlayer: this.players[0]});
+    this.gameObservable.update({grid: this.grid});
   }
 
   update(grid) {
@@ -47,8 +47,14 @@ export class CheckersService {
   updatePlayers(players) {
     this.gameObservable.update({players: players});
   }
+  updatePlayersAndCurrent(players, current) {
+    this.gameObservable.update({players: players, currentPlayer: current});
+  }
   updateCurrentPlayer(player) {
     this.gameObservable.update({currentPlayer: player});
+  }
+  updateFull(grid, players, victor) {
+    this.gameObservable.update({grid: grid, players: players, victor});
   }
 
   setGameGrid() {

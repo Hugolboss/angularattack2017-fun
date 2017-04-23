@@ -1,11 +1,13 @@
-@my-app-accent:  #2196f3;
-
+@my-app-accent: #2196f3;
+h2{
+  color: #ffffff;
+}
 #gameBlocks {
 
   display: flex;
-  #gameContainer{
+  #gameContainer {
     margin: 75px;
-    width:400px;
+    width: 400px;
     height: 400px;
     background: #ffffff url("../../../../assets/0001.png") repeat-y right top;
     md-grid-tile.mat-grid-tile {
@@ -17,22 +19,23 @@
       &:active {
         box-shadow: inset 2px 2px 1px #888888;
       }
-      fun-cell{
-        width:50px;
+      fun-cell {
+        width: 50px;
         height: 50px;
-    img{
-      width: 45px;
-      height: 45px;
-    }
+
+        img {
+          width: 45px;
+          height: 45px;
+
+        }
         span.x {
           font-size: 1px;
         }
-        span.o{
+        span.o {
           font-size: 1px;
         }
 
       }
-
 
     }
   }

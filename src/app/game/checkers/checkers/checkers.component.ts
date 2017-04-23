@@ -15,7 +15,7 @@ export class CheckersComponent implements OnInit {
   me;
   lastClick;
   potentialMoves;
-  images = { red: '../../../../../assets/red-piece.png', black: '../../../../../assets/black-piece.png' };
+  images = {red: '../../../../../assets/red-piece.png', black: '../../../../../assets/black-piece.png'};
 
   constructor(private route: ActivatedRoute, public checkersService: CheckersService, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
@@ -40,7 +40,7 @@ export class CheckersComponent implements OnInit {
     if (currentp.uid !== this.me.uid) {
       return;
     }
-    if (this.checkValidPiece($state.content, this.checkersService.game.currentPlayer.pieceColor) && !this.lastClick) {
+    if (this.checkValidPiece($state.content, this.checkersService.game.currentPlayer.icon) && !this.lastClick) {
       const direction = ($state.content === 'black') ? 1 : -1;
       const moves = [
         {x: $state.x + direction, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + direction, $state.y - 1)},
@@ -96,6 +96,8 @@ export class CheckersComponent implements OnInit {
   }
 
   movePiece(to, from, potentialMoves) {
+    let players = this.checkersService.game.players;
+    let victor = false;
     const jumped = potentialMoves.find(elm => to.x === elm.x);
     if (to) {
       this.checkersService.game.grid[to.x][to.y].state.content = from.content;
@@ -105,21 +107,28 @@ export class CheckersComponent implements OnInit {
     }
     if (jumped && jumped.opX) {
       this.checkersService.game.grid[jumped.opX][jumped.opY].state.content = ``;
-      this.losePiece(jumped.opc);
+      players = this.losePiece(jumped.opc);
     }
-    this.checkersService.update(this.checkersService.game.grid);
+    victor = this.checkForWinner();
+    this.checkersService.updateFull(this.checkersService.game.grid, players, victor);
     this.resetTurn();
     this.updateCurrentUser();
+
+  }
+
+  checkForWinner() {
+    return this.checkersService.game.players.filter(p => p.pieceCount !== 0).length <=1;
+
   }
 
   losePiece(color) {
     const players = this.checkersService.players.map(p => {
-      if (p.pieceColor === color) {
+      if (p.icon === color) {
         p.pieceCount--;
       }
       return p;
-    })
-   // this.checkersService.updatePlayers(players);
+    });
+    return players;
   }
 
   updateCurrentUser() {
