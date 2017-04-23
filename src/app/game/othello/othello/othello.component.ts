@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AuthService} from "../../../auth.service";
 import {User} from "../../../user";
 import {OthelloService} from "../othello.service";
 import _ from 'lodash';
-import {MdDialog} from "@angular/material";
-import {SkipDialogComponent} from "../skip-dialog/skip-dialog.component";
 
 const XImage = 'http://www.clipartkid.com/images/19/black-circle-clip-art-png-and-svg-GmosNX-clipart.png';
 const OImage = 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Circle_-_black_simple.svg';
@@ -27,7 +25,7 @@ export class OthelloComponent implements OnInit {
   images;
   victor;
 
-  constructor(private route: ActivatedRoute, public othelloService: OthelloService, private authService: AuthService, public skipDialog: MdDialog) {
+  constructor(private route: ActivatedRoute, public othelloService: OthelloService, private authService: AuthService, private router: Router) {
     this.authService.getAuthObservable().subscribe(auth => {
       this.me = new User({
         email: auth.auth.email,
@@ -47,15 +45,6 @@ export class OthelloComponent implements OnInit {
       X: XImage,
       O: OImage
     }
-  }
-
-  switchPlayer(idx) {
-    if (idx === 0) {
-      this.othelloService.game.currentPlayer = this.othelloService.players[1];
-    } else {
-      this.othelloService.game.currentPlayer = this.othelloService.players[0];
-    }
-    return this.othelloService.game.currentPlayer;
   }
 
   onClick({x, y}) {
@@ -79,17 +68,14 @@ export class OthelloComponent implements OnInit {
     });
 
     const idx = this.othelloService.players.find(p => p.uid === curr.uid).ind;
-    const currentUser = this.switchPlayer(idx);
+    const currentUser = this.othelloService.switchPlayer(idx);
     this.othelloService.setStateDifferential();
     this.othelloService.combinedUpdate(this.othelloService.game.grid, currentUser);
+    this.updateCounts();
     this.checkVictory();
 
-    if (!this.hasMoves() && !this.victor) {
-      this.skipDialog.open(SkipDialogComponent);
-      const idx = this.othelloService.players.find(p => p.uid === curr.uid).ind;
-      const currentUser = this.switchPlayer(idx);
-      this.othelloService.setStateDifferential();
-      this.othelloService.combinedUpdate(this.othelloService.game.grid, currentUser);
+    if (!this.hasMoves() && !this.othelloService.game.victor) {
+      this.othelloService.skipTurn(true);
     }
   }
 
@@ -98,38 +84,54 @@ export class OthelloComponent implements OnInit {
     return flattenedGrid.some(cell => cell.moveDifferential && cell.moveDifferential.length);
   }
 
-  private checkVictory() {
+  private updateCounts() {
     const flattenedGrid = _.flatten(this.othelloService.game.grid);
-    if (flattenedGrid.every(cell => cell.state.player)) {
-      const p1Count = flattenedGrid.reduce((count, cell) => {
-        if (cell.state.player.uid === this.othelloService.players[0].uid) {
-          count++;
-        }
-        return count;
-      }, 0);
-
-      const p2Count = flattenedGrid.reduce((count, cell) => {
-        if (cell.state.player.uid === this.othelloService.players[1].uid) {
-          count++;
-        }
-        return count;
-      }, 0);
-      let winner;
-      if (p1Count === p2Count) {
-        winner = 'Tie';
-      } else if (p1Count > p2Count) {
-        winner = this.othelloService.players[0].username;
-      } else {
-        winner = this.othelloService.players[1].username;
+    const p1Count = flattenedGrid.reduce((count, cell) => {
+      if (cell.state.player && cell.state.player.uid === this.othelloService.players[0].uid) {
+        count++;
       }
-      this.victor = {
-        winner,
-        p1Count,
-        p1: this.othelloService.players[0],
-        p2Count,
-        p2: this.othelloService.players[0]
-      };
+      return count;
+    }, 0);
+
+    const p2Count = flattenedGrid.reduce((count, cell) => {
+      if (cell.state.player && cell.state.player.uid === this.othelloService.players[1].uid) {
+        count++;
+      }
+      return count;
+    }, 0);
+
+    this.othelloService.players[0].pieceCount = p1Count;
+    this.othelloService.players[1].pieceCount = p2Count;
+    this.othelloService.updatePlayers(this.othelloService.players);
+  }
+
+  private checkVictory() {
+    const p1Count = this.othelloService.players[0].pieceCount;
+    const p2Count = this.othelloService.players[1].pieceCount;
+
+    if (p1Count === 0 || p2Count === 0 || p1Count + p2Count === 64) {
+      this.getVictor();
     }
+  }
+
+  private getVictor() {
+    const p1Count = this.othelloService.players[0].pieceCount;
+    const p2Count = this.othelloService.players[1].pieceCount;
+    let winner;
+    if (p1Count === p2Count) {
+      winner = 'Tie';
+    } else if (p1Count > p2Count) {
+      winner = this.othelloService.players[0].username;
+    } else {
+      winner = this.othelloService.players[1].username;
+    }
+    this.othelloService.updateVictor({
+      winner,
+      p1Count,
+      p1: this.othelloService.players[0],
+      p2Count,
+      p2: this.othelloService.players[1]
+    });
   }
 
   onMouseOver(cell) {
@@ -146,5 +148,9 @@ export class OthelloComponent implements OnInit {
     if (!cell.active) {
       cell.state.content = `${cell.state.x}, ${cell.state.y}`;
     }
+  }
+
+  backToLobby() {
+    this.router.navigate(['/']);
   }
 }

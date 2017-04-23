@@ -115,7 +115,8 @@ export class CheckersComponent implements OnInit {
       players = this.losePiece(jumped.opc);
       potentialMoves = [];
       this.checkForOpponentPosition(jumped.opc, to, potentialMoves);
-      if(potentialMoves.length !== 0) {
+      if ( potentialMoves.length !== 0) {
+        this.clearAvailable(this.potentialMoves);
         this.setPotentialMoves(potentialMoves, to);
         dontReset = true;
       }
@@ -179,7 +180,7 @@ export class CheckersComponent implements OnInit {
 
   checkLocationEmpty(x, y) {
     let valid = false;
-    if (this.checkersService.game.grid[x][y]) {
+    if (this.checkersService.game.grid[x] && this.checkersService.game.grid[x][y]) {
       valid = !this.checkValidPiece(this.checkersService.game.grid[x][y].state.content, null);
     }
 

@@ -11,6 +11,7 @@ import { SkipDialogComponent } from './skip-dialog/skip-dialog.component';
     SharedModule
   ],
   providers: [OthelloService],
-  declarations: [OthelloComponent, SkipDialogComponent]
+  declarations: [OthelloComponent, SkipDialogComponent],
+  entryComponents: [SkipDialogComponent]
 })
 export class OthelloModule { }
