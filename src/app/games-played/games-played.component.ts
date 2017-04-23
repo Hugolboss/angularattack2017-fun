@@ -15,7 +15,6 @@ export class GamesPlayedComponent implements OnInit {
     this.statisticsService.getGameStatistics()
       .takeUntil(this.unsubscribe)
       .subscribe(games => {
-        console.log(games);
         this.games = {
           started: games.started,
           completed: games.completed,
