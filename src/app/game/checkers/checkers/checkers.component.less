@@ -1,23 +1,35 @@
-#checkersContainer {
-  width:400px;
-  md-grid-tile{
-    background-color: black;
-    border: 2px solid white;
-    color:#fff;
-    &.even{
-      &:nth-child(odd){
-        background-color: red;
-      }
+#checkerMainContainer {
+  display: flex;
+  #gameInfoContainer{
+    margin: 50px;
+    .playerOne{
+
     }
-    &.odd{
-      &:nth-child(even){
-        background-color: red;
-      }
-    }
-    &.available{
-      border: 3px solid blue;
+    .playerTwo{
+
     }
 
+  }
+  #checkersContainer {
+    width: 600px;
+    md-grid-tile {
+      background-color: black;
+      border: 2px solid white;
+      color: #fff;
+      &.even {
+        &:nth-child(odd) {
+          background-color: red;
+        }
+      }
+      &.odd {
+        &:nth-child(even) {
+          background-color: red;
+        }
+      }
+      &.available {
+        border: 3px solid blue;
+      }
 
+    }
   }
 }
