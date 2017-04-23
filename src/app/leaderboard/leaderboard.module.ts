@@ -10,6 +10,9 @@ import { MaterialModule } from './../shared/material/material.module';
     MaterialModule,
     SharedModule
   ],
+  exports: [
+    LeaderboardComponent
+  ],
   declarations: [LeaderboardComponent]
 })
 export class LeaderboardModule { }

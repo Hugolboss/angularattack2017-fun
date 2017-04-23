@@ -1,3 +1,4 @@
+<div style="flex:1;">
 <md-card>
   <md-card-header>
     <h3>Choose a game</h3>
@@ -19,6 +20,21 @@
     </md-card-actions>
   </div>
 </md-card>
+<md-card>
+  <md-card-header>
+    <h3>Leaderboard - {{gameNamePretty || 'Othello'}}</h3>
+  </md-card-header>
+  <md-card-content>
+    <fun-leaderboard [game]="game"></fun-leaderboard>
+  </md-card-content>
+</md-card>
+  <md-card>
+    <md-card-content>
+      <fun-games-played></fun-games-played>
+    </md-card-content>
+  </md-card>
+</div>
+<div style="flex:2">
 <md-card class="find">
   <md-card-header>
     <h4 i18n>Available games</h4>
@@ -27,3 +43,5 @@
     <fun-find [game]="game" [user]="user"></fun-find>
   </md-card-content>
 </md-card>
+
+</div>

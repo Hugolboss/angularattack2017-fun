@@ -1,4 +1,12 @@
 <md-list>
-  <md-list-item *ngFor="let leader of leaders">
+  <md-list-item style="height:25px;">
+    <span style="font-size:14px;font-weight:bold;">User</span>
+    <span style="flex:1 1 auto"></span>
+    <span style="font-size:14px;font-weight:bold;">Wins</span>
+  </md-list-item>
+  <md-list-item style="height:25px;" *ngFor="let leader of leaders">
+    <span style="font-size:14px;">{{leader.username}}</span>
+    <span style="flex:1 1 auto"></span>
+    <span style="font-size:14px;">{{leader.records[game||'othello'].w}}</span>
   </md-list-item>
 </md-list>

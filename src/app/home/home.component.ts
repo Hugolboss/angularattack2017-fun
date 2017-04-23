@@ -15,6 +15,7 @@ import { User } from './../user';
 export class HomeComponent implements OnInit {
 
   game: string;
+  gameNamePretty: string;
   user;
 
   constructor(private authService: AuthService, public snackBar: MdSnackBar, private router: Router, private gameService: GameService) {
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
 
   handleToggle(e) {
     this.game = e.value;
+    this.gameNamePretty = this.prettyName(e.value);
   }
 
   createGame() {
