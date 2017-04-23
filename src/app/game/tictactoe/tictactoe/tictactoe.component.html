@@ -1,16 +1,12 @@
-<h2 i18n *ngIf="game">
-    Welcome to  {{game.game}}
-</h2>
 
-<div id="gameBlocks">
+<div *ngIf="game && game.players.length>1 && game.currentPlayer">
+  <fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="game.victor" [images]="images" [me]="me" ></fun-player-info>
+</div>
+
 
   <div id="gameContainer" *ngIf="game && game.players.length>1">
     <fun-board [grid]="game.grid" [x]="3" [y]="3" (onClick)="onClick($event)" [images]="images"></fun-board>
   </div>
-  <div id="funPlayerContainer" *ngIf="game && game.players.length>1 && game.currentPlayer">
-  <fun-player-info [players]="game.players" [currentPlayer]="game.currentPlayer" [playerWon]="game.victor" [images]="images" [me]="me" ></fun-player-info>
-</div>
-</div>
 
 <div class="WaitingMessage"*ngIf="game && game.state === 'pending'" id="waitingForPlayers" i18n>
   Waiting For a second player

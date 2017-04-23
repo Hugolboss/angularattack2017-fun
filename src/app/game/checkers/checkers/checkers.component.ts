@@ -42,10 +42,7 @@ export class CheckersComponent implements OnInit {
     }
     if (this.checkValidPiece($state.content, this.checkersService.game.currentPlayer.icon) && !this.lastClick) {
       const direction = ($state.content === 'black') ? 1 : -1;
-      const moves = [
-        {x: $state.x + direction, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + direction, $state.y - 1)},
-        {x: $state.x + direction, y: $state.y + 1, valid: this.checkLocationEmpty($state.x + direction, $state.y + 1)}
-      ];
+      const moves = this.checkEmptyDirections($state, direction);
       this.setPotentialMoves(moves, $state);
     } else if (this.lastClick) {
       if ($state.x === this.lastClick.x && $state.y === this.lastClick.y) {
@@ -105,6 +102,8 @@ export class CheckersComponent implements OnInit {
     let dontReset = false;
     const jumped = potentialMoves.find(elm => to.x === elm.x);
     if (to) {
+      let toGrid = this.checkersService.game.grid[to.x][to.y];
+      (to.x === 7 || to.x === 0 || toGrid.state.king) ? toGrid.state.king = true : '';
       this.checkersService.game.grid[to.x][to.y].state.content = from.content;
     }
     if (from) {
@@ -185,6 +184,22 @@ export class CheckersComponent implements OnInit {
     }
 
     return valid;
+  }
+  checkEmptyDirections ($state, direction) {
+    if(!$state.king) {
+      return [
+        {x: $state.x + direction, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + direction, $state.y - 1)},
+        {x: $state.x + direction, y: $state.y + 1, valid: this.checkLocationEmpty($state.x + direction, $state.y + 1)}
+      ];
+    }else{
+      return [
+        {x: $state.x + 1, y: $state.y - 1, valid: this.checkLocationEmpty($state.x + 1, $state.y - 1)},
+        {x: $state.x + 1, y: $state.y + 1, valid: this.checkLocationEmpty($state.x + 1, $state.y + 1)},
+        {x: $state.x -1 , y: $state.y - 1, valid: this.checkLocationEmpty($state.x -1, $state.y - 1)},
+        {x: $state.x -1 , y: $state.y + 1, valid: this.checkLocationEmpty($state.x -1, $state.y + 1)}
+      ];
+    }
+
   }
 
 }

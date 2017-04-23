@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'fun-player-info',
@@ -11,9 +12,12 @@ export class PlayerInfoComponent implements OnInit {
   @Input() playerWon;
   @Input() images;
   @Input() me;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+  backToLobby() {
+    this.router.navigate(['/']);
   }
 
 }

@@ -18,7 +18,7 @@ import { ChatModule } from './chat/chat.module';
 import {DndModule} from "ng2-dnd";
 import { CheckersModule } from './game/checkers/checkers.module';
 import { FindComponent } from './find/find.component';
-import {OthelloModule} from "./game/othello/othello.module";
+import { OthelloModule } from "./game/othello/othello.module";
 import { StatisticsService } from './statistics/statistics.service';
 
 @NgModule({

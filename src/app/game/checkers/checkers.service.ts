@@ -68,7 +68,7 @@ export class CheckersService {
           (x % 2 === 0 && y % 2 !== 0) ? content = 'red' : '';
           (x % 2 !== 0 && y % 2 === 0) ? content = 'red' : '';
         }
-        return {row: x % 2 === 0 ? 'even' : 'odd', active: false, state: {content: content, x, y, available: false}};
+        return {row: x % 2 === 0 ? 'even' : 'odd', active: false, state: {content: content, x, y, available: false, king: false}};
       });
     });
     return gameg;

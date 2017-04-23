@@ -25,8 +25,10 @@ export class GameService {
         if (game.players.length <= 1 ) {
           game.players.push(Object.assign({}, player, {ind:1}));
         }
-        game.state = 'started';
-      joining.update({'players': game.players, state: 'started'});
+        if( game.state === 'pending') {
+          game.state = 'started';
+        joining.update({'players': game.players, state: 'started'});
+        }
     });
   }
 }

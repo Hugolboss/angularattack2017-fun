@@ -4,12 +4,21 @@
 }
 md-card {
     &.find {
-        margin-bottom: 1em;
+        md-card-header {
+            margin-bottom: 2em;
+            padding-bottom: 2em;
+            line-height: 1em;
+            min-height: 1em;
+        }
         overflow-y: auto;
     }
     md-card-header {
         height: 2em;
-        padding-bottom: 3em;
+        padding-bottom: 2em;
+        border-bottom: 1px solid lighten(#546E7A, 40%);
+        &:first-of-type {
+            margin-bottom: 1em;
+        }
     }
     flex: 1;
     display: flex;
@@ -27,6 +36,9 @@ md-card {
         flex: 0 1;
         align-content: center;
         justify-content: center;
+        transform: scale(1.5);
+        margin-bottom: 1em;
+        margin-top: 1em;
     }
     md-card-actions {
         flex: 1;
