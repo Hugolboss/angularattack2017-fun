@@ -3,9 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import 'hammerjs';
-// kendo ui modules
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { ChartsModule } from '@progress/kendo-angular-charts';
 
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,8 +33,6 @@ import { StatisticsService } from './statistics/statistics.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ButtonsModule,
-    ChartsModule,
     AppRoutingModule,
     DndModule.forRoot(),
     SharedModule,
