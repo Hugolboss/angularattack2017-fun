@@ -2,7 +2,7 @@
 
 <div id="checkerMainContainer">
   <div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players">
-    <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)"></fun-board>
+    <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)" [images]="images"></fun-board>
   </div>
   <div id="gameInfoContainer" >
       <p class="playerOne"  *ngIf="checkersService.game && checkersService.game.players[0]"> Player One - {{checkersService.game.players[0].username}} - Piece Count - {{checkersService.game.players[0].pieceCount}}</p>

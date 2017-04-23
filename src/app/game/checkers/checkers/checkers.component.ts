@@ -15,6 +15,7 @@ export class CheckersComponent implements OnInit {
   me;
   lastClick;
   potentialMoves;
+  images = { red: '../../../../../assets/red-piece.png', black: '../../../../../assets/black-piece.png' };
 
   constructor(private route: ActivatedRoute, public checkersService: CheckersService, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
