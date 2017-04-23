@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import "~@progress/kendo-theme-default/scss/all";
 @include mat-core();
 
 $my-app-primary: mat-palette($mat-blue-grey);
@@ -11,4 +12,9 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 body {
   margin: 0px;
+  font: Roboto, "Helvetica Nue", sans-serif;
+}
+
+md-card {
+  background-color: opacify(white, .7);
 }
