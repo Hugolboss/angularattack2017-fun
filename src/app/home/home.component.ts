@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  private prettyName(name) {
+  public prettyName(name) {
     return {
       tictactoe: 'Tic Tac Toe',
       checkers: 'Checkers',
