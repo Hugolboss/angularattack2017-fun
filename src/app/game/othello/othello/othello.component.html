@@ -1,5 +1,5 @@
 <header id="othelloGameHeader">
-  <md-card *ngIf="othelloService.players && othelloService.players[0]">
+  <md-card *ngIf="othelloService.players && othelloService.players[0]" [ngClass]="{'active': othelloService.game.currentPlayer.uid === othelloService.players[0].uid}">
     <md-card-header>
       <md-card-title>Player 1: {{othelloService.players[0].username}}</md-card-title>
     </md-card-header>
@@ -7,7 +7,7 @@
       <p>Current Score: {{othelloService.players[0].pieceCount}}</p>
     </md-card-content>
   </md-card>
-  <md-card *ngIf="othelloService.players && othelloService.players[1]" class="move-right">
+  <md-card *ngIf="othelloService.players && othelloService.players[1]" class="move-right" [ngClass]="{'active': othelloService.game.currentPlayer.uid === othelloService.players[1].uid}">
     <md-card-header>
       <md-card-title>Player 2: {{othelloService.players[1].username}}</md-card-title>
     </md-card-header>
