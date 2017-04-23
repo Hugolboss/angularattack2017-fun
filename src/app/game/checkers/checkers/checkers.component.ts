@@ -61,8 +61,9 @@ export class CheckersComponent implements OnInit {
       this.checkersService.game.grid[to.x][to.y].state.content = from.content;
     }
     if (from) {
-      this.checkersService.game.grid[from.x][from.y].state.content = `${from.x}, ${from.y}`;
+      this.checkersService.game.grid[from.x][from.y].state.content = ``;
     }
+    this.checkersService.update(this.checkersService.game.grid);
     this.resetTurn();
     this.updateCurrentUser();
   }
@@ -75,7 +76,6 @@ export class CheckersComponent implements OnInit {
     this.clearAvailable(this.potentialMoves);
     this.potentialMoves = [];
     this.lastClick = null;
-    this.checkersService.update();
   }
 
   setAvailable(moves) {
@@ -84,7 +84,6 @@ export class CheckersComponent implements OnInit {
         this.checkersService.game.grid[move.x][move.y].state.available = true;
       }
     });
-    this.checkersService.update();
   }
 
   clearAvailable(moves) {
@@ -93,6 +92,7 @@ export class CheckersComponent implements OnInit {
         this.checkersService.game.grid[move.x][move.y].state.available = false;
       }
     });
+    this.checkersService.update(this.checkersService.game.grid);
   }
 
   checkValidPiece(val) {
