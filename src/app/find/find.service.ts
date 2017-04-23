@@ -15,7 +15,7 @@ export class FindService {
         orderByChild: 'game',
         equalTo: this.prettyName(game)
       }
-    }).map(g => g.filter(data => data.players.length === 1))
+    }).map(g => g.filter(data => data.players && data.players.length === 1))
   }
 
   private prettyName(name) {

@@ -1,4 +1,7 @@
 <md-card>
+  <md-card-header>
+    <h3>Choose a game</h3>
+  </md-card-header>
   <div class="toggle-container">
     <md-button-toggle-group #group="mdButtonToggleGroup" (change)="handleToggle($event)">
       <md-button-toggle md-raised-button color="accent" value="othello" i18n>Othello</md-button-toggle>
@@ -13,9 +16,9 @@
     </md-card-actions>
   </div>
 </md-card>
-<md-card>
+<md-card class="find">
   <md-card-header>
-    <h2 md-header i18n>Ongoing games</h2>
+    <h4 i18n>Ongoing games</h4>
   </md-card-header>
   <md-card-content>
     <fun-find [game]="game" [user]="user"></fun-find>
