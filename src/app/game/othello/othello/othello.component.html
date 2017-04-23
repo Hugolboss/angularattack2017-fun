@@ -1,8 +1,22 @@
-<p i18n>
-  Welcome to game  {{gameId}}
-</p>
-
-<div id="othelloGameContainer" *ngIf="othelloService.game && othelloService.game.grid">
+<header id="othelloGameHeader">
+  <md-card *ngIf="othelloService.players && othelloService.players[0]">
+    <md-card-header>
+      <md-card-title>Player 1: {{othelloService.players[0].username}}</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <p>Current Score: {{othelloService.players[0].pieceCount}}</p>
+    </md-card-content>
+  </md-card>
+  <md-card *ngIf="othelloService.players && othelloService.players[1]" class="move-right">
+    <md-card-header>
+      <md-card-title>Player 2: {{othelloService.players[1].username}}</md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <p>Current Score: {{othelloService.players[1].pieceCount}}</p>
+    </md-card-content>
+  </md-card>
+</header>
+<section id="othelloGameContainer" *ngIf="othelloService.game && othelloService.game.grid">
   <fun-board
     [grid]="othelloService.game.grid"
     [images]="images"
@@ -12,4 +26,9 @@
     (onMouseOver)="onMouseOver($event)"
     (onMouseLeave)="onMouseLeave($event)"
   ></fun-board>
-</div>
+  <section id="othelloVictor" class="mat-card" *ngIf="othelloService.game.victor">
+    <h3 *ngIf="othelloService.game.victor.winner !== 'Tie'">Winner is {{othelloService.game.victor.winner}}</h3>
+    <h3 *ngIf="othelloService.game.victor.winner === 'Tie'">Players have tied!</h3>
+    <button md-raised-button (click)="backToLobby()">Back To Lobby</button>
+  </section>
+</section>

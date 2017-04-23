@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFire} from 'angularfire2';
+import {MdDialog} from "@angular/material";
+import {SkipDialogComponent} from "./skip-dialog/skip-dialog.component";
+import _ from 'lodash';
 
 @Injectable()
 export class OthelloService {
@@ -9,7 +12,7 @@ export class OthelloService {
   game;
   players;
 
-  constructor(private angularFire: AngularFire) {
+  constructor(private angularFire: AngularFire, public skipDialog: MdDialog) {
     this.grid = this.setGameGrid();
   }
 
@@ -34,6 +37,14 @@ export class OthelloService {
         }
         this.updatePlayers(this.players);
       }
+      if (game.skipTurn) {
+        this.skipDialog.open(SkipDialogComponent);
+        const idx = this.players.find(p => p.uid === this.game.currentPlayer.uid).ind;
+        const currentUser = this.switchPlayer(idx);
+        this.setStateDifferential();
+        this.skipTurn(false);
+        this.combinedUpdate(this.game.grid, currentUser);
+      }
       if (!game.grid) {
         this.InitUpdate();
       }
@@ -55,12 +66,29 @@ export class OthelloService {
     this.gameObservable.update({grid});
   }
 
+  skipTurn(shouldSkip: boolean) {
+    this.gameObservable.update({skipTurn: shouldSkip})
+  }
+
   combinedUpdate(grid, currentPlayer) {
     this.gameObservable.update({grid, currentPlayer});
   }
 
   updatePlayers(players) {
     this.gameObservable.update({players});
+  }
+
+  updateVictor(victor) {
+    this.gameObservable.update({victor});
+  }
+
+  switchPlayer(idx) {
+    if (idx === 0) {
+      this.game.currentPlayer = this.players[1];
+    } else {
+      this.game.currentPlayer = this.players[0];
+    }
+    return this.game.currentPlayer;
   }
 
   setGameGrid() {
@@ -90,6 +118,11 @@ export class OthelloService {
     this.game.grid[3][4].state.player = this.players[1];
     this.game.grid[4][3].state.player = this.players[1];
     this.game.grid[4][4].state.player = this.players[0];
+  }
+
+  private hasMoves() {
+    const flattenedGrid = _.flatten(this.game.grid);
+    return flattenedGrid.some(cell => cell.moveDifferential && cell.moveDifferential.length);
   }
 
   setStateDifferential() {
