@@ -54,7 +54,7 @@ export class FindComponent implements OnInit, OnChanges {
 
   viewPlayer(player: User) : void {
     let config = new MdDialogConfig();
-    Object.assign(config, {height: '300px', width:'600px'});
+    Object.assign(config, {height: '250px', width:'600px'});
     this.usersService.getUser(player.uid)
     .first()
     .subscribe(p => {
