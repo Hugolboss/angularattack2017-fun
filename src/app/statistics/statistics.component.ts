@@ -7,11 +7,12 @@ import { MdDialogRef } from '@angular/material';
   styleUrls: ['./statistics.component.less']
 })
 export class StatisticsComponent implements OnInit {
-  @Input() player;
+  @Input() records;
 
   constructor(public dialogRef: MdDialogRef<StatisticsComponent>) { }
 
   ngOnInit() {
+    console.log(this.records);
   }
 
 }

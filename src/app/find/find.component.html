@@ -4,6 +4,8 @@
     <h3 md-subheader i18n>Creator</h3>
     <!--flex spacer-->
     <h3 md-subheader></h3>
+    <!--flex spacer-->
+    <h3 md-subheader></h3>
   </div>
   <md-list-item class="row" *ngFor="let availableGame of games">
     <div class="column">
@@ -11,7 +13,9 @@
     </div>
     <div class="column">
       {{availableGame.players[0].username}}
-      <button md-raised-button color="accent" (click)="viewPlayer(availableGame?.players[0])">View stats</button>
+    </div>
+    <div class="column">
+      <button md-raised-button color="accent" (click)="viewPlayer(availableGame?.players[0])">View player stats</button>
     </div>
     <div>
       <button md-raised-button color="accent" (click)="joinAvailableGame(availableGame.$key, availableGame.game)" i18n>Join</button>

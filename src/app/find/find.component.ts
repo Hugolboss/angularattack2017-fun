@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MdIcon, MdIconRegistry } from '@angular/material';
 import { Subject } from 'rxjs';
 
 import { User } from './../user';
@@ -52,14 +53,13 @@ export class FindComponent implements OnInit {
   }
 
   viewPlayer(player: User) : void {
-    console.log(player);
     let config = new MdDialogConfig();
-
     Object.assign(config, {height: '300px', width:'600px'});
-
-    let dialogRef:MdDialogRef<StatisticsComponent> = this.dialog.open(StatisticsComponent, config);
-
-    dialogRef.componentInstance.player = player;
+    this.usersService.getUser(player.uid).subscribe(p => {
+      let dialogRef:MdDialogRef<StatisticsComponent> = this.dialog.open(StatisticsComponent, config);
+      console.log(p);
+      dialogRef.componentInstance.records = p.records;
+    });
   }
 
   ngOnDestroy() {
