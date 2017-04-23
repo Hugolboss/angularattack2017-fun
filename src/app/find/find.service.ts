@@ -22,7 +22,7 @@ export class FindService {
     return {
       tictactoe: 'Tic Tac Toe',
       checkers: 'Checkers',
-      battleship: 'Battleship'
+      othello: 'Othello'
     }[name];
   }
 }
