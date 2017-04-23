@@ -84,6 +84,10 @@ export class OthelloService {
     this.gameObservable.update({players});
   }
 
+  updateState (state) {
+    this.gameObservable.update({state: state});
+  }
+
   updateVictor(victor) {
     const players = [victor.p1.uid, victor.p2.uid];
     const [ob1, ob2] = players.map(player => this.userService.getUser(player));

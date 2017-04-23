@@ -1,46 +1,58 @@
-#othelloGameHeader {
-  padding-bottom: 20px;
-  background-color: #EFEFEF;
+fun-othello {
+  #othelloGameHeader {
+    padding-bottom: 20px;
+    background-color: #EFEFEF;
 
-  .active {
-    border: 3px solid #00af58;
-    margin: 5px;
-  }
+    .active {
+      border: 3px solid #00af58;
+      margin: 5px;
+    }
 
-  md-card {
-    width: 200px;
-    display: inline-block;
-    margin: 8px;
-  }
-  .move-right {
-    float: right;
-  }
-}
-#othelloGameContainer {
-  height: ~'calc(100% - 134px)';
-  background-color: #EFEFEF;
-
-  md-grid-list {
-    max-width: 600px;
-    min-width: 330px;
-  }
-  md-grid-tile {
-    background: #00af58;
-    font-size: 1px;
-
-    img {
-      height: 80%;
-      width: 80%;
-      padding-left: 5px;
+    md-card {
+      width: 200px;
+      display: inline-block;
+      margin: 8px;
+    }
+    .move-right {
+      float: right;
     }
   }
-}
+  #othelloGameContainer {
+    height: ~'calc(100% - 134px)';
+    background-color: #EFEFEF;
 
-#othelloVictor {
-  position: absolute;
-  text-align: center;
-  top: 40%;
-  left: 20%;
-  width: 30%;
-  background-color: #FFF;
+    md-grid-list {
+      max-width: 600px;
+      min-width: 330px;
+    }
+    md-grid-tile {
+      background: #00af58;
+      font-size: 1px;
+
+      img {
+        height: 80%;
+        width: 80%;
+        padding-left: 5px;
+      }
+    }
+  }
+
+  #Victor {
+    z-index: 9999;
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    left: 20%;
+    width: 30%;
+    background-color: #FFF;
+  }
+
+  #othelloVictor {
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    left: 20%;
+    width: 30%;
+    background-color: #FFF;
+  }
 }

@@ -6,6 +6,10 @@
     ></md-progress-spinner>
   </md-card-content>
 </md-card>
+<section id="Victor" class="mat-card" *ngIf="othelloService.game && othelloService.game.state === 'abandoned'">
+  <h3> Other Player Abandoned The Game</h3>
+  <button md-raised-button (click)="backToLobby()">Back To Lobby</button>
+</section>
 <header id="othelloGameHeader">
   <md-card *ngIf="othelloService.players && othelloService.players[0]" [ngClass]="{'active': othelloService.game.currentPlayer.uid === othelloService.players[0].uid}">
     <md-card-header>
