@@ -8,8 +8,6 @@
     <fun-board [grid]="game.grid" [x]="3" [y]="3" (onClick)="onClick($event)" [images]="images"></fun-board>
   </div>
 
-
-
 <div class="WaitingMessage"*ngIf="game && game.state === 'pending'" id="waitingForPlayers" i18n>
   Waiting For a second player
 </div>
