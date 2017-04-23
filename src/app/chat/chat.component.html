@@ -1,7 +1,7 @@
 <md-card style="height:100%">
 <div class="chatbox">
   <div class="chatspace">
-    <div *ngFor="let message of messages | async">
+    <div class="message-div" *ngFor="let message of messages | async">
       <span class="names"> {{ message.username }}: </span>
       <span> {{ message.message }} </span>
     </div>
