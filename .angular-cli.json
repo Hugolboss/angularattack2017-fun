@@ -20,8 +20,7 @@
       "prefix": "fun",
       "styles": [
         "styles.less",
-        "theme.scss",
-        "node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
+        "theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

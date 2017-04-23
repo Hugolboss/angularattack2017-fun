@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-@import "~@progress/kendo-theme-default/scss/all";
 @include mat-core();
 
 $my-app-primary: mat-palette($mat-blue-grey);
