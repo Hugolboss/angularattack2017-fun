@@ -1,6 +1,6 @@
 ///<reference path="../../../user.ts"/>
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
@@ -14,7 +14,7 @@ import {UsersService} from '../../../users.service';
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./tictactoe.component.less']
 })
-export class TictactoeComponent implements OnInit {
+export class TictactoeComponent implements OnInit, OnDestroy {
   gameId;
   images = {x: '../../../../../assets/x.png', o: '../../../../../assets/o.png'};
   me;
@@ -32,7 +32,7 @@ export class TictactoeComponent implements OnInit {
         email: auth.auth.email,
         profile_picture: auth.auth.profile_picture,
         uid: auth.auth.uid,
-        username: auth.auth.displayName,
+        username: auth.auth.displayName
 
       });
     });
@@ -63,7 +63,6 @@ export class TictactoeComponent implements OnInit {
           });
           this.updatePlayers(this.players);
         }
-
         return this.game;
       });
   }
@@ -88,31 +87,29 @@ export class TictactoeComponent implements OnInit {
     ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, count: count});
   }
 
-  declareVictory(winner) {
+  declareVictory(winner, loser) {
+    let victor;
     const ob = this.fire.database.object('/games/' + this.gameId);
     if (!winner) {
-      winner = {draw: true};
+      victor = {draw: true};
+    } else {
+      victor = {winner: winner, loser: loser};
     }
     this.game.state = 'completed';
-    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, victor: winner, state: 'completed'});
+    ob.update({grid: this.game.grid, currentPlayer: this.game.currentPlayer, victor: victor, state: 'completed'});
     this.updateUsers(winner, this.game.game, this.game.players);
   }
 
   updateUsers(winner, type, players) {
     let g = {};
-    g[type] = {w: false, l: false, d: false};
     const users = players.map((p) => {
-      p.record ? '' : p.record = [];
       if (winner.draw) {
-        g[type]['d'] = true;
-        p.record.push(g);
+        p.record['tictactoe']['d']++;
       }
       if (winner && winner.uid === p.uid) {
-        g[type]['w'] = true;
-        p.record.push(g);
+        p.record['tictactoe']['w']++;
       } else if (!winner.draw) {
-        g[type]['l'] = true;
-        p.record.push(g);
+        p.record['tictactoe']['l']++;
       }
       return p;
     });
@@ -141,7 +138,7 @@ export class TictactoeComponent implements OnInit {
 
     if (this.victor || this.game.count === 9) {
       const v = (this.victor) ? curr : null;
-      return this.declareVictory(v);
+      return this.declareVictory(v, this.game.currentPlayer);
     }
     return this.update();
 
@@ -182,4 +179,11 @@ export class TictactoeComponent implements OnInit {
     return check.find(x => x);
   }
 
+  ngOnDestroy() {
+    if (!this.game.victor.winner) {
+      this.game.state = 'abandoned';
+      const ob = this.fire.database.object('/games/' + this.gameId);
+      ob.update({state: 'abandoned'});
+    }
+  }
 }
