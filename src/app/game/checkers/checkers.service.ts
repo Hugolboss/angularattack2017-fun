@@ -11,6 +11,7 @@ export class CheckersService {
 
   constructor(private angularFire: AngularFire) {
     this.grid = this.setGameGrid();
+
   }
 
   setGame(gameId) {
@@ -18,6 +19,17 @@ export class CheckersService {
     this.gameObservable = this.angularFire.database.object('/games/' + this.gameId);
     this.gameObservable.subscribe(game => {
       this.players = game.players;
+      if (game.players.length === 2 && !game.players[0].pieceCount) {
+
+      this.players = game.players.map( (p, i) => {
+        p.ind = i;
+        p.pieceColor = i === 0 ? 'red' : 'black';
+        p.opponentColor = i === 0 ? 'black' : 'red';
+        p.pieceCount = 12;
+        return p;
+      });
+      this.updatePlayers(this.players);
+    }
       if (!game.grid) {
         this.InitUpdate();
       }
@@ -32,7 +44,9 @@ export class CheckersService {
   update(grid) {
     this.gameObservable.update({grid: grid});
   }
-
+  updatePlayers(players) {
+    this.gameObservable.update({players: players});
+  }
   updateCurrentPlayer(player) {
     this.gameObservable.update({currentPlayer: player});
   }

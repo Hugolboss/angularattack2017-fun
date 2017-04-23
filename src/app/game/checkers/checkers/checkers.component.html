@@ -1,5 +1,15 @@
 <h2 i18n>Welcome to Checkers Game - {{gameId}}</h2>
 
-<div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players">
-  <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)"></fun-board>
+<div id="checkerMainContainer">
+  <div id="checkersContainer" *ngIf="checkersService.game && checkersService.game.players">
+    <fun-board [grid]="checkersService.game.grid" [x]="8" [y]="8" (onClick)="onClick($event)"></fun-board>
+  </div>
+  <div id="gameInfoContainer" >
+      <p class="playerOne"  *ngIf="checkersService.game && checkersService.game.players[0]"> Player One - {{checkersService.game.players[0].username}} - Piece Count - {{checkersService.game.players[0].pieceCount}}</p>
+    <p class="playerTwo" *ngIf="checkersService.game && checkersService.game.players[1]"> Player Two - {{checkersService.game.players[1].username}} - {{checkersService.game.players[0].pieceCount}}</p>
+    <p> Current Player Is {{checkersService.game.currentPlayer.username}}</p>
+  </div>
+
 </div>
+
+
