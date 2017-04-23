@@ -55,9 +55,10 @@ export class FindComponent implements OnInit {
   viewPlayer(player: User) : void {
     let config = new MdDialogConfig();
     Object.assign(config, {height: '300px', width:'600px'});
-    this.usersService.getUser(player.uid).subscribe(p => {
+    this.usersService.getUser(player.uid)
+    .first()
+    .subscribe(p => {
       let dialogRef:MdDialogRef<StatisticsComponent> = this.dialog.open(StatisticsComponent, config);
-      console.log(p);
       dialogRef.componentInstance.records = p.records;
     });
   }
