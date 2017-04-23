@@ -15,12 +15,14 @@ import {User} from './../../../user';
 })
 export class TictactoeComponent implements OnInit {
   gameId;
+  images = { x: '../../../../../assets/x.png', o: '../../../../../assets/o.png' };
   me;
   grid;
   game;
   symbols = ['x', 'o'];
   currentPlayer;
   victor;
+  players;
 
   constructor(private route: ActivatedRoute, private fire: AngularFire, private authService: AuthService) {
     this.authService.getAuthObservable().subscribe(auth => {
@@ -34,9 +36,9 @@ export class TictactoeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.grid = Array(3).fill(0).map((column, x) => {
-      return Array(3).fill(0).map((row, y) => {
-        return {row: x % 2 === 0 ? 'even' : 'odd', active: false, state: {content: '', x, y}};
+    this.grid = Array(3).fill(0).map((column, y) => {
+      return Array(3).fill(0).map((row, x) => {
+        return {row: y % 2 === 0 ? 'even' : 'odd', active: false, state: {content: '', x, y}};
       });
     });
     this.route.params
@@ -49,10 +51,23 @@ export class TictactoeComponent implements OnInit {
         if (!game.grid) {
           this.initGame(this.gameId);
         }
+        if (game.players.length === 2 && !game.players[0].pieceCount) {
+
+          this.players = game.players.map( (p, i) => {
+            p.ind = i;
+            p.icon = i === 0 ? 'x' : 'o';
+            return p;
+          });
+          this.updatePlayers(this.players);
+        }
+
         return this.game;
       });
   }
-
+  updatePlayers(players) {
+    const ob = this.fire.database.object('/games/' + this.gameId);
+    ob.update({players: players});
+  }
   initGame(id) {
     const ob = this.fire.database.object('/games/' + this.gameId);
     this.game.players = this.game.players.map((play, i) => {

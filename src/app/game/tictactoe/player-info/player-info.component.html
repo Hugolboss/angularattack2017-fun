@@ -1,5 +1,8 @@
 <div id="playerInfo" *ngIf="!playerWon">
-  <p *ngFor="let p of players" i18n>Player {{p.ind+1}} is {{p.username}}</p>
+  <p class="playerNumber" *ngFor="let p of players" i18n>Player {{p.ind+1}}
+    <span class="playerName">{{p.username}}</span>
+    <img *ngIf="images" [src]="images[p.icon]"/>
+  </p>
   <p i18n> Its your turn  {{currentPlayer.username}}</p>
 </div>
 <div id="victorInfo" *ngIf="playerWon">

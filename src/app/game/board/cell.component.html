@@ -1,1 +1,2 @@
-<span [ngClass]="{'active': active}">{{state.content}}</span>
+<span [ngClass]="{'active': active}"  [class]="state.content">{{state.content}}</span>
+<img *ngIf="images&& images[state.content]" [src]="images[state.content]"/>

@@ -13,6 +13,7 @@ export class BoardComponent implements OnInit{
   @Input() grid: Object[][];
   @Input() x: number;
   @Input() y: number;
+  @Input() images;
 
   constructor() {}
   ngOnInit() {}

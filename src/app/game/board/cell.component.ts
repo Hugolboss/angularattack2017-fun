@@ -12,6 +12,7 @@ export class CellComponent implements OnInit {
 
   @Input() active: boolean;
   @Input() state: CellState;
+  @Input() images;
 
   constructor() {
   }
