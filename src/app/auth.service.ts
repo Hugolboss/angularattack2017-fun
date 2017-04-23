@@ -17,20 +17,8 @@ export class AuthService {
     this.af.auth.subscribe(auth => {
       if (auth) {
         this._user = auth;
-        this.userObservable = this.af.database.object('/users/' + this._user.auth.uid);
-        this.userObservable.subscribe(snapshot => {
-          if (!snapshot.username) {
-            this.userObservable.set({
-              email: this._user.auth.email,
-              username: this._user.auth.displayName,
-              profile_picture: this._user.auth.photoURL,
-              uid: this._user.uid
-            });
-          }
-        });
       }
     });
-
   }
 
   login = () => {

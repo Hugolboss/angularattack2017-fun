@@ -3,6 +3,8 @@ var functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
+var db = admin.database();
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
@@ -30,3 +32,17 @@ exports.subscribeUserToGameChat = functions.database.ref('/games/{id}/players/{i
         return user.set("In Game Chat");
       });
   });
+
+exports.createUserModel = functions.auth.user().onCreate(function(event) {
+    const user = event.data; // The Firebase user.
+    console.log(user);
+    var subUser = {
+      email: user.email,
+      username: user.displayName,
+      profile_picture: user.photoURL,
+      uid: user.uid
+    };
+
+    var ref = db.ref("/users/"+user.uid);
+    return ref.set(subUser);
+});
