@@ -20,6 +20,8 @@ import { CheckersModule } from './game/checkers/checkers.module';
 import { FindComponent } from './find/find.component';
 import { OthelloModule } from "./game/othello/othello.module";
 import { StatisticsService } from './statistics/statistics.service';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { StatTableComponent } from './statistics/stat-table/stat-table.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { StatisticsService } from './statistics/statistics.service';
     ToolbarComponent,
     HomeComponent,
     ResultsComponent,
-    FindComponent
+    FindComponent,
+    StatisticsComponent,
+    StatTableComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { StatisticsService } from './statistics/statistics.service';
     OthelloModule,
     CheckersModule
   ],
+  entryComponents: [StatisticsComponent, StatTableComponent],
   providers: [AuthService, UsersService, StatisticsService],
   bootstrap: [AppComponent]
 })

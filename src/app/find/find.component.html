@@ -5,12 +5,13 @@
     <!--flex spacer-->
     <h3 md-subheader></h3>
   </div>
-  <md-list-item class="row" *ngFor="let availableGame of games | async">
+  <md-list-item class="row" *ngFor="let availableGame of games">
     <div class="column">
       {{availableGame.game}}
     </div>
     <div class="column">
       {{availableGame.players[0].username}}
+      <button md-raised-button color="accent" (click)="viewPlayer(availableGame?.players[0])">View stats</button>
     </div>
     <div>
       <button md-raised-button color="accent" (click)="joinAvailableGame(availableGame.$key, availableGame.game)" i18n>Join</button>
