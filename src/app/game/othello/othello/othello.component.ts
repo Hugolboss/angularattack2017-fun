@@ -153,4 +153,8 @@ export class OthelloComponent implements OnInit {
   backToLobby() {
     this.router.navigate(['/']);
   }
+
+  ngOnDestroy() {
+    this.othelloService.unsub();
+  }
 }

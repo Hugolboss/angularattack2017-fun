@@ -3,6 +3,7 @@ import {AngularFire} from 'angularfire2';
 import {MdDialog} from "@angular/material";
 import {SkipDialogComponent} from "./skip-dialog/skip-dialog.component";
 import _ from 'lodash';
+import {Subject} from "rxjs";
 
 @Injectable()
 export class OthelloService {
@@ -12,6 +13,8 @@ export class OthelloService {
   game;
   players;
 
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
   constructor(private angularFire: AngularFire, public skipDialog: MdDialog) {
     this.grid = this.setGameGrid();
   }
@@ -19,37 +22,39 @@ export class OthelloService {
   setGame(gameId) {
     this.gameId = gameId;
     this.gameObservable = this.angularFire.database.object('/games/' + this.gameId);
-    this.gameObservable.subscribe(game => {
-      this.players = game.players;
-      if (game.players.length === 2 && !game.players[0].pieceCount) {
-        this.players = game.players.map((p, i) => {
-          p.ind = i;
-          p.pieceColor = i === 0 ? 'white' : 'black';
-          p.opponentColor = i === 0 ? 'black' : 'white';
-          p.icon = i === 0 ? 'X' : 'O';
-          p.pieceCount = 2;
-          return p;
-        });
-        if (this.game && this.game.grid) {
-          this.initializeGame();
-          this.setStateDifferential();
-          this.update(this.game.grid);
+    this.gameObservable
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(game => {
+        this.players = game.players;
+        if (game.players.length === 2 && !game.players[0].pieceCount) {
+          this.players = game.players.map((p, i) => {
+            p.ind = i;
+            p.pieceColor = i === 0 ? 'white' : 'black';
+            p.opponentColor = i === 0 ? 'black' : 'white';
+            p.icon = i === 0 ? 'X' : 'O';
+            p.pieceCount = 2;
+            return p;
+          });
+          if (this.game && this.game.grid) {
+            this.initializeGame();
+            this.setStateDifferential();
+            this.update(this.game.grid);
+          }
+          this.updatePlayers(this.players);
         }
-        this.updatePlayers(this.players);
-      }
-      if (game.skipTurn) {
-        this.skipDialog.open(SkipDialogComponent);
-        const idx = this.players.find(p => p.uid === this.game.currentPlayer.uid).ind;
-        const currentUser = this.switchPlayer(idx);
-        this.setStateDifferential();
-        this.skipTurn(false);
-        this.combinedUpdate(this.game.grid, currentUser);
-      }
-      if (!game.grid) {
-        this.InitUpdate();
-      }
-      return this.game = game;
-    });
+        if (game.skipTurn) {
+          this.skipDialog.open(SkipDialogComponent, {data: {username: this.game.currentPlayer.username}});
+          const idx = this.players.find(p => p.uid === this.game.currentPlayer.uid).ind;
+          const currentUser = this.switchPlayer(idx);
+          this.setStateDifferential();
+          this.skipTurn(false);
+          this.combinedUpdate(this.game.grid, currentUser);
+        }
+        if (!game.grid) {
+          this.InitUpdate();
+        }
+        return this.game = game;
+      });
   }
 
   InitUpdate() {
@@ -236,5 +241,10 @@ export class OthelloService {
       }
     }
     return diffPieces;
+  }
+
+  unsub() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }
