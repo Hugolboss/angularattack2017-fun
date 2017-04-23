@@ -5,7 +5,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
+    "extract-i18n": "ng xi18n --output-path src/i18n && xliffmerge --profile xliffmerge.json en de es fr",
+    "build_fr": "ng build --prod --aot --i18nFormat xlf --i18nFile src/i18n/messages.fr.xlf --locale fr --outputPath dist/fr",
+    "build_de": "ng build --prod --aot --i18nFormat xlf --i18nFile src/i18n/messages.de.xlf --locale de --outputPath dist/de",
+    "build_es": "ng build --prod --aot --i18nFormat xlf --i18nFile src/i18n/messages.es.xlf --locale es --outputPath dist/es",
+    "build_sv": "ng build --prod --aot --i18nFormat xlf --i18nFile src/i18n/messages.sv.xlf --locale sv --outputPath dist/sv",
+    "build_all":"npm run build && npm run build_fr && npm run build_de && npm run build_es && npm run build_sv",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

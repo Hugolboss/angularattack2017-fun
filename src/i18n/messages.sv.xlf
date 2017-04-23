@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="sv">
+    <body>
+      <trans-unit id="0a1389068c8776779b920e5bfc95777f92cbe464" datatype="html">
+        <source>Player <x id="INTERPOLATION"/> is <x id="INTERPOLATION_1"/></source>
+        <target state="new">Spelare <x id="INTERPOLATION"/> är <x id="INTERPOLATION_1"/></target>
+      </trans-unit>
+      <trans-unit id="5fcd2cd52388c8b7dceacc6581b3431d8c55137f" datatype="html">
+        <source> Its your turn  <x id="INTERPOLATION"/></source>
+        <target state="new"> Det är din tur  <x id="INTERPOLATION"/></target>
+      </trans-unit>
+      <trans-unit id="d0c16ce564b32270a2efb9ff2329867d6bf6a643" datatype="html">
+        <source> <x id="INTERPOLATION"/> Is the victor</source>
+        <target state="new"> <x id="INTERPOLATION"/> Är segraren</target>
+      </trans-unit>
+      <trans-unit id="08c10e1a7333dd833ce08f153f547171d96edbd9" datatype="html">
+        <source>Othello</source>
+        <target state="new">Othello</target>
+      </trans-unit>
+      <trans-unit id="844b5410d401eacc6802db17b948eeb0b63099c5" datatype="html">
+        <source>Checkers</source>
+        <target state="new">Checkers</target>
+      </trans-unit>
+      <trans-unit id="85a6f12c998dafab9c5f6b6c401972b8bf9ea2da" datatype="html">
+        <source>Tic Tac Toe</source>
+        <target state="new">Tic Tac Toe</target>
+      </trans-unit>
+      <trans-unit id="5da4d5fea6c5136e967d61d33f03aae993d56131" datatype="html">
+        <source>Create a game</source>
+        <target state="new">Skapa ett spel</target>
+      </trans-unit>
+      <trans-unit id="494eedae3c7b5ed6a2d3395f6cf489847e76fed9" datatype="html">
+        <source>Join a random game</source>
+        <target state="new">Gå med i en slumpmässigt spel</target>
+      </trans-unit>
+      <trans-unit id="24e36b6c6f44a8cbcaf1060c64f37cc673118e49" datatype="html">
+        <source>Ongoing games</source>
+        <target state="new">pågående spel</target>
+      </trans-unit>
+      <trans-unit id="253579a07edebe634edb89bb0ad18d2f04a3c8d8" datatype="html">
+        <source>
+    Welcome to game  <x id="INTERPOLATION"/>
+</source>
+        <target state="new">
+          Välkommen till spelet  <x id="INTERPOLATION"/>
+</target>
+      </trans-unit>
+      <trans-unit id="fadfcafb4f1a5a9702c2dc43ddbd134b01634523" datatype="html">
+        <source>
+  Waiting For a second player
+</source>
+        <target state="new">
+          Väntar på en andra spelare
+</target>
+      </trans-unit>
+      <trans-unit id="4021e069ba9ad19ba9eb53f50cc496e8af7aeb56" datatype="html">
+        <source>
+  Welcome to game  <x id="INTERPOLATION"/>
+</source>
+        <target state="new">
+          Välkommen till spelet  <x id="INTERPOLATION"/>
+</target>
+      </trans-unit>
+      <trans-unit id="5c89602d0af413a86a22d5963d669562f040981d" datatype="html">
+        <source>Welcome to Checkers Game - <x id="INTERPOLATION"/></source>
+        <target state="new">Välkommen till Checkers Game - <x id="INTERPOLATION"/></target>
+      </trans-unit>
+      <trans-unit id="4ab9eebaa782113dc754f5fb949e2e080f3f42c4" datatype="html">
+        <source>Log In!</source>
+        <target state="new">Logga in!</target>
+      </trans-unit>
+      <trans-unit id="e3504388b58211f7b1279f5f910dcc6b4a1a989f" datatype="html">
+        <source>Log Out!</source>
+        <target state="new">Logga ut!</target>
+      </trans-unit>
+      <trans-unit id="2bd6e46289d654c41a2b0c62e43c29da20217a3b" datatype="html">
+        <source>Carrier</source>
+        <target state="new">Carrier</target>
+      </trans-unit>
+      <trans-unit id="7238ac9eb4813b9a874e0496ae55f83fbaaf52f3" datatype="html">
+        <source>Battleship</source>
+        <target state="new">Battleship</target>
+      </trans-unit>
+      <trans-unit id="4265a0bc07af907a6c5b601a288a9ba89a4ddfd9" datatype="html">
+        <source>Cruiser</source>
+        <target state="new">Cruiser</target>
+      </trans-unit>
+      <trans-unit id="e5a12404e1bb9f637694916e190e9c18213cc34a" datatype="html">
+        <source>Submarine</source>
+        <target state="new">Submarine</target>
+      </trans-unit>
+      <trans-unit id="a19459802736d4ac18ffbced3f30516ef0450b91" datatype="html">
+        <source>Destroyer</source>
+        <target state="new">Destroyer</target>
+      </trans-unit>
+      <trans-unit id="0e6a93b6d39a899de3abb0cb10c51f19057fa547" datatype="html">
+        <source>Game</source>
+        <target state="new">Spel</target>
+      </trans-unit>
+      <trans-unit id="a20424156b8816671f61879f0574a4f27d7b16b9" datatype="html">
+        <source>Creator</source>
+        <target state="new">Skapare</target>
+      </trans-unit>
+      <trans-unit id="db5cc0c8d9d80c653f1b78ce2bfb1b41bc84ceeb" datatype="html">
+        <source>Join</source>
+        <target state="new">Ansluta sig</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
