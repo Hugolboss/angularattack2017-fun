@@ -161,7 +161,7 @@ export class OthelloComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (!this.checkVictory()) {
+    if (!this.othelloService.game.victor) {
       this.othelloService.game.state = 'abandoned';
       this.othelloService.updateState('abandoned');
     }
