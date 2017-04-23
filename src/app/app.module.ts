@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import 'hammerjs';
+// kendo ui modules
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { ChartsModule } from '@progress/kendo-angular-charts';
 
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +21,7 @@ import { ChatModule } from './chat/chat.module';
 import {DndModule} from "ng2-dnd";
 import { CheckersModule } from './game/checkers/checkers.module';
 import { FindComponent } from './find/find.component';
-import {OthelloModule} from "./game/othello/othello.module";
+import { OthelloModule } from "./game/othello/othello.module";
 import { StatisticsService } from './statistics/statistics.service';
 
 @NgModule({
@@ -35,6 +37,7 @@ import { StatisticsService } from './statistics/statistics.service';
     FormsModule,
     HttpModule,
     ButtonsModule,
+    ChartsModule,
     AppRoutingModule,
     DndModule.forRoot(),
     SharedModule,
