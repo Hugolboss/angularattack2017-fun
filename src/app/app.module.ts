@@ -23,6 +23,7 @@ import { OthelloModule } from "./game/othello/othello.module";
 import { StatisticsService } from './statistics/statistics.service';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { StatTableComponent } from './statistics/stat-table/stat-table.component';
+import { GamesPlayedComponent } from './games-played/games-played.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { StatTableComponent } from './statistics/stat-table/stat-table.component
     ResultsComponent,
     FindComponent,
     StatisticsComponent,
-    StatTableComponent
+    StatTableComponent,
+    GamesPlayedComponent
   ],
   imports: [
     BrowserModule,
