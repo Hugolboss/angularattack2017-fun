@@ -90,7 +90,7 @@ export class OthelloService {
 
     ob1.combineLatest(ob2,
       (user1, user2) => [user1, user2]
-    ).subscribe(users => {
+    ).first().subscribe(users => {
       users.forEach(user => {
         if (!victor.winner) {
           user.records.othello.d = user.records.othello.d + 1;

@@ -17,9 +17,7 @@ export class UsersService {
   }
 
   updateUser(user) {
-    // this.af.database.object('/users/' + (user.uid || user.$key)).update(user);
-    console.log(user);
-    this.http.post(this.usersApiUrl, {})
+    this.af.database.object('/users/' + (user.uid || user.$key)).update(user);
   }
 
   handleError() {
