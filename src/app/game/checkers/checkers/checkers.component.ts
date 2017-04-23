@@ -63,12 +63,13 @@ export class CheckersComponent implements OnInit {
   }
 
   checkForOpponentPosition(opc, state, moves) {
+    let gr =  this.checkersService.game.grid;
     let opArr = [{x: state.x + 1, y: state.y + 1},
       {x: state.x + 1, y: state.y - 1},
       {x: state.x - 1, y: state.y + 1},
       {x: state.x - 1, y: state.y - 1}
     ].forEach(row => {
-      if (this.checkersService.game.grid[row.x][row.y] && this.checkersService.game.grid[row.x][row.y].state.content === opc) {
+      if (gr[row.x] && gr[row.x][row.y] && gr[row.x][row.y].state.content === opc) {
         let pos = [row.x, row.y];
         if (pos[0] > state.x && pos[1] > state.y && this.checkLocationEmpty(pos[0] + 1, pos[1] + 1)) {
           moves.push({valid: true, opX: pos[0], opY: pos[1], x: pos[0] + 1, y: pos[1] + 1, opc: opc});
