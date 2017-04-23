@@ -1,4 +1,4 @@
-<md-card id="secondPlayerWait" *ngIf="checkersService.game.players && checkersService.game.players.length < 2">
+<md-card id="secondPlayerWait" *ngIf="checkersService.game && checkersService.game.players && checkersService.game.players.length < 2">
   <md-card-content>
     <p>Waiting for another player to join...</p>
     <md-progress-spinner
