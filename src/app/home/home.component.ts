@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
     return {
       tictactoe: 'Tic Tac Toe',
       checkers: 'Checkers',
-      battleship: 'Battleship'
+      othello: 'Othello'
     }[name];
   }
 }
