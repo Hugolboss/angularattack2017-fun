@@ -34,9 +34,9 @@ export class TictactoeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.grid = Array(3).fill(0).map((column, y) => {
-      return Array(3).fill(0).map((row, x) => {
-        return {active: false, state: {content: `${x}, ${y}`, x, y}};
+    this.grid = Array(3).fill(0).map((column, x) => {
+      return Array(3).fill(0).map((row, y) => {
+        return {row: x % 2 === 0 ? 'even' : 'odd', active: false, state: {content: '', x, y}};
       });
     });
     this.route.params
@@ -80,7 +80,7 @@ export class TictactoeComponent implements OnInit {
       // w.update(this.updateStats(snapshot, wins));
     })
 
-    // there are 2 losers in the losers array, one has a symbol and one doesnt. 
+    // there are 2 losers in the losers array, one has a symbol and one doesnt.
     // I am querying with the [0]th index for no special reason (they both have the same uid)
     const loser = this.game.players.filter(p => p !== winner)[0];
     const l = this.fire.database.object('/players/' + loser.uid);

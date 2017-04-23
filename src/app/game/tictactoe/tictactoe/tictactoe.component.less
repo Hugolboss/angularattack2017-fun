@@ -1,17 +1,24 @@
 @my-app-accent:  #2196f3;
 
 #gameBlocks {
+
   display: flex;
   #gameContainer{
+    margin: 75px;
     width:400px;
+    height: 400px;
+    background: #ffffff url("./assets/0001.png") repeat-y right top;
     md-grid-tile.mat-grid-tile {
-      background-color: @my-app-accent;
+      background: transparent;
+      border: 1px solid black;
       &:hover {
         box-shadow: 1px 1px 0.5px #888888;
       }
       &:active {
         box-shadow: inset 2px 2px 1px #888888;
       }
+
+
     }
   }
 }
