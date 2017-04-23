@@ -75,23 +75,23 @@ export class TictactoeComponent implements OnInit {
     ob.update({victor: winner});
 
     const w = this.fire.database.object('/players/'+ winner.uid);
-    w.first().subscribe(details => {
+    w.first().subscribe(snapshot => {
       // TODO once user model updated
-      // w.update(this.updateStats(details, wins));
+      // w.update(this.updateStats(snapshot, wins));
     })
 
     // there are 2 losers in the losers array, one has a symbol and one doesnt. 
     // I am querying with the [0]th index for no special reason (they both have the same uid)
     const loser = this.game.players.filter(p => p !== winner)[0];
     const l = this.fire.database.object('/players/' + loser.uid);
-    l.first().subscribe(details => {
+    l.first().subscribe(snapshot => {
       // TODO once user model updated
-      // l.update(this.updateStats(details, losses));
+      // l.update(this.updateStats(snapshot, losses));
     })
   }
   //Update wins, losses or ties
-  updateStats(details, result) {
-    const n = Object.assign({}, details)
+  updateStats(snapshot, result) {
+    const n = Object.assign({}, snapshot)
     n.gameStats['tictactoe'][result] += 1;
     return {gameStats: n.gameStats}
   }
