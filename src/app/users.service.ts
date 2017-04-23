@@ -1,29 +1,21 @@
 import { Injectable } from '@angular/core';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import {User} from './user';
 
-import 'firebase';
 
 @Injectable()
 export class UsersService {
   public users = [];
+  userObservable: FirebaseObjectObservable<any>;
 
-  constructor() { }
+  constructor(private af: AngularFire) { }
 
-  getUsersRef(cb) {
-    const usersRef = firebase.database().ref('users/');
-    usersRef.on('child_added', (snapshot) => {
-      console.log(snapshot.val());
-      this.setUsers(snapshot.val());
-      cb(this.getUsers());
-    });
-    return this.users;
+  getUser(id) {
+    return this.userObservable = this.af.database.object('/users/' + id);
   }
 
-  setUsers(val) {
-    this.users.push(val);
-  }
-
-  getUsers() {
-    return this.users;
+  updateUser(user) {
+    this.af.database.object('/users/' + (user.uid || user.$key)).update(user);
   }
 
 }
