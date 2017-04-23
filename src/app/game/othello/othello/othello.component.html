@@ -2,13 +2,14 @@
   Welcome to game  {{gameId}}
 </p>
 
-<div id="gameContainer">
+<div id="othelloGameContainer" *ngIf="othelloService.game && othelloService.game.grid">
   <fun-board
-    [grid]="grid"
+    [grid]="othelloService.game.grid"
+    [images]="images"
     [x]="8"
     [y]="8"
     (onClick)="onClick($event)"
     (onMouseOver)="onMouseOver($event)"
-    (onMouseOut)="onMouseOut($event)"
+    (onMouseLeave)="onMouseLeave($event)"
   ></fun-board>
 </div>
